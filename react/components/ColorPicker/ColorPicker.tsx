@@ -2,17 +2,15 @@ import React from 'react';
 import { useCssHandles } from 'vtex.css-handles';
 import './styles.css';
 
-const CSS_HANDLES = ['colorpicker--container', 'colorPicker--item'];
+const CSS_HANDLES = ['colorPicker--container', 'colorPicker--item'];
 
-
-const ColorPicker = ({ family, action }: ColorPickerProps) => {
-    console.log(family)
+const ColorPicker = ({ family, action, activeId }: ColorPickerProps) => {
     const handles = useCssHandles(CSS_HANDLES);
+    console.log(activeId)
     return (
-        <div onClick={action} className={handles['colorpicker--container']}>
-            <label>{family.name}</label>
+        <div onClick={() => action(family)} className={handles['colorPicker--item']}>
+            {family.id === activeId && <label>{family.name}</label>}
             <span
-                className={handles['colorPicker--item']}
                 style={{ backgroundColor: `${family.color}` }}
             ></span>
         </div>

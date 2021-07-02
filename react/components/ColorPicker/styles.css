@@ -1,4 +1,12 @@
-.colorPicker--item {
+.colorPicker--item{
+    position: relative;
+}
+.colorPicker--item label{
+    position: absolute;
+    width: 100vw;
+    top: -2rem;
+}
+.colorPicker--item span{
     width: 3rem;
     height: 3rem;
     display: block;

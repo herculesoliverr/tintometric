@@ -8,6 +8,7 @@ declare global {
       color: string,
       products: number[]
     },
-    action: () => void
+    action: (family) => void,
+    activeId: number
   }
 }
