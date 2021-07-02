@@ -1,4 +1,13 @@
-.colorPicker--container{
+.colorPicker--container {
     display: flex;
     padding-top: 3rem;
+}
+
+.sliderTrackContainer {
+    padding: 2rem 6rem;
+}
+
+.familyActive-label--text {
+    text-align: center;
+    transition: 200ms all;
 }
