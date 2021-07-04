@@ -5,17 +5,24 @@ declare global {
     activeId: number
   }
   export interface ColorListProps {
-    items: any /* {
-      R: number, 
+    items: {
+      R: number,
       G: number,
       B: number,
-      code: string, 
+      code: string,
       family: number,
       name: string,
-      order: number, 
+      order: number,
       page: number,
-      products?:  number[],
+      products?: number[],
       slug: string
-    }[] */
+    }[]
   }
+  export interface TintometricProps {
+    targetDate: string
+  }
+  interface LabelProps {
+    name: string,
+    code: string
+}
 }

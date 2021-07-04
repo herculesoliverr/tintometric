@@ -9,8 +9,6 @@ const CSS_HANDLES = ['colorPicker-container', 'colorPicker-item', 'colorPicker-s
 const ColorPicker = ({ action, activeId }: ColorPickerProps) => {
     const handles = useCssHandles(CSS_HANDLES);
     const { families } = data;
-
-    console.log(activeId)
     return (
         <div className={handles["colorPicker-container"]}>
             <SliderLayout
@@ -23,8 +21,6 @@ const ColorPicker = ({ action, activeId }: ColorPickerProps) => {
                 centerMode={true}>
                 {
                     families.map((family) => {
-                        console.log("family", family)
-
                         return (
                             <div onClick={() => action(family)} className={`${handles['colorPicker-item']} ${family.id === activeId ? handles['colorPicker-item--isActive'] : ''}`}>
                                 <span

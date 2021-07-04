@@ -8,9 +8,6 @@ import { Modal } from 'vtex.styleguide'
 import "./styles.css"
 import ColorList from '../ColorList/ColorList'
 
-interface TintometricProps {
-  targetDate: string
-}
 
 const CSS_HANDLES = ['container', 'familyActive-label--wrapper', 'familyActive-label--text'];
 
@@ -25,8 +22,7 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   /* const { product } = useProduct(); */
 
   const filteredProds = products.filter(item => item.family === activeFamily.id)
-  console.log("products", products)
-  console.log("fiiltered", filteredProds)
+
   return (
     <>
       {/* {console.log(product)} */}

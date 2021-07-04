@@ -1,0 +1,18 @@
+.colorList-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.colorList-item {
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    margin: 0.2rem;
+    cursor: pointer;
+    transition: 200ms all;
+}
+
+.colorList-item:hover{
+    transform: scale(1.1);
+    transition: 200ms all;
+}
