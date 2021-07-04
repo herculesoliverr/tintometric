@@ -7,6 +7,7 @@ import data from "./../../utils/data.json"
 import { Modal } from 'vtex.styleguide'
 import "./styles.css"
 import ColorList from '../ColorList/ColorList'
+import ColorDetail from '../ColorDetail/ColorDetail'
 
 
 const CSS_HANDLES = ['container', 'familyActive-label--wrapper', 'familyActive-label--text'];
@@ -16,28 +17,28 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
 }) => {
   const { families, products } = data;
   const [activeFamily, setActiveFamily] = useState(families[0])
+  // const [selectedColor, setSelectedColor] = useState({})
   const [modalOpen, setModalOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
   /* const { product } = useProduct(); */
-
+  const activeColor = products.find(product => product.family == activeFamily.id)
   const filteredProds = products.filter(item => item.family === activeFamily.id)
 
   return (
     <>
-      {/* {console.log(product)} */}
       <ButtonPlain onClick={() => setModalOpen(true)}>
         Tintometric
       </ButtonPlain>
 
-      <Modal isOpen={modalOpen} onClose={()=>setModalOpen(false)}>
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <section className={handles.container}>
-          <ColorPicker action={setActiveFamily} activeId={activeFamily.id} />
-          <div className={handles['familyActive-label--wrapper']}>
-            <h3 className={`${handles['familyActive-label--text']} t-heading-4`}>{activeFamily.name}</h3>
+          <div>
+            <ColorPicker action={setActiveFamily} activeId={activeFamily.id} />
+            <ColorList items={filteredProds} familyName={activeFamily.name} />
           </div>
+          {activeColor && <ColorDetail color={activeColor} />}
         </section>
-        <ColorList items={filteredProds} />
       </Modal>
     </>
   )

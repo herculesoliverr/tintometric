@@ -1,3 +1,7 @@
+.container{
+    display: flex;
+}
+
 .colorPicker--container {
     display: flex;
     padding-top: 3rem;
