@@ -13,7 +13,6 @@ const ColorDetail = ({ color }: ColorDetailProps) => {
     function handleSlug(){
         const initialSlug = runtime?.route?.params?.slug.split('-');
         initialSlug.splice(-2)
-        console.log("acaaa")
         return initialSlug.join('-')
     }
 

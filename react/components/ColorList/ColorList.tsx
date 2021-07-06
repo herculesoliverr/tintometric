@@ -11,7 +11,7 @@ const ColorList = ({ items, familyName, setSelectedColor, layout = 'grid' }: Col
     //TODO: que layout sea un Enum
     return (
         <div className={`${handles['colorList-container']}`}>
-           { layout === 'grid' && <div className={handles['familyActive-label--wrapper']}>
+            {layout === 'grid' && <div className={handles['familyActive-label--wrapper']}>
                 <h3 className={`${handles['familyActive-label--text']} t-heading-5 mv3`}>{familyName}</h3>
             </div>}
             <div className={`${layout === 'grid' ? handles['colorList-grid'] : handles['colorList-list']}`}>
@@ -29,11 +29,14 @@ const ColorList = ({ items, familyName, setSelectedColor, layout = 'grid' }: Col
                                     ></span>
                                 </Tooltip>
                                 :
-                                <span
+                                <div
                                     onClick={() => setSelectedColor(item)}
                                     className={handles['colorList-item']}
                                     style={{ backgroundColor: `rgb(${item.R}, ${item.G}, ${item.B})` }}
-                                ></span>
+                                >
+                                    <span className={`${handles['colorDetail-name']} fw3`}>{item.name}</span>
+                                    <h5 className={`t-heading-5 b mv0 ${handles['colorDetail-code']}`}>{item.code}</h5>
+                                </div>
                         )
                     })
                 }

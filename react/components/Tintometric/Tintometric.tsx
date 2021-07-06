@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import useProduct from 'vtex.product-context/useProduct'
 import FamilyPicker from '../FamilyPicker/FamilyPicker'
@@ -19,17 +19,27 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   const [selectedColor, setSelectedColor] = useState(products.find(product => product.family == activeFamily.id))
   const [modalOpen, setModalOpen] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
-  //const [filteredProducts, setFilteredProducts] = useState(products.filter(item => item.family === activeFamily.id))
+  const [filteredProducts, setFilteredProducts] = useState(products.filter(item => item.family === activeFamily.id))
   const handles = useCssHandles(CSS_HANDLES)
   const productContextValue = useProduct()
   const [searchVal, setSearchVal] = useState('')
-  const filteredProducts = products.filter(item => item.family === activeFamily.id);
+  // const filteredProducts = products.filter(item => item.family === activeFamily.id);
   console.log("productContextValue", productContextValue)
+  console.log("setSearchVal", setSearchVal)
 
-/*   function handleSearch(searchVal: string) {
-    console.log(searchVal)
-    setFilteredProducts()
-  } */
+  function handleSearch(search: string) {
+    setSearchVal(search)
+    setFilteredProducts(products.filter(
+      product =>
+        product.name.toLowerCase().includes(search.toLowerCase()) ||
+        product.code.toLowerCase().includes(search.toLowerCase())
+    ))
+  }
+
+  useEffect(() => {
+    setFilteredProducts(products.filter(item => item.family === activeFamily.id))
+  }, [activeFamily])
+
 
   return (
     <>
@@ -74,7 +84,7 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
                     size="regular"
                     onChange={(
                       ev: EventInterface,
-                    ): void => setSearchVal(ev.target.value)}
+                    ): void => handleSearch(ev.target.value)}
                   /*  onSubmit={(e: React.FormEvent<HTMLInputElement>) => {
                      e.preventDefault()
                      console.log('submitted! search this: ', e.currentTarget.value)

@@ -1,10 +1,32 @@
-.colorList-grid{
+.colorList-grid {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
 }
 
-.colorList-container{
+.colorList-list {
+    margin-top: 1rem;
+}
+
+.colorList-list .colorList-item {
+    padding: .2rem 1rem;
+    width: 100%;
+    display: block;
+    margin: .5rem 0;
+    cursor: pointer;
+    width: 95%;
+}
+
+.colorList-item{
+    transition: all 300ms;
+}
+
+.colorList-item:hover {
+    box-shadow: 2px 1px 7px 0px rgb(0 0 0 / 15%);
+    transition: all 300ms;
+}
+
+.colorList-container {
     height: 35vh;
     overflow: auto;
 }
@@ -18,7 +40,7 @@
     transition: 150ms all;
 }
 
-.colorList-item:hover{
+.colorList-grid .colorList-item:hover {
     transform: scale(1.1);
     transition: 150ms all;
 }
