@@ -4,31 +4,41 @@ import { Tooltip } from 'vtex.styleguide';
 import Label from '../Label/Label';
 import "./styles.css"
 
-const CSS_HANDLES = ['colorList-container', 'colorList-item'];
+const CSS_HANDLES = ['colorList-container', 'colorList-item', 'colorList-grid', 'colorList-list', 'familyActive-label--wrapper', 'familyActive-label--text'];
 
-const ColorList = ({ items, familyName }: ColorListProps) => {
+const ColorList = ({ items, familyName, setSelectedColor, layout = 'grid' }: ColorListProps) => {
     const handles = useCssHandles(CSS_HANDLES);
-
+    //TODO: que layout sea un Enum
     return (
-        <div className={handles['colorList-container']}>
-            <div className={handles['familyActive-label--wrapper']}>
-                <h3 className={`${handles['familyActive-label--text']} t-heading-4`}>{familyName}</h3>
+        <div className={`${handles['colorList-container']}`}>
+           { layout === 'grid' && <div className={handles['familyActive-label--wrapper']}>
+                <h3 className={`${handles['familyActive-label--text']} t-heading-5 mv3`}>{familyName}</h3>
+            </div>}
+            <div className={`${layout === 'grid' ? handles['colorList-grid'] : handles['colorList-list']}`}>
+                {
+                    items.map((item) => {
+                        return (
+                            layout === 'grid' ?
+                                <Tooltip label={
+                                    <Label name={item.name} code={item.code} />
+                                }>
+                                    <span
+                                        onClick={() => setSelectedColor(item)}
+                                        className={handles['colorList-item']}
+                                        style={{ backgroundColor: `rgb(${item.R}, ${item.G}, ${item.B})` }}
+                                    ></span>
+                                </Tooltip>
+                                :
+                                <span
+                                    onClick={() => setSelectedColor(item)}
+                                    className={handles['colorList-item']}
+                                    style={{ backgroundColor: `rgb(${item.R}, ${item.G}, ${item.B})` }}
+                                ></span>
+                        )
+                    })
+                }
             </div>
-            {
-                items.map((item) => {
-                    console.log(item)
-                    return (
-                        <Tooltip label={
-                            <Label name={item.name} code={item.code} />
-                        }>
-                            <span
-                                className={handles['colorList-item']}
-                                style={{ backgroundColor: `rgb(${item.R}, ${item.G}, ${item.B})` }}
-                            ></span>
-                        </Tooltip>
-                    )
-                })
-            }
+
         </div>
     )
 }

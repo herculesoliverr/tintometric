@@ -1,0 +1,12 @@
+.colorDetail-container{
+    width: 45%;
+}
+
+.colorDetail-info--container{
+    padding: 0.2rem 1rem;
+}
+
+.confirm-button{
+    color: inherit;
+    text-decoration: none;
+}

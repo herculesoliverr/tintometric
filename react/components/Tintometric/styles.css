@@ -1,17 +1,45 @@
-.container{
+.container {
     display: flex;
 }
 
-.colorPicker--container {
-    display: flex;
-    padding-top: 3rem;
+.colorPicker-container {
+    width: 55%;
+    padding-right: 2rem;
 }
 
 .sliderTrackContainer {
-    padding: 2rem 6rem;
+    padding: 1rem;
 }
 
-.familyActive-label--text {
+/* 
+.sliderArrows {
+    width: 1.8rem;
+} */
+
+.sliderLeftArrow {
+    left: -2rem;
+}
+
+.sliderRightArrow {
+    right: -2rem;
+}
+
+.header {
     text-align: center;
-    transition: 200ms all;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(148, 148, 148, 0.596);
+}
+
+.header-subtitle {
+    font-size: .85rem;
+}
+
+.buttonGroup-container {
+    width: 35%;
+}
+
+.button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }

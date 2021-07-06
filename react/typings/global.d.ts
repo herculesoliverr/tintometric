@@ -1,13 +1,15 @@
 import { ReactNode, SetStateAction, Dispatch } from 'react';
 declare global {
-  export interface ColorPickerProps {
+  export interface FamilyPickerProps {
     action: (family) => void,
     activeId: number
   }
 
   export interface ColorListProps {
     items: ColorProps[],
-    familyName: string
+    familyName: string,
+    setSelectedColor: function,
+    layout?: string
   }
 
   export interface TintometricProps {
@@ -28,11 +30,19 @@ declare global {
     name: string,
     slug: string,
     products?: number[],
-    order: number,
-    page: number
+    skuId?: number,
+    order?: number,
+    page?: number,
+    image?: string
   }
 
   interface ColorDetailProps {
     color: ColorProps
+  }
+
+  interface EventInterface{
+    target: {
+      value: string
+    }
   }
 }

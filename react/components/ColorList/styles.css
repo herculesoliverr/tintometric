@@ -1,18 +1,24 @@
-.colorList-container {
+.colorList-grid{
     display: flex;
     flex-wrap: wrap;
+    overflow: auto;
 }
 
-.colorList-item {
+.colorList-container{
+    height: 35vh;
+    overflow: auto;
+}
+
+.colorList-grid .colorList-item {
     width: 2rem;
     height: 2rem;
     display: block;
     margin: 0.2rem;
     cursor: pointer;
-    transition: 200ms all;
+    transition: 150ms all;
 }
 
 .colorList-item:hover{
     transform: scale(1.1);
-    transition: 200ms all;
+    transition: 150ms all;
 }
