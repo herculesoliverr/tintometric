@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import useProduct from 'vtex.product-context/useProduct'
 import FamilyPicker from '../FamilyPicker/FamilyPicker'
-import { ButtonPlain } from 'vtex.styleguide'
+// import { ButtonPlain } from 'vtex.styleguide'
 import data from "./../../utils/data.json"
 import { Modal, InputSearch } from 'vtex.styleguide'
 import ColorList from '../ColorList/ColorList'
 import ColorDetail from '../ColorDetail/ColorDetail'
+import { useRuntime } from "vtex.render-runtime";
 import "./styles.css"
-
-const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container'];
+import { IconCaretDown } from 'vtex.styleguide'
+const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon'];
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
 
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
+  const runtime = useRuntime()
   const { families, products } = data;
   const [activeFamily, setActiveFamily] = useState(families[0])
   const [selectedColor, setSelectedColor] = useState(products.find(product => product.family == activeFamily.id))
   const [modalOpen, setModalOpen] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [filteredProducts, setFilteredProducts] = useState(products.filter(item => item.family === activeFamily.id))
-  const handles = useCssHandles(CSS_HANDLES)
-  const productContextValue = useProduct()
   const [searchVal, setSearchVal] = useState('')
-  // const filteredProducts = products.filter(item => item.family === activeFamily.id);
-  console.log("productContextValue", productContextValue)
-  console.log("setSearchVal", setSearchVal)
+  const activeProduct = products.find(product => product.code.toLowerCase() === actualCode())
+  const productTypeSlug = runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '')
+
+  useEffect(() => {
+    setFilteredProducts(products.filter(item => item.family === activeFamily.id))
+  }, [activeFamily])
+
+  function actualCode() {
+    const initialSlug = runtime?.route?.params?.slug
+      .split('-')
+      .splice(-1)
+      .join('-');
+    return initialSlug?.toLocaleLowerCase();
+  }
 
   function handleSearch(search: string) {
     setSearchVal(search)
@@ -36,16 +47,13 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
     ))
   }
 
-  useEffect(() => {
-    setFilteredProducts(products.filter(item => item.family === activeFamily.id))
-  }, [activeFamily])
-
 
   return (
     <>
-      <ButtonPlain onClick={() => setModalOpen(true)}>
-        Tintometric
-      </ButtonPlain>
+      <button onClick={() => setModalOpen(true)}
+        className={` ${handles['modal-button--trigger']} mv5 b c-on-base`} style={{ backgroundColor: `rgb(${activeProduct?.R}, ${activeProduct?.G}, ${activeProduct?.B})` }}>
+        {activeProduct?.code} - {activeProduct?.name} <span className={`${handles['modal-button--trigger-icon']} ph5`}><IconCaretDown /></span>
+      </button>
 
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <div className={`${handles['header']} c-on-base`}>
@@ -85,17 +93,17 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
                     onChange={(
                       ev: EventInterface,
                     ): void => handleSearch(ev.target.value)}
-                  /*  onSubmit={(e: React.FormEvent<HTMLInputElement>) => {
-                     e.preventDefault()
-                     console.log('submitted! search this: ', e.currentTarget.value)
-                   }} */
+                    onSubmit={(
+                      ev: EventInterface,
+                    ): void => handleSearch(ev.target.value)}
                   />
                   <ColorList layout="list" setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
                 </>
             }
           </div>
 
-          {selectedColor && <ColorDetail color={selectedColor} />}
+          {selectedColor && <ColorDetail productTypeSlug={productTypeSlug} setModalOpen={setModalOpen} color={selectedColor} />}
+
         </section>
 
       </Modal>

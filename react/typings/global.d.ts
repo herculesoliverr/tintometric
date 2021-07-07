@@ -37,7 +37,9 @@ declare global {
   }
 
   interface ColorDetailProps {
-    color: ColorProps
+    color: ColorProps,
+    setModalOpen: function,
+    productTypeSlug: string | undefined
   }
 
   interface EventInterface{

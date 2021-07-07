@@ -7,9 +7,14 @@
     align-items: center;
 }
 
+.familyPicker-item.familyPicker-item--isActive .familyPicker-span{
+    transform: scale(1.3);
+    transition: 200ms all;
+}
+
 .familyPicker-span {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.6rem;
+    height: 1.6rem;
     border-radius: 2px;
     display: block;
     transition: 200ms all;
