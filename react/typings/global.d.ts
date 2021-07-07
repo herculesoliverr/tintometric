@@ -1,5 +1,9 @@
 import { ReactNode, SetStateAction, Dispatch } from 'react';
 declare global {
+  export interface TintometricProps {
+    title: string,
+    subtitle: string
+  }
   export interface FamilyPickerProps {
     action: (family) => void,
     activeId: number
@@ -10,10 +14,6 @@ declare global {
     familyName: string,
     setSelectedColor: function,
     layout?: string
-  }
-
-  export interface TintometricProps {
-    targetDate: string
   }
 
   export interface LabelProps {

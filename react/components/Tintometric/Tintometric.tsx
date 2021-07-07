@@ -9,10 +9,11 @@ import ColorDetail from '../ColorDetail/ColorDetail'
 import { useRuntime } from "vtex.render-runtime";
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
-const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon'];
+
+const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
-
+  title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME"
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const runtime = useRuntime()
@@ -47,7 +48,6 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
     ))
   }
 
-
   return (
     <>
       <button onClick={() => setModalOpen(true)}
@@ -57,20 +57,19 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
 
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <div className={`${handles['header']} c-on-base`}>
-          <h4 className={`${handles['header-title']} mv2`}>Vamos a encontrar sua cor!</h4>
-          <span className={`${handles['header-subtitle']}`}>Busque pela matriz ou pelo nome.
+          <h4 className={`${handles['header-title']} mv2`}>{title}</h4>
+          <span className={`${handles['header-subtitle']}`}>{subtitle}
           </span>
         </div>
 
         <div className={`${handles['buttonGroup-container']} flex justify-between mt5 c-on-base`}>
-          <p>Visualizar por: </p>
           <button
-            className={`${handles['button']} ${!showSearch ? 'button--active c-action-primary' : ''}`}
+            className={`${handles['button']} ${!showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
             onClick={() => setShowSearch(false)}>
             Matriz
           </button>
           <button
-            className={`${handles['button']} ${showSearch ? 'button--active c-action-primary' : ''}`}
+            className={`${handles['button']} ${showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
             onClick={() => setShowSearch(true)}>
             Nome
           </button>
@@ -86,17 +85,19 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
                 </>
                 :
                 <>
-                  <InputSearch
-                    placeholder="Search..."
-                    value={searchVal}
-                    size="regular"
-                    onChange={(
-                      ev: EventInterface,
-                    ): void => handleSearch(ev.target.value)}
-                    onSubmit={(
-                      ev: EventInterface,
-                    ): void => handleSearch(ev.target.value)}
-                  />
+                  <div className={handles['inputSearch--container']}>
+                    <InputSearch
+                      placeholder="Search..."
+                      value={searchVal}
+                      size="regular"
+                      onChange={(
+                        ev: EventInterface,
+                      ): void => handleSearch(ev.target.value)}
+                      onSubmit={(
+                        ev: EventInterface,
+                      ): void => handleSearch(ev.target.value)}
+                    />
+                  </div>
                   <ColorList layout="list" setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
                 </>
             }
@@ -116,9 +117,15 @@ Tintometric.schema = {
   description: 'editor.tintometric.description',
   type: 'object',
   properties: {
-    targetDate: {
-      title: 'Final date',
-      description: 'Final date used in the countdown',
+    title: {
+      title: 'Title',
+      description: 'Title used in the modal3',
+      type: 'string',
+      default: null,
+    },
+    subtitle: {
+      title: 'Subtitle',
+      description: 'Subtitle used in the modal3',
       type: 'string',
       default: null,
     }
