@@ -5,12 +5,12 @@ import { Link } from "vtex.render-runtime";
 import { Button } from 'vtex.styleguide'
 
 const CSS_HANDLES = ['colorDetail-container', 'colorDetail-title', 'colorDetail-info--container', 'colorDetail-image', 'colorDetail-name', 'colorDetail-code', 'confirm-button'];
-const ColorDetail = ({ color, setModalOpen, productTypeSlug }: ColorDetailProps) => {
+const ColorDetail = ({ color, setModalOpen, productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
     const handles = useCssHandles(CSS_HANDLES);
 
     return (
         <section className={handles['colorDetail-container']}>
-            <p className={`${handles['colorDetail-title']} ma0 mb2`}>Cor Escolhida:</p>
+            <p className={`${handles['colorDetail-title']} ma0 mb2`}>{colorDetailTitle}</p>
             <div
                 style={{ backgroundColor: `rgb(${color.R}, ${color.G}, ${color.B})` }}
                 className={`${handles['colorDetail-info--container']}`}
@@ -23,7 +23,7 @@ const ColorDetail = ({ color, setModalOpen, productTypeSlug }: ColorDetailProps)
                 <Link
                     onClick={() => setModalOpen(false)}
                     className={handles['confirm-button']} to={`/${productTypeSlug}-${color.slug}-${color.code}/p`}>
-                    confirmar
+                    {confirmButton}
                 </Link>
             </Button>
         </section>

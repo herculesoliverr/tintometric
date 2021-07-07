@@ -2,7 +2,11 @@ import { ReactNode, SetStateAction, Dispatch } from 'react';
 declare global {
   export interface TintometricProps {
     title: string,
-    subtitle: string
+    subtitle: string,
+    buttonGrid: string,
+    buttonList: string,
+    colorDetailTitle: string,
+    confirmButton: string
   }
   export interface FamilyPickerProps {
     action: (family) => void,
@@ -39,7 +43,9 @@ declare global {
   interface ColorDetailProps {
     color: ColorProps,
     setModalOpen: function,
-    productTypeSlug: string | undefined
+    productTypeSlug: string | undefined,
+    colorDetailTitle: string,
+    confirmButton: string
   }
 
   interface EventInterface{

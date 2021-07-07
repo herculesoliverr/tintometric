@@ -13,7 +13,7 @@ import { IconCaretDown } from 'vtex.styleguide'
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
-  title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME"
+  title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme"
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const runtime = useRuntime()
@@ -66,12 +66,12 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
           <button
             className={`${handles['button']} ${!showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
             onClick={() => setShowSearch(false)}>
-            Matriz
+            {buttonGrid}
           </button>
           <button
             className={`${handles['button']} ${showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
             onClick={() => setShowSearch(true)}>
-            Nome
+            {buttonList}
           </button>
         </div>
 
@@ -103,7 +103,7 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
             }
           </div>
 
-          {selectedColor && <ColorDetail productTypeSlug={productTypeSlug} setModalOpen={setModalOpen} color={selectedColor} />}
+          {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} setModalOpen={setModalOpen} color={selectedColor} />}
 
         </section>
 
@@ -119,17 +119,41 @@ Tintometric.schema = {
   properties: {
     title: {
       title: 'Title',
-      description: 'Title used in the modal3',
+      description: 'Title used in the modal',
       type: 'string',
-      default: null,
+      default: 'VAMOS ENCONTRAR A SUA COR!',
     },
     subtitle: {
       title: 'Subtitle',
-      description: 'Subtitle used in the modal3',
+      description: 'Subtitle used in the modal',
       type: 'string',
-      default: null,
+      default: 'BUSQUE PELA MATRIZ OU PELO NOME',
+    },
+    buttonGrid: {
+      title: 'Grid Button Label',
+      description: 'Grid button label used in the modal',
+      type: 'string',
+      default: 'Matriz',
+    },
+    buttonList: {
+      title: 'List Button Label',
+      description: 'List button label used in the modal',
+      type: 'string',
+      default: 'Nome',
+    },
+    colorDetailTitle: {
+      title: 'List Button Label',
+      description: 'List button label used in the modal',
+      type: 'string',
+      default: 'Cor Escolhida:',
+    },
+    confirmButton: {
+      title: 'Confirm Button Label',
+      description: 'Confirm button label used in the modal',
+      type: 'string',
+      default: 'Confirme',
     }
-  },
+  }
 }
 
 export default Tintometric
