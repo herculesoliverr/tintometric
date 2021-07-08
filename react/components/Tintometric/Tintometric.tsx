@@ -2,22 +2,25 @@ import React, { useState, useEffect } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import FamilyPicker from '../FamilyPicker/FamilyPicker'
 // import { ButtonPlain } from 'vtex.styleguide'
-import data from "./../../utils/data.json"
+// import data from "./../../utils/data.json"
 import { Modal, InputSearch } from 'vtex.styleguide'
 import ColorList from '../ColorList/ColorList'
 import ColorDetail from '../ColorDetail/ColorDetail'
 import { useRuntime } from "vtex.render-runtime";
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
+import base64ToJson from '../../utils/base64ToJson';
+
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
-  title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme"
+  title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme", file
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const runtime = useRuntime()
-  const { families, products } = data;
+  const dataFile: DataProps = base64ToJson(file)
+  const { families, products } = dataFile;
   const [activeFamily, setActiveFamily] = useState(families[0])
   const [selectedColor, setSelectedColor] = useState(products.find(product => product.family == activeFamily.id))
   const [modalOpen, setModalOpen] = useState(false)
@@ -26,6 +29,9 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   const [searchVal, setSearchVal] = useState('')
   const activeProduct = products.find(product => product.code.toLowerCase() === actualCode())
   const productTypeSlug = runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '')
+
+  console.log("dataFile from site editor --", dataFile)
+  
 
   useEffect(() => {
     setFilteredProducts(products.filter(item => item.family === activeFamily.id))
@@ -152,6 +158,13 @@ Tintometric.schema = {
       description: 'Confirm button label used in the modal',
       type: 'string',
       default: 'Confirme',
+    },
+    file: {
+      title: 'File',
+      type: 'string',
+      widget: {
+        'ui:widget': 'file',
+      },
     }
   }
 }

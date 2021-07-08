@@ -6,11 +6,29 @@ declare global {
     buttonGrid: string,
     buttonList: string,
     colorDetailTitle: string,
-    confirmButton: string
+    confirmButton: string,
+    file: string
   }
+
   export interface FamilyPickerProps {
     action: (family) => void,
     activeId: number
+  }
+
+  export interface DataProps {
+    families: {
+      color: string,
+      id: number,
+      name: string,
+      products: number[],
+      slug: string
+    }[],
+    productType: {
+      id: number,
+      name: string,
+      slug: string
+    }[],
+    products: ColorProps[]
   }
 
   export interface ColorListProps {
@@ -48,7 +66,7 @@ declare global {
     confirmButton: string
   }
 
-  interface EventInterface{
+  interface EventInterface {
     target: {
       value: string
     }
