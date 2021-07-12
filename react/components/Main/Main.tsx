@@ -10,29 +10,33 @@ import { useRuntime } from "vtex.render-runtime";
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
 // import base64ToJson from '../../utils/base64ToJson';
-import data from './../../utils/data.json'
-import AppContext from '../../context'
-import { useStore } from '../../hooks';
+import data from '../../utils/data.json'
+import { TintometricProvider, useGeneralContext } from '../../context'
+// import { useStore } from '../../hooks';
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
-const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
-  title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme", file
+const Main: StorefrontFunctionComponent<TintometricProps> = ({
+  title = "VAMOS ENCONTRAR A SUA COR!",
+  subtitle = "BUSQUE PELA MATRIZ OU PELO NOME",
+  buttonGrid = "Matriz",
+  buttonList = "Nome",
+  colorDetailTitle = "Cor Escolhida:",
+  confirmButton = "Confirme",
+  file
 }) => {
 
-  const {
-    test
-  } = useStore();
+  const {getFamilies
+  } = useGeneralContext();
 
-  console.log("test---", test)
 
-  console.log(file)
+
+
   const handles = useCssHandles(CSS_HANDLES)
   const runtime = useRuntime()
   // const dataFile: DataProps = base64ToJson(file)
 
-  // const { families, products } = dataFile;
-  const { families, products } = data;
+   const { families, products } = data;
 
   const [activeFamily, setActiveFamily] = useState(families[0])
   const [selectedColor, setSelectedColor] = useState(products.find(product => product.family == activeFamily.id))
@@ -44,6 +48,13 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   const productTypeSlug = runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '')
 
   // console.log("dataFile from site editor --", dataFile)
+
+  useEffect(() => {
+    getFamilies(file)
+  }, [])
+
+  console.log("families-----", families)
+
 
   useEffect(() => {
     setFilteredProducts(products.filter(item => item.family === activeFamily.id))
@@ -67,7 +78,7 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   }
 
   return (
-    <AppContext>
+    <TintometricProvider>
       <>
         <button onClick={() => setModalOpen(true)}
           className={` ${handles['modal-button--trigger']} mv5 b c-on-base`} style={{ backgroundColor: `rgb(${activeProduct?.R}, ${activeProduct?.G}, ${activeProduct?.B})` }}>
@@ -128,59 +139,10 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
 
         </Modal>
       </>
-    </AppContext>
+    </TintometricProvider>
   )
 }
 
-Tintometric.schema = {
-  title: 'editor.tintometric.title',
-  description: 'editor.tintometric.description',
-  type: 'object',
-  properties: {
-    title: {
-      title: 'Title',
-      description: 'Title used in the modal',
-      type: 'string',
-      default: 'VAMOS ENCONTRAR A SUA COR!',
-    },
-    subtitle: {
-      title: 'Subtitle',
-      description: 'Subtitle used in the modal',
-      type: 'string',
-      default: 'BUSQUE PELA MATRIZ OU PELO NOME',
-    },
-    buttonGrid: {
-      title: 'Grid Button Label',
-      description: 'Grid button label used in the modal',
-      type: 'string',
-      default: 'Matriz',
-    },
-    buttonList: {
-      title: 'List Button Label',
-      description: 'List button label used in the modal',
-      type: 'string',
-      default: 'Nome',
-    },
-    colorDetailTitle: {
-      title: 'List Button Label',
-      description: 'List button label used in the modal',
-      type: 'string',
-      default: 'Cor Escolhida:',
-    },
-    confirmButton: {
-      title: 'Confirm Button Label',
-      description: 'Confirm button label used in the modal',
-      type: 'string',
-      default: 'Confirme',
-    },
-    file: {
-      title: 'File',
-      type: 'string',
-      widget: {
-        'ui:widget': 'file',
-      },
-    }
-  }
-}
 
-export default Tintometric
+
+export default Main

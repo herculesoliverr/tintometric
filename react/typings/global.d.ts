@@ -77,7 +77,7 @@ declare global {
   interface TintometricContextInterface {
     // families: Family,
     getFamilies: (file: string) => void;
-    test: string
+    families: Family[]
   }
 
   //CONTEXT

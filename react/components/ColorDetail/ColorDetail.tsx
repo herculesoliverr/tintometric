@@ -3,11 +3,15 @@ import { useCssHandles } from 'vtex.css-handles'
 import "./styles.css"
 import { Link } from "vtex.render-runtime";
 import { Button } from 'vtex.styleguide'
+// import {useGeneralContext} from '../../context'
 
 const CSS_HANDLES = ['colorDetail-container', 'colorDetail-title', 'colorDetail-info--container', 'colorDetail-image', 'colorDetail-name', 'colorDetail-code', 'confirm-button'];
 const ColorDetail = ({ color, setModalOpen, productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
     const handles = useCssHandles(CSS_HANDLES);
-
+ /*    const {
+        families
+    } = useGeneralContext();
+     */
     return (
         <section className={handles['colorDetail-container']}>
             <p className={`${handles['colorDetail-title']} ma0 mb2`}>{colorDetailTitle}</p>
