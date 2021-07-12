@@ -16,13 +16,7 @@ declare global {
   }
 
   export interface DataProps {
-    families: {
-      color: string,
-      id: number,
-      name: string,
-      products: number[],
-      slug: string
-    }[],
+    families: Family[],
     productType: {
       id: number,
       name: string,
@@ -71,4 +65,29 @@ declare global {
       value: string
     }
   }
+
+  interface Family {
+    color: string,
+    id: number,
+    name: string,
+    products: number[],
+    slug: string
+  }
+
+  interface TintometricContextInterface {
+    // families: Family,
+    getFamilies: (file: string) => void;
+    test: string
+  }
+
+  //CONTEXT
+  export interface ContextChildren {
+    children: ReactNode;
+  }
 }
+
+export interface ApiContextInterface {
+  apiGetStores: () => Promise<Store[]>;
+}
+
+export type GetStoresFnc = () => Promise<Family[]>;

@@ -11,12 +11,21 @@ import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
 // import base64ToJson from '../../utils/base64ToJson';
 import data from './../../utils/data.json'
+import AppContext from '../../context'
+import { useStore } from '../../hooks';
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme", file
 }) => {
+
+  const {
+    test
+  } = useStore();
+
+  console.log("test---", test)
+
   console.log(file)
   const handles = useCssHandles(CSS_HANDLES)
   const runtime = useRuntime()
@@ -58,66 +67,68 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   }
 
   return (
-    <>
-      <button onClick={() => setModalOpen(true)}
-        className={` ${handles['modal-button--trigger']} mv5 b c-on-base`} style={{ backgroundColor: `rgb(${activeProduct?.R}, ${activeProduct?.G}, ${activeProduct?.B})` }}>
-        {activeProduct?.code} - {activeProduct?.name} <span className={`${handles['modal-button--trigger-icon']} ph5`}><IconCaretDown /></span>
-      </button>
+    <AppContext>
+      <>
+        <button onClick={() => setModalOpen(true)}
+          className={` ${handles['modal-button--trigger']} mv5 b c-on-base`} style={{ backgroundColor: `rgb(${activeProduct?.R}, ${activeProduct?.G}, ${activeProduct?.B})` }}>
+          {activeProduct?.code} - {activeProduct?.name} <span className={`${handles['modal-button--trigger-icon']} ph5`}><IconCaretDown /></span>
+        </button>
 
-      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-        <div className={`${handles['header']} c-on-base`}>
-          <h4 className={`${handles['header-title']} mv2`}>{title}</h4>
-          <span className={`${handles['header-subtitle']}`}>{subtitle}
-          </span>
-        </div>
-
-        <div className={`${handles['buttonGroup-container']} flex justify-between mt5 c-on-base`}>
-          <button
-            className={`${handles['button']} ${!showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
-            onClick={() => setShowSearch(false)}>
-            {buttonGrid}
-          </button>
-          <button
-            className={`${handles['button']} ${showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
-            onClick={() => setShowSearch(true)}>
-            {buttonList}
-          </button>
-        </div>
-
-        <section className={handles.container}>
-          <div className={handles['colorPicker-container']}>
-            {
-              !showSearch ?
-                <>
-                  <FamilyPicker action={setActiveFamily} activeId={activeFamily.id} />
-                  <ColorList setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
-                </>
-                :
-                <>
-                  <div className={handles['inputSearch--container']}>
-                    <InputSearch
-                      placeholder="Search..."
-                      value={searchVal}
-                      size="regular"
-                      onChange={(
-                        ev: EventInterface,
-                      ): void => handleSearch(ev.target.value)}
-                      onSubmit={(
-                        ev: EventInterface,
-                      ): void => handleSearch(ev.target.value)}
-                    />
-                  </div>
-                  <ColorList layout="list" setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
-                </>
-            }
+        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+          <div className={`${handles['header']} c-on-base`}>
+            <h4 className={`${handles['header-title']} mv2`}>{title}</h4>
+            <span className={`${handles['header-subtitle']}`}>{subtitle}
+            </span>
           </div>
 
-          {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} setModalOpen={setModalOpen} color={selectedColor} />}
+          <div className={`${handles['buttonGroup-container']} flex justify-between mt5 c-on-base`}>
+            <button
+              className={`${handles['button']} ${!showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
+              onClick={() => setShowSearch(false)}>
+              {buttonGrid}
+            </button>
+            <button
+              className={`${handles['button']} ${showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
+              onClick={() => setShowSearch(true)}>
+              {buttonList}
+            </button>
+          </div>
 
-        </section>
+          <section className={handles.container}>
+            <div className={handles['colorPicker-container']}>
+              {
+                !showSearch ?
+                  <>
+                    <FamilyPicker action={setActiveFamily} activeId={activeFamily.id} />
+                    <ColorList setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
+                  </>
+                  :
+                  <>
+                    <div className={handles['inputSearch--container']}>
+                      <InputSearch
+                        placeholder="Search..."
+                        value={searchVal}
+                        size="regular"
+                        onChange={(
+                          ev: EventInterface,
+                        ): void => handleSearch(ev.target.value)}
+                        onSubmit={(
+                          ev: EventInterface,
+                        ): void => handleSearch(ev.target.value)}
+                      />
+                    </div>
+                    <ColorList layout="list" setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
+                  </>
+              }
+            </div>
 
-      </Modal>
-    </>
+            {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} setModalOpen={setModalOpen} color={selectedColor} />}
+
+          </section>
+
+        </Modal>
+      </>
+    </AppContext>
   )
 }
 
