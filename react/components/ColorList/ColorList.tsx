@@ -8,7 +8,6 @@ const CSS_HANDLES = ['colorList-container', 'colorList-item', 'colorList-grid', 
 
 const ColorList = ({ items, familyName, setSelectedColor, layout = 'grid' }: ColorListProps) => {
     const handles = useCssHandles(CSS_HANDLES);
-    //TODO: que layout sea un Enum
     return (
         <div className={`${handles['colorList-container']}`}>
             {layout === 'grid' && <div className={handles['familyActive-label--wrapper']}>
@@ -16,7 +15,7 @@ const ColorList = ({ items, familyName, setSelectedColor, layout = 'grid' }: Col
             </div>}
             <div className={`${layout === 'grid' ? handles['colorList-grid'] : handles['colorList-list']}`}>
                 {
-                    items.map((item) => {
+                    items?.length && items.map((item) => {
                         return (
                             layout === 'grid' ?
                                 <Tooltip label={

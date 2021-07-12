@@ -6,7 +6,7 @@ import { Button } from 'vtex.styleguide'
 // import {useGeneralContext} from '../../context'
 
 const CSS_HANDLES = ['colorDetail-container', 'colorDetail-title', 'colorDetail-info--container', 'colorDetail-image', 'colorDetail-name', 'colorDetail-code', 'confirm-button'];
-const ColorDetail = ({ color, setModalOpen, productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
+const ColorDetail = ({ color, handleClick, productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
     const handles = useCssHandles(CSS_HANDLES);
  /*    const {
         families
@@ -25,7 +25,7 @@ const ColorDetail = ({ color, setModalOpen, productTypeSlug, colorDetailTitle, c
             <img style={{ backgroundColor: `rgb(${color.R}, ${color.G}, ${color.B})` }} className={`${handles['colorDetail-image']} mv4`} src={color.image} alt={color.name} />
             <Button>
                 <Link
-                    onClick={() => setModalOpen(false)}
+                    onClick={() => handleClick(false)}
                     className={handles['confirm-button']} to={`/${productTypeSlug}-${color.slug}-${color.code}/p`}>
                     {confirmButton}
                 </Link>

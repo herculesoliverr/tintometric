@@ -1,3 +1,4 @@
+import { VerifyKeyObjectInput } from 'crypto';
 import { ReactNode, SetStateAction, Dispatch } from 'react';
 declare global {
   export interface TintometricProps {
@@ -22,11 +23,11 @@ declare global {
       name: string,
       slug: string
     }[],
-    products: ColorProps[]
+    products: ProductProps[]
   }
 
   export interface ColorListProps {
-    items: ColorProps[],
+    items: ProductProps[] | undefined,
     familyName: string,
     setSelectedColor: function,
     layout?: string
@@ -37,7 +38,7 @@ declare global {
     code: string
   }
 
-  interface ColorProps {
+  interface ProductProps {
     R: number,
     G: number,
     B: number,
@@ -53,8 +54,8 @@ declare global {
   }
 
   interface ColorDetailProps {
-    color: ColorProps,
-    setModalOpen: function,
+    color: ProductProps,
+    handleClick: function,
     productTypeSlug: string | undefined,
     colorDetailTitle: string,
     confirmButton: string
@@ -75,9 +76,18 @@ declare global {
   }
 
   interface TintometricContextInterface {
-    // families: Family,
-    getFamilies: (file: string) => void;
-    families: Family[]
+    getFamilies: (file: string) => void,
+    families: Family[],
+    activeFamily: Family | undefined,
+    setActiveFamily: (Family) => void,
+    products: ProductProps[],
+    activeProduct: ProductProps | undefined,
+    handleModalClick: (state: boolean) => void,
+    modalOpen: boolean,
+    /* filteredProducts: any,
+    selectedColor: any,
+    setSelectedColor: (product: ProductProps) => void,
+    setFilteredProducts: (product: ProductProps) => void, */
   }
 
   //CONTEXT

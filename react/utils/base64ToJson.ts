@@ -9,7 +9,6 @@ const base64ToJson = (file: string) => {
 
   const stringToAtob = file.slice(indexOfBase64);
   const json = atob(stringToAtob);
-  console.log("json---", json)
   return JSON.parse(json)
 };
 
