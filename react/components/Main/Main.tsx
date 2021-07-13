@@ -7,7 +7,7 @@ import ColorDetail from '../ColorDetail/ColorDetail'
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
 import { useTintometricContext } from '../../context'
-import { useRuntime } from "vtex.render-runtime";
+// import { useRuntime } from "vtex.render-runtime";
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
@@ -25,28 +25,26 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const [searchVal, setSearchVal] = useState('')
 
   const {
-    getFamilies,
+    getData,
     products,
     modalOpen,
     handleModalClick,
     activeFamily,
     activeProduct,
     selectedColor,
-    setActiveFamily
+    setActiveFamily,
+    productTypeSlug,
+    activeProductType
   } = useTintometricContext();
 
   const handles = useCssHandles(CSS_HANDLES)
 
-  const runtime = useRuntime()
-
-  const productTypeSlug = runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '')
-
   useEffect(() => {
-    file.length && getFamilies(file)
+    file && getData(file)
   }, [])
 
   useEffect(() => {
-    activeFamily && setFilteredProducts(products.filter(item => item.family === activeFamily.id))
+    activeFamily && setFilteredProducts(products.filter(product => product.family === activeFamily?.id && product.products?.find(item => item === activeProductType?.id)))
   }, [activeFamily])
 
   function handleSearch(search: string) {
@@ -74,7 +72,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
               <span className={`${handles['header-subtitle']}`}>{subtitle}
               </span>
             </div>
-
             <div className={`${handles['buttonGroup-container']} flex justify-between mt5 c-on-base`}>
               <button
                 className={`${handles['button']} ${!showSearch ? `${handles['button--active']} c-action-primary` : ''}`}
@@ -87,7 +84,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                 {buttonList}
               </button>
             </div>
-
             <section className={handles.container}>
               <div className={handles['colorPicker-container']}>
                 {
@@ -115,9 +111,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                     </>
                 }
               </div>
-
               {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} handleClick={handleModalClick} /* color={selectedColor} */ />}
-
             </section>
           </Modal>
         </>

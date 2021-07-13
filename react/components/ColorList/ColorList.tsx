@@ -5,14 +5,15 @@ import Label from '../Label/Label';
 import "./styles.css"
 import { useTintometricContext } from '../../context'
 
-
 const CSS_HANDLES = ['colorList-container', 'colorList-item', 'colorList-grid', 'colorList-list', 'familyActive-label--wrapper', 'familyActive-label--text'];
 
-const ColorList = ({ items, familyName/* , setSelectedColor */, layout = 'grid' }: ColorListProps) => {
+const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
     const handles = useCssHandles(CSS_HANDLES);
+
     const {
         setSelectedColor,
     } = useTintometricContext();
+
     return (
         <div className={`${handles['colorList-container']}`}>
             {layout === 'grid' && <div className={handles['familyActive-label--wrapper']}>
@@ -20,7 +21,7 @@ const ColorList = ({ items, familyName/* , setSelectedColor */, layout = 'grid' 
             </div>}
             <div className={`${layout === 'grid' ? handles['colorList-grid'] : handles['colorList-list']}`}>
                 {
-                    items?.length && items.map((item) => {
+                    items && items.map((item) => {
                         return (
                             layout === 'grid' ?
                                 <Tooltip label={

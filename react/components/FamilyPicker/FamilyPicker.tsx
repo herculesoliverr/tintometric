@@ -12,6 +12,7 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
     const {
         families
     } = useTintometricContext();
+
     return (
         <div className={handles["familyPicker-container"]}>
             <SliderLayout

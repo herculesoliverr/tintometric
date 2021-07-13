@@ -16,13 +16,15 @@ declare global {
     activeId: number
   }
 
+  export interface ProductType {
+    id: number,
+    name: string,
+    slug: string
+  }
+
   export interface DataProps {
     families: Family[],
-    productType: {
-      id: number,
-      name: string,
-      slug: string
-    }[],
+    productType: ProductType[],
     products: ProductProps[]
   }
 
@@ -74,7 +76,7 @@ declare global {
   }
 
   interface TintometricContextInterface {
-    getFamilies: (file: string) => void,
+    getData: (file: string) => void,
     families: Family[],
     activeFamily: Family | undefined,
     setActiveFamily: (Family) => void,
@@ -82,7 +84,9 @@ declare global {
     activeProduct: ProductProps | undefined,
     handleModalClick: (state: boolean) => void,
     modalOpen: boolean,
-    activeProduct
+    productTypeSlug: string,
+    activeProduct: ProductProps,
+    activeProductType: ProductType | undefined,
     /* filteredProducts: any, 
     setFilteredProducts: (product: ProductProps) => void,
     */

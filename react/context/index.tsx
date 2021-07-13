@@ -6,22 +6,31 @@ export const TintometricContext = createContext({} as TintometricContextInterfac
 
 export const useTintometricContext = () => useContext(TintometricContext);
 
-
-
-
 export function TintometricProvider({ children }: ContextChildren) {
    const runtime = useRuntime()
+   const [data, setData] = useState<DataProps>()
    const [families, setFamilies] = useState<Family[]>([])
    const [products, setProducts] = useState<ProductProps[]>([])
    const [modalOpen, setModalOpen] = useState(false)
    const [activeFamily, setActiveFamily] = useState<Family | undefined>()
    const [selectedColor, setSelectedColor] = useState<ProductProps>()
+   const [productTypeSlug, setProductTypeSlug] = useState('')
+   const activeProduct = products?.find(product => product.code.toLowerCase() === getActualCode())
+   const activeProductType = data?.productType.find(type => type.slug === productTypeSlug)
 
-   const activeProduct = products.find(product => product.code.toLowerCase() === getActualCode())
+   useEffect(() => {
+      activeProduct && setProductTypeSlug(runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, ''))
+   }, [activeProduct])
 
    useEffect(() => {
       families.length && setActiveFamily(families[0])
    }, [families])
+
+
+   useEffect(() => {
+      const filteredFamilies = data?.families.filter(family => family.products?.find(item => item === activeProductType?.id));
+      filteredFamilies && setFamilies(filteredFamilies)
+   }, [data, activeProductType])
 
    useEffect(() => {
       activeFamily && setSelectedColor(products.find(product => product.family == activeFamily.id))
@@ -40,15 +49,16 @@ export function TintometricProvider({ children }: ContextChildren) {
    }
 
 
-   function getFamilies(file: string) {
+   function getData(file: string) {
       const dataFile: DataProps = base64ToJson(file);
-      setFamilies(dataFile.families)
+      setData(dataFile)
       setProducts(dataFile.products)
    }
+   
    return (
       <TintometricContext.Provider
          value={{
-            getFamilies,
+            getData,
             families,
             setActiveFamily,
             activeFamily,
@@ -56,8 +66,10 @@ export function TintometricProvider({ children }: ContextChildren) {
             activeProduct,
             handleModalClick,
             setSelectedColor,
+            activeProductType,
             selectedColor,
             modalOpen,
+            productTypeSlug
          }}
       >
          {children}
