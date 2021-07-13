@@ -29,7 +29,6 @@ declare global {
   export interface ColorListProps {
     items: ProductProps[] | undefined,
     familyName: string,
-    setSelectedColor: function,
     layout?: string
   }
 
@@ -54,7 +53,6 @@ declare global {
   }
 
   interface ColorDetailProps {
-    color: ProductProps,
     handleClick: function,
     productTypeSlug: string | undefined,
     colorDetailTitle: string,
@@ -85,10 +83,11 @@ declare global {
     handleModalClick: (state: boolean) => void,
     modalOpen: boolean,
     activeProduct
-    /* filteredProducts: any,
+    /* filteredProducts: any, 
+    setFilteredProducts: (product: ProductProps) => void,
+    */
     selectedColor: any,
     setSelectedColor: (product: ProductProps) => void,
-    setFilteredProducts: (product: ProductProps) => void, */
   }
 
   //CONTEXT

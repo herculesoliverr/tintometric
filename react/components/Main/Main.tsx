@@ -21,7 +21,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   file
 }) => {
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
-  const [selectedColor, setSelectedColor] = useState<ProductProps>()
   const [showSearch, setShowSearch] = useState(false)
   const [searchVal, setSearchVal] = useState('')
 
@@ -32,6 +31,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     handleModalClick,
     activeFamily,
     activeProduct,
+    selectedColor,
     setActiveFamily
   } = useTintometricContext();
 
@@ -45,13 +45,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     file.length && getFamilies(file)
   }, [])
 
-  console.log("modalOpen from Main---", modalOpen)
-
   useEffect(() => {
-
-    activeFamily && setSelectedColor(products.find(product => product.family == activeFamily.id))
     activeFamily && setFilteredProducts(products.filter(item => item.family === activeFamily.id))
-
   }, [activeFamily])
 
   function handleSearch(search: string) {
@@ -99,7 +94,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                   !showSearch ?
                     <>
                       <FamilyPicker action={setActiveFamily} activeId={activeFamily.id} />
-                      <ColorList setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
+                      <ColorList items={filteredProducts} familyName={activeFamily.name} />
                     </>
                     :
                     <>
@@ -116,12 +111,12 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                           ): void => handleSearch(ev.target.value)}
                         />
                       </div>
-                      <ColorList layout="list" setSelectedColor={setSelectedColor} items={filteredProducts} familyName={activeFamily.name} />
+                      <ColorList layout="list" items={filteredProducts} familyName={activeFamily.name} />
                     </>
                 }
               </div>
 
-              {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} handleClick={handleModalClick} color={selectedColor} />}
+              {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} handleClick={handleModalClick} /* color={selectedColor} */ />}
 
             </section>
           </Modal>

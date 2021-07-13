@@ -15,21 +15,19 @@ export function TintometricProvider({ children }: ContextChildren) {
    const [products, setProducts] = useState<ProductProps[]>([])
    const [modalOpen, setModalOpen] = useState(false)
    const [activeFamily, setActiveFamily] = useState<Family | undefined>()
+   const [selectedColor, setSelectedColor] = useState<ProductProps>()
+
    const activeProduct = products.find(product => product.code.toLowerCase() === getActualCode())
 
    useEffect(() => {
       families.length && setActiveFamily(families[0])
    }, [families])
 
-   /*    useEffect(() => {
-   
-         activeFamily && setSelectedColor(products.find(product => product.family == activeFamily.id))
-         activeFamily && setFilteredProducts(products.filter(item => item.family === activeFamily.id))
-   
-      }, [activeFamily])
-    */
+   useEffect(() => {
+      activeFamily && setSelectedColor(products.find(product => product.family == activeFamily.id))
+   }, [activeFamily])
+
    const handleModalClick = (state: boolean) => {
-      console.log("llegas aca --- ", state)
       setModalOpen(state)
    }
 
@@ -57,9 +55,11 @@ export function TintometricProvider({ children }: ContextChildren) {
             products,
             activeProduct,
             handleModalClick,
+            setSelectedColor,
+            selectedColor,
             modalOpen,
          }}
-  >
+      >
          {children}
       </TintometricContext.Provider>
    );
