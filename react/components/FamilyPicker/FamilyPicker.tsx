@@ -1,14 +1,17 @@
 import React from 'react';
 import { useCssHandles } from 'vtex.css-handles';
 import './styles.css';
-import data from "../../utils/data.json";
+// import data from "../../utils/data.json";
 import { SliderLayout } from "vtex.slider-layout"
+import { useTintometricContext } from '../../context'
 
 const CSS_HANDLES = ['familyPicker-container', 'familyPicker-item', 'familyPicker-span', 'familyPicker-item--isActive'];
 
 const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
     const handles = useCssHandles(CSS_HANDLES);
-    const { families } = data;
+    const {
+        families
+    } = useTintometricContext();
     return (
         <div className={handles["familyPicker-container"]}>
             <SliderLayout
