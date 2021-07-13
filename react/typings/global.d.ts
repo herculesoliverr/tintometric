@@ -56,7 +56,6 @@ declare global {
 
   interface ColorDetailProps {
     handleClick: function,
-    productTypeSlug: string | undefined,
     colorDetailTitle: string,
     confirmButton: string
   }
@@ -84,12 +83,8 @@ declare global {
     activeProduct: ProductProps | undefined,
     handleModalClick: (state: boolean) => void,
     modalOpen: boolean,
-    productTypeSlug: string,
     activeProduct: ProductProps,
     activeProductType: ProductType | undefined,
-    /* filteredProducts: any, 
-    setFilteredProducts: (product: ProductProps) => void,
-    */
     selectedColor: any,
     setSelectedColor: (product: ProductProps) => void,
   }
@@ -103,5 +98,3 @@ declare global {
 export interface ApiContextInterface {
   apiGetStores: () => Promise<Store[]>;
 }
-
-export type GetStoresFnc = () => Promise<Family[]>;

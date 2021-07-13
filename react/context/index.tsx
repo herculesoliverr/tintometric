@@ -14,12 +14,15 @@ export function TintometricProvider({ children }: ContextChildren) {
    const [modalOpen, setModalOpen] = useState(false)
    const [activeFamily, setActiveFamily] = useState<Family | undefined>()
    const [selectedColor, setSelectedColor] = useState<ProductProps>()
-   const [productTypeSlug, setProductTypeSlug] = useState('')
+   const [activeProductType, setActiveProductType] = useState<ProductType>()
    const activeProduct = products?.find(product => product.code.toLowerCase() === getActualCode())
-   const activeProductType = data?.productType.find(type => type.slug === productTypeSlug)
 
    useEffect(() => {
-      activeProduct && setProductTypeSlug(runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, ''))
+      // Extracts active slug type from the url
+      const actualSlugType = runtime?.route?.params?.slug?.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '');
+
+      //finds the productType of the active product from the json file
+      activeProduct && setActiveProductType(data?.productType.find(type => type.slug === actualSlugType))
    }, [activeProduct])
 
    useEffect(() => {
@@ -54,7 +57,7 @@ export function TintometricProvider({ children }: ContextChildren) {
       setData(dataFile)
       setProducts(dataFile.products)
    }
-   
+
    return (
       <TintometricContext.Provider
          value={{
@@ -69,7 +72,6 @@ export function TintometricProvider({ children }: ContextChildren) {
             activeProductType,
             selectedColor,
             modalOpen,
-            productTypeSlug
          }}
       >
          {children}

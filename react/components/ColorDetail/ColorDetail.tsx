@@ -7,11 +7,12 @@ import { useTintometricContext } from '../../context'
 
 const CSS_HANDLES = ['colorDetail-container', 'colorDetail-title', 'colorDetail-info--container', 'colorDetail-image', 'colorDetail-name', 'colorDetail-code', 'confirm-button'];
 
-const ColorDetail = ({ productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
+const ColorDetail = ({ colorDetailTitle, confirmButton }: ColorDetailProps) => {
     const handles = useCssHandles(CSS_HANDLES);
     const {
         handleModalClick,
-        selectedColor
+        selectedColor,
+        activeProductType
     } = useTintometricContext();
 
     return (
@@ -28,7 +29,7 @@ const ColorDetail = ({ productTypeSlug, colorDetailTitle, confirmButton }: Color
             <Button>
                 <Link
                     onClick={()=>handleModalClick(false)}
-                    className={handles['confirm-button']} to={`/${productTypeSlug}-${selectedColor.slug}-${selectedColor.code}/p`}>
+                    className={handles['confirm-button']} to={`/${activeProductType?.slug}-${selectedColor.slug}-${selectedColor.code}/p`}>
                     {confirmButton}
                 </Link>
             </Button>

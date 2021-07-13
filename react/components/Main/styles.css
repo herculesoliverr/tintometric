@@ -66,3 +66,16 @@
 .inputSearch--container {
     margin: 1rem 0;
 }
+
+@media screen and (max-width: 720px){
+    .container{
+        flex-direction: column;
+    }
+    .colorPicker-container{
+        width: 100%;
+        padding-right: 0;
+    }
+    .modal-button--trigger{
+        width: 100%;
+    }
+}

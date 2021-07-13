@@ -7,7 +7,6 @@ import ColorDetail from '../ColorDetail/ColorDetail'
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
 import { useTintometricContext } from '../../context'
-// import { useRuntime } from "vtex.render-runtime";
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
@@ -33,7 +32,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     activeProduct,
     selectedColor,
     setActiveFamily,
-    productTypeSlug,
     activeProductType
   } = useTintometricContext();
 
@@ -55,7 +53,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
         product.code.toLowerCase().includes(search.toLowerCase())
     ))
   }
-
+  console.log("renders----")
   return (
     <>
       {activeFamily &&
@@ -111,7 +109,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                     </>
                 }
               </div>
-              {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} handleClick={handleModalClick} /* color={selectedColor} */ />}
+              {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} handleClick={handleModalClick} />}
             </section>
           </Modal>
         </>
