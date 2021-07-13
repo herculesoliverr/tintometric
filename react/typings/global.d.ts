@@ -84,6 +84,7 @@ declare global {
     activeProduct: ProductProps | undefined,
     handleModalClick: (state: boolean) => void,
     modalOpen: boolean,
+    activeProduct
     /* filteredProducts: any,
     selectedColor: any,
     setSelectedColor: (product: ProductProps) => void,

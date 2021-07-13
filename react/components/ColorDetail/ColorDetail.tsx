@@ -3,15 +3,18 @@ import { useCssHandles } from 'vtex.css-handles'
 import "./styles.css"
 import { Link } from "vtex.render-runtime";
 import { Button } from 'vtex.styleguide'
-// import {useGeneralContext} from '../../context'
+import { useTintometricContext } from '../../context'
 
 const CSS_HANDLES = ['colorDetail-container', 'colorDetail-title', 'colorDetail-info--container', 'colorDetail-image', 'colorDetail-name', 'colorDetail-code', 'confirm-button'];
-const ColorDetail = ({ color, handleClick, productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
+
+const ColorDetail = ({ color, productTypeSlug, colorDetailTitle, confirmButton }: ColorDetailProps) => {
     const handles = useCssHandles(CSS_HANDLES);
- /*    const {
-        families
-    } = useGeneralContext();
-     */
+    const {
+        handleModalClick,
+    } = useTintometricContext();
+
+
+
     return (
         <section className={handles['colorDetail-container']}>
             <p className={`${handles['colorDetail-title']} ma0 mb2`}>{colorDetailTitle}</p>
@@ -25,7 +28,7 @@ const ColorDetail = ({ color, handleClick, productTypeSlug, colorDetailTitle, co
             <img style={{ backgroundColor: `rgb(${color.R}, ${color.G}, ${color.B})` }} className={`${handles['colorDetail-image']} mv4`} src={color.image} alt={color.name} />
             <Button>
                 <Link
-                    onClick={() => handleClick(false)}
+                    onClick={()=>handleModalClick(false)}
                     className={handles['confirm-button']} to={`/${productTypeSlug}-${color.slug}-${color.code}/p`}>
                     {confirmButton}
                 </Link>

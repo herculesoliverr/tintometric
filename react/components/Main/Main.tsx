@@ -6,8 +6,7 @@ import ColorList from '../ColorList/ColorList'
 import ColorDetail from '../ColorDetail/ColorDetail'
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
-// import data from '../../utils/data.json'
-import { TintometricProvider, useGeneralContext } from '../../context'
+import { useTintometricContext } from '../../context'
 import { useRuntime } from "vtex.render-runtime";
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
@@ -21,7 +20,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   confirmButton = "Confirme",
   file
 }) => {
-  console.log(title, subtitle, buttonGrid, buttonList, colorDetailTitle, confirmButton)
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [selectedColor, setSelectedColor] = useState<ProductProps>()
   const [showSearch, setShowSearch] = useState(false)
@@ -35,33 +33,19 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     activeFamily,
     activeProduct,
     setActiveFamily
-  } = useGeneralContext();
-
-
-
-  // const [activeProduct, setActiveProduct] = useState<ProductProps>()
-  console.log("activeFamily---", activeFamily)
-  console.log("activeProduct---", activeProduct)
-  console.log("selectedColor---", selectedColor)
+  } = useTintometricContext();
 
   const handles = useCssHandles(CSS_HANDLES)
 
+  const runtime = useRuntime()
 
-  
-    const runtime = useRuntime()
-  
-
-  /*    const { products } = data; */
-
-  /*   
-    const [filteredProducts, setFilteredProducts] = useState(products.filter(item => item.family === activeFamily.id))
-    const activeProduct = products.find(product => product.code.toLowerCase() === actualCode())
-    const productTypeSlug = runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '') */
   const productTypeSlug = runtime?.route?.params?.slug.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '')
 
   useEffect(() => {
     file.length && getFamilies(file)
   }, [])
+
+  console.log("modalOpen from Main---", modalOpen)
 
   useEffect(() => {
 
@@ -69,7 +53,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     activeFamily && setFilteredProducts(products.filter(item => item.family === activeFamily.id))
 
   }, [activeFamily])
-
 
   function handleSearch(search: string) {
     setSearchVal(search)
@@ -81,7 +64,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   }
 
   return (
-    <TintometricProvider>
+    <>
       {activeFamily &&
         <>
           <button onClick={() => handleModalClick(true)}
@@ -90,7 +73,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
             {activeProduct?.code} - {activeProduct?.name}
             <span className={`${handles['modal-button--trigger-icon']} ph5`}><IconCaretDown /></span>
           </button>
-
           <Modal isOpen={modalOpen} onClose={() => handleModalClick(false)}>
             <div className={`${handles['header']} c-on-base`}>
               <h4 className={`${handles['header-title']} mv2`}>{title}</h4>
@@ -142,11 +124,10 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
               {selectedColor && <ColorDetail confirmButton={confirmButton} colorDetailTitle={colorDetailTitle} productTypeSlug={productTypeSlug} handleClick={handleModalClick} color={selectedColor} />}
 
             </section>
-
           </Modal>
         </>
       }
-    </TintometricProvider>
+    </>
   )
 }
 
