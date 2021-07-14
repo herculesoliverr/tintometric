@@ -62,7 +62,8 @@ declare global {
 
   interface EventInterface {
     target: {
-      value: string
+      value: string,
+      name: string 
     }
   }
 

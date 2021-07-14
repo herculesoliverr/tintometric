@@ -1,7 +1,5 @@
-import Main from "./components/Main/Main";
-// export default Tintometric;
-
 import React from 'react'
+import Main from "./components/Main/Main";
 
 import { TintometricProvider } from './context/index';
 
