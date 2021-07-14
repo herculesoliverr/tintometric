@@ -1,0 +1,3 @@
+mutation updateSkuPrice($skuId: String!, $costPrice: Float!, $basePrice: Float!, $listPrice: Float!) {
+    updateSkuPrice(skuId: $skuId, costPrice: $costPrice, basePrice: $basePrice, listPrice: $listPrice)
+}

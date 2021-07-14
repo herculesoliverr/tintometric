@@ -1,4 +1,7 @@
 {
+  "admin.app.navigation.search.kws": "tintometric, tinto",
+  "admin.app.tintometric.title": "Tintometric",
+  "admin.app.tintometric.update_skus_prices": "Update Skus Prices",
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component"
 }

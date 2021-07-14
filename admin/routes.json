@@ -1,0 +1,6 @@
+{
+  "admin.app": {
+    "component": "TintometricAdmin",
+    "path": "/admin/app/tintometric"
+  }
+}
