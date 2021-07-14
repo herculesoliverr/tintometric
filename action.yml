@@ -1,11 +1,9 @@
-name: Some workflow
-on:
-    pull_request:
-        branches: [master, main]
+name: Automatic app review
+on: [pull_request]
 jobs:
   SonarScanner:
     runs-on: ubuntu-latest
-    name: Sonar Scanner
+    name: Sonar scanner
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -13,11 +11,9 @@ jobs:
           fetch-depth: 0
       - name: Install dependencies
         run: yarn install --production=false
-      - name: Scan code
+      - name: Sonar Scanner
         uses: vtex/action-sonarqube@main
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
-          host: ${{ secrets.SQHost }} # Variable set in the Github Secrets
-          token: ${{ secrets.SQToken }} # Variable set in the Github Secrets
-
-          
+          host: ${{ secrets.SQHost }}
+          token: ${{ secrets.SQToken }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
