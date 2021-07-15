@@ -25,7 +25,7 @@ const ColorDetail = ({ colorDetailTitle, confirmButton }: ColorDetailProps) => {
                 <span className={`${handles['colorDetail-name']} fw3`}>{selectedColor.name}</span>
                 <h5 className={`t-heading-5 b mv0 ${handles['colorDetail-code']}`}>{selectedColor.code}</h5>
             </div>
-            <img style={{ backgroundColor: `rgb(${selectedColor.R}, ${selectedColor.G}, ${selectedColor.B})` }} className={`${handles['colorDetail-image']} mv4`} src={selectedColor.image} alt={selectedColor.name} />
+            <img style={{ backgroundColor: `rgb(${selectedColor.R}, ${selectedColor.G}, ${selectedColor.B})` }} className={`${handles['colorDetail-image']} mv4`} src="https://pintureriasqa.vteximg.com.br/arquivos/sala.png" alt={selectedColor.name} />
             <Button>
                 <Link
                     onClick={()=>handleModalClick(false)}
