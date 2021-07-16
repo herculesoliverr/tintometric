@@ -4,7 +4,7 @@ import { useMutation, useQuery } from 'react-apollo'
 
 import { InputCurrency, Input, Button, Layout, PageBlock, PageHeader } from 'vtex.styleguide'
 
-import updateSkuPriceGQL from './graphql/updateSkuPrice.gql'
+import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
 import getDataGQL from './graphql/getData.gql'
 import saveDataGQL from './graphql/saveData.gql'
 
@@ -13,7 +13,7 @@ import useInput from "./hooks/useInput"
 
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
-    const [updateSkuPrice] = useMutation(updateSkuPriceGQL)
+    const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
     const [saveData] = useMutation(saveDataGQL)
     const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
     const base2Query = useQuery(getDataGQL, { variables: { key: 'base2' } })
@@ -42,6 +42,9 @@ const TintometricAdmin: FC = () => {
         setIsLoading(true)
         const data = { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value }
         Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
+        console.log("handleSubmit1")
+        updateSkusPrices({ variables: { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value  } })
+        console.log("handleSubmit2")
     }
 
     const handleSubmitJson = () => {
@@ -51,7 +54,6 @@ const TintometricAdmin: FC = () => {
 
     useEffect(() => {
         if (isLoading) {
-            updateSkuPrice({ variables: { skuId: '1', costPrice: 3, basePrice: 3, listPrice: 5 } })
             const timeout = setTimeout(() => {
                 setIsLoading(!isLoading)
             }, 1000);

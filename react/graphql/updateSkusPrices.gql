@@ -1,0 +1,3 @@
+mutation updateSkusPrices($base1: Float!, $base2: Float!, $base3: Float!, $base4: Float!, $tinter1: Float!, $tinter2: Float!, $tinter3: Float!, $tinter4: Float!, $tinter5: Float!) {
+    updateSkusPrices(base1: $base1, base2: $base2, base3: $base3, base4: $base4, tinter1: $tinter1, tinter2: $tinter2, tinter3: $tinter3, tinter4: $tinter4, tinter5: $tinter5)
+}

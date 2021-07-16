@@ -4,23 +4,9 @@ import { statusToError } from '../utils'
 
 const CATALOG_GRAPHQL_APP = 'vtex.catalog-graphql@1.x'
 
-const CATEGORIES_QUERY = `
-  query GetCategories ($active: Boolean, $page: Int!) {
-    categories(term:"*", page: $page, pageSize: 50, active: $active) {
-      items {
-        id
-        name
-      }
-      paging {
-        pages
-      }
-    }
-  }
-`
-
 const PRODUCTS_QUERY = `
-  query getProducts ($active: Boolean, $page: Int!) {
-    products(term:"*", page: $page, pageSize: 50, active: $active) {
+  query getProducts ($page: Int!) {
+    products(term:"", page: $page, pageSize: 50) {
       items {
         skus{id}
       }
@@ -30,14 +16,7 @@ const PRODUCTS_QUERY = `
     }
   }
 `
-interface CategoryResponse {
-    categories: {
-        items: Array<{ id: string; name: string }>
-        paging: {
-            pages: number
-        }
-    }
-}
+
 interface ProductResponse {
     products: {
         items: {
@@ -49,73 +28,38 @@ interface ProductResponse {
     }
 }
 
-export class CatalogGQL extends AppGraphQLClient {
+export default class Catalog extends AppGraphQLClient {
     constructor(ctx: IOContext, opts?: InstanceOptions) {
         super(CATALOG_GRAPHQL_APP, ctx, opts)
     }
 
-    public getCategories = async (active = true) => {
+    public getProducts = async () => {
         try {
-            const response = await this.getCategoriesPerPage({ active, page: 1 })
-            const {
-                items,
-                paging: { pages },
-            } = (response.data as CategoryResponse).categories
-            const collectItems = items
-            const responsePromises = []
-
-            for (let i = 2; i <= pages; i++) {
-                const promise = this.getCategoriesPerPage({ active, page: i })
-                responsePromises.push(promise)
-            }
-
-            const resolvedPromises = await Promise.all(responsePromises)
-
-            const flattenResponse = resolvedPromises.reduce((acc, curr) => {
-                return [...acc, ...(curr.data as CategoryResponse).categories.items]
-            }, collectItems)
-
-            return flattenResponse
-        } catch (error) {
-            return statusToError(error)
-        }
-    }
-
-    private getCategoriesPerPage = ({
-        active = true,
-        page,
-    }: {
-        active: boolean
-        page: number
-    }) =>
-        this.graphql.query<CategoryResponse, { active: boolean; page: number }>({
-            query: CATEGORIES_QUERY,
-            variables: {
-                active,
-                page,
-            },
-        })
-
-    public getProducts = async (active = true) => {
-        try {
-            const response = await this.getProductsPerPage({ active, page: 1 })
+            console.log("getProducts1")
+            const response = await this.getProductsPerPage({page: 1 })
+            console.log("getProducts2", response)
             const {
                 items,
                 paging: { pages },
             } = (response.data as ProductResponse).products
             const collectItems = items
             const responsePromises = []
-
-            for (let i = 2; i <= pages; i++) {
-                const promise = this.getProductsPerPage({ active, page: i })
+            console.log(pages)
+            for (let i = 2; i <= 4; i++) {
+                const promise = this.getProductsPerPage({ page: i })
                 responsePromises.push(promise)
             }
 
             const resolvedPromises = await Promise.all(responsePromises)
+            console.log("resolvedPromises", resolvedPromises)
+            console.log("collectItems", collectItems)
+            const flattenResponse: any[] = []
+            // const flattenResponse = resolvedPromises.reduce((acc, curr) => {
+            //     console.log("acc", acc)
+            //     console.log("curr", curr)
 
-            const flattenResponse = resolvedPromises.reduce((acc, curr) => {
-                return [...acc, ...(curr.data as ProductResponse).products.items.sku]
-            }, collectItems)
+            //     return [...acc.sku, ...(curr.data as ProductResponse).products.items.sku]
+            // }, collectItems)
 
             return flattenResponse
         } catch (error) {
@@ -123,19 +67,17 @@ export class CatalogGQL extends AppGraphQLClient {
         }
     }
 
-    private getProductsPerPage = ({
-        active = true,
+    public getProductsPerPage = ({
         page,
     }: {
-        active: boolean
         page: number
-    }) =>
-        this.graphql.query<ProductResponse, { active: boolean; page: number }>({
+    }) => {
+        return this.graphql.query<ProductResponse, { page: number }>({
             query: PRODUCTS_QUERY,
             variables: {
-                active,
                 page,
             },
         })
+    }
 
 }

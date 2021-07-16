@@ -2,7 +2,7 @@ import { IOClients } from '@vtex/api'
 
 import Status from './status'
 import Pricing from './pricing'
-import { Brand } from 'vtex.catalog-graphql'
+import Catalog from './catalog'
 
 
 // Extend the default IOClients implementation with our own custom clients.

@@ -7,11 +7,8 @@ type Query {
 }
 
 type Mutation {
-    "Change price of sku by id"
-    updateSkuPrice(skuId: String!, costPrice: Float!, basePrice: Float!, listPrice: Float!): String
-
     "Change price of list of sku ids"
-    updateSkusPrices(skuId: [String!]!, costPrice: [Float!]!, basePrice: [Float!]!, listPrice: [Float!]!): String
+    updateSkusPrices(base1: Float!, base2: Float!, base3: Float!, base4: Float!, tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!): String
 
     "Save data to VBase"
     saveData(key: String!, value: String!): String
