@@ -1,7 +1,7 @@
 import {
-    queries as pricingQueries,
-    mutations as pricingMutations,
-} from './pricing'
+    queries as tintometricQueries,
+    mutations as tintometricMutations,
+} from './tintometric'
 
 import {
     queries as vbaseQueries,
@@ -10,11 +10,11 @@ import {
 
 export const resolvers = {
     Query: {
-        ...pricingQueries,
+        ...tintometricQueries,
         ...vbaseQueries,
     },
     Mutation: {
-        ...pricingMutations,
+        ...tintometricMutations,
         ...vbaseMutations,
     }
 }

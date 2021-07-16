@@ -8,13 +8,13 @@ import updateSkuPriceGQL from './graphql/updateSkuPrice.gql'
 import getDataGQL from './graphql/getData.gql'
 import saveDataGQL from './graphql/saveData.gql'
 
+
 import useInput from "./hooks/useInput"
 
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [updateSkuPrice] = useMutation(updateSkuPriceGQL)
     const [saveData] = useMutation(saveDataGQL)
-
     const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
     const base2Query = useQuery(getDataGQL, { variables: { key: 'base2' } })
     const base3Query = useQuery(getDataGQL, { variables: { key: 'base3' } })
@@ -25,6 +25,7 @@ const TintometricAdmin: FC = () => {
     const tinter4Query = useQuery(getDataGQL, { variables: { key: 'tinter4' } })
     const tinter5Query = useQuery(getDataGQL, { variables: { key: 'tinter5' } })
     const jsonQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+
     const base1 = useInput(base1Query.data?.getData);
     const base2 = useInput(base2Query.data?.getData);
     const base3 = useInput(base3Query.data?.getData);
@@ -35,6 +36,7 @@ const TintometricAdmin: FC = () => {
     const tinter4 = useInput(tinter4Query.data?.getData);
     const tinter5 = useInput(tinter5Query.data?.getData);
     const jsonFile = useInput(jsonQuery.data?.getData);
+    
 
     const handleSubmit = () => {
         setIsLoading(true)
@@ -193,11 +195,10 @@ const TintometricAdmin: FC = () => {
                     </Button>
                 </span>
                 <PageBlock variation="full">
-                    <FormattedMessage id="admin.app.tintometric.uploadFile" />
                     <Input
                         placeholder="url of file to upload"
                         size="large"
-                        label="large"
+                        label={<FormattedMessage id="admin.app.tintometric.uploadFile" />}
                         {...jsonFile} >
                     </Input>
                 </PageBlock>
