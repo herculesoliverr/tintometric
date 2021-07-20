@@ -10,7 +10,7 @@ declare global {
     confirmButton: string,
     file: string
   }
-
+  
   export interface FamilyPickerProps {
     action: (family) => void,
     activeId: number
@@ -96,6 +96,6 @@ declare global {
   }
 }
 
-export interface ApiContextInterface {
-  apiGetStores: () => Promise<Store[]>;
-}
+
+
+

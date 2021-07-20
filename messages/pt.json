@@ -2,8 +2,7 @@
   "admin.app.navigation.search.kws": "tintometric, tinto",
   "admin.app.tintometric.title": "Tintometric",
   "admin.app.tintometric.update_skus_prices": "Actualizar Precios de Skus",
-  "admin.app.tintometric.uploadFile": "Insira url do arquivo json",
-  "admin.app.tintometric.uploadFile_button": "Mandar",
+  "admin.app.tintometric.uploadFile": "Insira arquivo JSON",
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component"
 }

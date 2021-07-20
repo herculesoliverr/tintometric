@@ -7,6 +7,8 @@ import ColorDetail from '../ColorDetail/ColorDetail'
 import "./styles.css"
 import { IconCaretDown } from 'vtex.styleguide'
 import { useTintometricContext } from '../../context'
+import { useQuery } from 'react-apollo'
+import getDataGQL from './../../graphql/getData.gql'
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
@@ -22,7 +24,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [showSearch, setShowSearch] = useState(false)
   const [searchVal, setSearchVal] = useState('')
-
+  const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
+  console.log("jsonNameQuery---", jsonNameQuery)
   const {
     getData,
     products,
@@ -38,8 +41,10 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const handles = useCssHandles(CSS_HANDLES)
 
   useEffect(() => {
-    file && getData(file)
+    getData(file)
   }, [])
+
+  console.log("products", products)
 
   useEffect(() => {
     activeFamily && setFilteredProducts(products.filter(product => product.family === activeFamily?.id && product.products?.find(item => item === activeProductType?.id)))
@@ -53,7 +58,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
         product.code.toLowerCase().includes(search.toLowerCase())
     ))
   }
-  console.log("renders----")
   return (
     <>
       {activeFamily &&

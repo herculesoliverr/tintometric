@@ -28,6 +28,22 @@ interface ProductResponse {
     }
 }
 
+interface Skus {
+    id: string
+}
+
+interface PromiseInterface {
+    data: {
+        products: {
+            items: {
+                skus: Skus[]
+            }[]
+        }
+    }
+}
+
+
+
 export default class Catalog extends AppGraphQLClient {
     constructor(ctx: IOContext, opts?: InstanceOptions) {
         super(CATALOG_GRAPHQL_APP, ctx, opts)
@@ -35,31 +51,21 @@ export default class Catalog extends AppGraphQLClient {
 
     public getProducts = async () => {
         try {
-            console.log("getProducts1")
-            const response = await this.getProductsPerPage({page: 1 })
-            console.log("getProducts2", response)
+            const response = await this.getProductsPerPage({ page: 1 })
             const {
-                items,
                 paging: { pages },
             } = (response.data as ProductResponse).products
-            const collectItems = items
             const responsePromises = []
-            console.log(pages)
-            for (let i = 2; i <= 4; i++) {
+            for (let i = 2; i <= pages; i++) {
                 const promise = this.getProductsPerPage({ page: i })
                 responsePromises.push(promise)
             }
 
-            const resolvedPromises = await Promise.all(responsePromises)
-            console.log("resolvedPromises", resolvedPromises)
-            console.log("collectItems", collectItems)
-            const flattenResponse: any[] = []
-            // const flattenResponse = resolvedPromises.reduce((acc, curr) => {
-            //     console.log("acc", acc)
-            //     console.log("curr", curr)
+            const resolvedPromises: any = await Promise.all(responsePromises)
+            let flattenResponse: PromiseInterface[] = []
 
-            //     return [...acc.sku, ...(curr.data as ProductResponse).products.items.sku]
-            // }, collectItems)
+            flattenResponse = resolvedPromises.map((x: any) => x.data.products.items.map((y: any) => y.skus)).flat(2).map((item: any) => item.id);
+            console.log("reflattenResponsesult---", flattenResponse)
 
             return flattenResponse
         } catch (error) {

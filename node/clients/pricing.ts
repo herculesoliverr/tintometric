@@ -22,7 +22,7 @@ export default class Pricing extends JanusClient {
             basePrice: basePrice,
             listPrice: listPrice
         }
-
+        console.log("body----", body)
         return this.http.put(`/${this.context.account}/${this.baseUrl}/${skuId}?an=${this.context.account}`, body, { metric: 'pricing__update' })
     }
 

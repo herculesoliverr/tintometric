@@ -15,6 +15,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@types/atob": "^2.1.2"
+    "@types/atob": "^2.1.2",
+    "react-dropzone": "^11.3.4"
   }
 }

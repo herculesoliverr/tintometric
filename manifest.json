@@ -20,7 +20,10 @@
     "vtex.search-graphql": "0.x",
     "vtex.product-context": "0.x",
     "vtex.slider-layout": "0.x",
-    "vtex.catalog-graphql": "1.x"
+    "vtex.file-manager": "0.x",
+    "vtex.file-manager-graphql": "0.x",
+    "vtex.catalog-graphql": "1.x",
+    "vtex.native-types": "0.x"
   },
   "policies": [
     {

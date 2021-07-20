@@ -2,14 +2,15 @@ import React, { FC, useState, useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useMutation, useQuery } from 'react-apollo'
 
-import { InputCurrency, Input, Button, Layout, PageBlock, PageHeader } from 'vtex.styleguide'
+import { InputCurrency, Button, Layout, PageBlock, PageHeader } from 'vtex.styleguide'
 
 import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
 import getDataGQL from './graphql/getData.gql'
 import saveDataGQL from './graphql/saveData.gql'
 
-
 import useInput from "./hooks/useInput"
+import UploadFile from './components/UploadFile/UploadFile'
+import { TintometricProvider } from './context'
 
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -24,7 +25,8 @@ const TintometricAdmin: FC = () => {
     const tinter3Query = useQuery(getDataGQL, { variables: { key: 'tinter3' } })
     const tinter4Query = useQuery(getDataGQL, { variables: { key: 'tinter4' } })
     const tinter5Query = useQuery(getDataGQL, { variables: { key: 'tinter5' } })
-    const jsonQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+    // const jsonQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+    2
 
     const base1 = useInput(base1Query.data?.getData);
     const base2 = useInput(base2Query.data?.getData);
@@ -35,21 +37,16 @@ const TintometricAdmin: FC = () => {
     const tinter3 = useInput(tinter3Query.data?.getData);
     const tinter4 = useInput(tinter4Query.data?.getData);
     const tinter5 = useInput(tinter5Query.data?.getData);
-    const jsonFile = useInput(jsonQuery.data?.getData);
-    
+    // const jsonFile = useInput(jsonQuery.data?.getData);
+
 
     const handleSubmit = () => {
         setIsLoading(true)
         const data = { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value }
-        Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
-        console.log("handleSubmit1")
-        updateSkusPrices({ variables: { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value  } })
-        console.log("handleSubmit2")
-    }
 
-    const handleSubmitJson = () => {
-        setIsLoading(!isLoading)
-        saveData({ variables: { key: "jsonFile", value: jsonFile.value } })
+        Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
+
+        updateSkusPrices({ variables: { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value } })
     }
 
     useEffect(() => {
@@ -75,7 +72,7 @@ const TintometricAdmin: FC = () => {
     }
 
     return (
-        <>
+        <TintometricProvider>
             <Layout
                 pageHeader={
                     <PageHeader
@@ -196,15 +193,11 @@ const TintometricAdmin: FC = () => {
                         <FormattedMessage id="admin.app.tintometric.update_skus_prices" />
                     </Button>
                 </span>
-                <PageBlock variation="full">
-                    <Input
-                        placeholder="url of file to upload"
-                        size="large"
-                        label={<FormattedMessage id="admin.app.tintometric.uploadFile" />}
-                        {...jsonFile} >
-                    </Input>
-                </PageBlock>
-                <span className="mr4">
+
+
+                <UploadFile />
+
+                {/* <span className="mr4">
                     <Button
                         variation="primary"
                         onClick={() => {
@@ -214,9 +207,9 @@ const TintometricAdmin: FC = () => {
                     >
                         <FormattedMessage id="admin.app.tintometric.uploadFile_button" />
                     </Button>
-                </span>
+                </span> */}
             </Layout>
-        </>
+        </TintometricProvider>
     )
 }
 
