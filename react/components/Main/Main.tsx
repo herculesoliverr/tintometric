@@ -55,6 +55,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
         product.code.toLowerCase().includes(search.toLowerCase())
     ))
   }
+  console.log("products", products)
   return (
     <>
       {activeFamily &&

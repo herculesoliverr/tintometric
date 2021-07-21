@@ -24,7 +24,7 @@ const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
                     items && items.map((item) => {
                         return (
                             layout === 'grid' ?
-                                <Tooltip label={
+                                <Tooltip key={item.skuId} label={
                                     <Label name={item.name} code={item.code} />
                                 }>
                                     <span

@@ -1,4 +1,4 @@
-import React, { FC, useState/* , useEffect  */} from 'react'
+import React, { FC, useState/* , useEffect  */ } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useMutation, useQuery } from 'react-apollo'
 
@@ -45,19 +45,6 @@ const TintometricAdmin: FC = () => {
         updateSkusPrices({ variables: { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value } })
     }
 
-    
-/*     useEffect(() => {
-        if (isLoading) {
-            const timeout = setTimeout(() => {
-                setIsLoading(!isLoading)
-            }, 1000);
-
-            return () => {
-                clearTimeout(timeout)
-            }
-        }
-        return () => { }
-    }, [isLoading]) */
 
     if (base1Query.loading || base2Query.loading) {
         return (<Layout>"Loading...."</Layout>)

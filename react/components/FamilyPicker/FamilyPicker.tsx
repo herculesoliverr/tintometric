@@ -29,7 +29,7 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
                 {
                     families.map((family) => {
                         return (
-                            <div onClick={() => action(family)} className={`${handles['familyPicker-item']} ${family.id === activeId ? handles['familyPicker-item--isActive'] : ''}`}>
+                            <div key={family.id} onClick={() => action(family)} className={`${handles['familyPicker-item']} ${family.id === activeId ? handles['familyPicker-item--isActive'] : ''}`}>
                                 <span
                                     className={handles['familyPicker-span']}
                                     style={{ backgroundColor: `${family.color}` }}
