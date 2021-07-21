@@ -1,5 +1,4 @@
 import {
-    queries as tintometricQueries,
     mutations as tintometricMutations,
 } from './tintometric'
 
@@ -10,7 +9,6 @@ import {
 
 export const resolvers = {
     Query: {
-        ...tintometricQueries,
         ...vbaseQueries,
     },
     Mutation: {

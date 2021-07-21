@@ -65,8 +65,6 @@ export default class Catalog extends AppGraphQLClient {
             let flattenResponse: PromiseInterface[] = []
 
             flattenResponse = resolvedPromises.map((x: any) => x.data.products.items.map((y: any) => y.skus)).flat(2).map((item: any) => item.id);
-            console.log("reflattenResponsesult---", flattenResponse)
-
             return flattenResponse
         } catch (error) {
             return statusToError(error)
