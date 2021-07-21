@@ -77,11 +77,12 @@ declare global {
 
   interface TintometricContextInterface {
     getData: (file: string) => void,
+    // getDataFromUrl: (fileUrl: string) => void,
     families: Family[],
     activeFamily: Family | undefined,
     setActiveFamily: (Family) => void,
     products: ProductProps[],
-    activeProduct: ProductProps | undefined,
+    // activeProduct: ProductProps | undefined,
     handleModalClick: (state: boolean) => void,
     modalOpen: boolean,
     activeProduct: ProductProps,

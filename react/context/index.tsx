@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect, useContext } from 'react';
-import base64ToJson from './../utils/base64ToJson';
+// import base64ToJson from './../utils/base64ToJson';
 import { useRuntime } from "vtex.render-runtime";
 
 export const TintometricContext = createContext({} as TintometricContextInterface)
@@ -51,17 +51,26 @@ export function TintometricProvider({ children }: ContextChildren) {
       return initialSlug?.toLocaleLowerCase();
    }
 
-
+/* 
    function getData(file: string) {
       const dataFile: DataProps = base64ToJson(file);
       setData(dataFile)
       setProducts(dataFile.products)
+   } */
+
+   async function getData(fileUrl: string) {
+      const res = await fetch(`${fileUrl}`);
+      const data = await res.json();
+      setData(data);
+      setProducts(data.products)
+
    }
 
    return (
       <TintometricContext.Provider
          value={{
             getData,
+           /*  getDataFromUrl, */
             families,
             setActiveFamily,
             activeFamily,
