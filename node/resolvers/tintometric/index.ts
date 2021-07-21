@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 
 export const mutations = {
     updateSkusPrices: async (
@@ -17,6 +18,9 @@ export const mutations = {
         try {
             const jsonUrl = await vbase.getJSON<{ key: string }>('tintometricData', "jsonFile")
             console.log("jsonUrl---", jsonUrl)
+            const response = await fetch(jsonUrl)
+            console.log("response----", response)
+            
             res.forEach(item => {
                 /*
                 1. traer todos los productos √

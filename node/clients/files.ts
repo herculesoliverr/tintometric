@@ -1,29 +1,22 @@
-import { AppGraphQLClient, InstanceOptions, IOContext } from '@vtex/api'
+import type { InstanceOptions, IOContext, IOResponse } from '@vtex/api'
+import { ExternalClient } from '@vtex/api'
 
-// const FILE_GRAPHQL_APP = 'vtex.file-manager-graphql@0.x'
+export default class Files extends ExternalClient {
+  constructor(context: IOContext, options?: InstanceOptions) {
+    super('http://httpstat.us', context, options)
+  }
 
+  public async getStatus(status: number): Promise<string> {
+    return this.http.get(status.toString(), {
+      metric: 'status-get',
+    })
+  }
 
-const FILE_QUERY = `
-query getData($key: String!){
-    getData(key: $key)
-}
-`
-
-export default class Files extends AppGraphQLClient {
-    constructor(ctx: IOContext, opts?: InstanceOptions) {
-        super(FILE_QUERY, ctx, opts)
-    }
-
-    public getFile = ({
-        key,
-    }: {
-        key: string
-    }) => {
-        return this.graphql.query<any, { key: string }>({
-            query: FILE_QUERY,
-            variables: {
-                key,
-            },
-        })
-    }
+  public async getStatusWithHeaders(
+    status: number
+  ): Promise<IOResponse<string>> {
+    return this.http.getRaw(status.toString(), {
+      metric: 'status-get-raw',
+    })
+  }
 }
