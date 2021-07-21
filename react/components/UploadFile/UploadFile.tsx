@@ -10,7 +10,7 @@ import saveDataGQL from './../../graphql/saveData.gql'
 import getDataGQL from './../../graphql/getData.gql'
 
 
-import { useTintometricContext } from '../../context'
+// import { useTintometricContext } from '../../context'
 
 interface State {
     error: string | null
@@ -38,7 +38,6 @@ const UploadFile = () => {
     const [saveData] = useMutation(saveDataGQL)
     const intl = useIntl()
     const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
-    const { getData } = useTintometricContext()
 
     const [state, setState] = useState<State>({
         error: null,
@@ -67,12 +66,12 @@ const UploadFile = () => {
             setState(prevState => ({ ...prevState, isLoading: false }))
             saveData({ variables: { key: "jsonFile", value: dataUploadFile.uploadFile.fileUrl } })
             saveData({ variables: { key: "jsonName", value: state.fileName } })
-            getData(dataUploadFile.uploadFile.fileUrl)
         }
     }, [loadinUploadFile, errorUploadFile, dataUploadFile])
 
-    const handleImageDrop = async (acceptedFiles: File[]) => {
+    const handleDropFile = async (acceptedFiles: File[]) => {
         if (acceptedFiles && acceptedFiles[0]) {
+            console.log("acceptedFiles[0]", acceptedFiles[0])
             setState(prevState => ({ ...prevState, fileName: acceptedFiles[0].name }))
             uploadFile({
                 variables: { file: acceptedFiles[0] },
@@ -83,7 +82,6 @@ const UploadFile = () => {
                 error: intl.formatMessage(messages.fileSizeError),
             }))
         }
-
     }
     return (
         <>
@@ -91,7 +89,7 @@ const UploadFile = () => {
                 <FormattedMessage id="admin.app.tintometric.uploadFile" />
             </span>
 
-            <Dropzone onDrop={acceptedFiles => handleImageDrop(acceptedFiles)}>
+            <Dropzone onDrop={acceptedFiles => handleDropFile(acceptedFiles)}>
                 {({ getRootProps, getInputProps }) => (
                     <section>
                         <div

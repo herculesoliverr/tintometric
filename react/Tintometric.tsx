@@ -4,7 +4,7 @@ import Main from "./components/Main/Main";
 import { TintometricProvider } from './context/index';
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
-    title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme", file
+    title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme"
 }) => {
     return (
         <TintometricProvider>
@@ -15,7 +15,6 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
                 buttonList={buttonList}
                 colorDetailTitle={colorDetailTitle}
                 confirmButton={confirmButton}
-                file={file}
             />
         </TintometricProvider>
     );
@@ -63,13 +62,6 @@ Tintometric.schema = {
             description: 'Confirm button label used in the modal',
             type: 'string',
             default: 'Confirme',
-        },
-        file: {
-            title: 'File',
-            type: 'string',
-            widget: {
-                'ui:widget': 'file',
-            },
         }
     }
 }

@@ -19,13 +19,12 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   buttonList = "Nome",
   colorDetailTitle = "Cor Escolhida:",
   confirmButton = "Confirme",
-  file
 }) => {
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [showSearch, setShowSearch] = useState(false)
   const [searchVal, setSearchVal] = useState('')
-  const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
-  console.log("jsonNameQuery---", jsonNameQuery)
+  const jsonFileQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+
   const {
     getData,
     products,
@@ -41,10 +40,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const handles = useCssHandles(CSS_HANDLES)
 
   useEffect(() => {
-    getData(file)
-  }, [])
-
-  console.log("products", products)
+    jsonFileQuery.data?.getData && getData(jsonFileQuery.data?.getData)
+  }, [jsonFileQuery])
 
   useEffect(() => {
     activeFamily && setFilteredProducts(products.filter(product => product.family === activeFamily?.id && product.products?.find(item => item === activeProductType?.id)))

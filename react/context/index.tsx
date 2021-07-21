@@ -1,6 +1,8 @@
 import React, { useState, createContext, useEffect, useContext } from 'react';
 // import base64ToJson from './../utils/base64ToJson';
 import { useRuntime } from "vtex.render-runtime";
+// import { useQuery } from 'react-apollo'
+// import getDataGQL from './../graphql/getData.gql'
 
 export const TintometricContext = createContext({} as TintometricContextInterface)
 
@@ -18,10 +20,7 @@ export function TintometricProvider({ children }: ContextChildren) {
    const activeProduct = products?.find(product => product.code.toLowerCase() === getActualCode())
 
    useEffect(() => {
-      // Extracts active slug type from the url
       const actualSlugType = runtime?.route?.params?.slug?.toLowerCase().replace(`-${activeProduct?.slug.toLowerCase()}-${activeProduct?.code.toLowerCase()}`, '');
-
-      //finds the productType of the active product from the json file
       activeProduct && setActiveProductType(data?.productType.find(type => type.slug === actualSlugType))
    }, [activeProduct])
 
@@ -51,26 +50,25 @@ export function TintometricProvider({ children }: ContextChildren) {
       return initialSlug?.toLocaleLowerCase();
    }
 
-/* 
-   function getData(file: string) {
-      const dataFile: DataProps = base64ToJson(file);
-      setData(dataFile)
-      setProducts(dataFile.products)
-   } */
+
+   /*  function getData(file: string) {
+       const dataFile: DataProps = base64ToJson(file);
+       setData(dataFile)
+       setProducts(dataFile.products)
+    } */
 
    async function getData(fileUrl: string) {
       const res = await fetch(`${fileUrl}`);
       const data = await res.json();
       setData(data);
       setProducts(data.products)
-
    }
 
    return (
       <TintometricContext.Provider
          value={{
             getData,
-           /*  getDataFromUrl, */
+            /*  getDataFromUrl, */
             families,
             setActiveFamily,
             activeFamily,

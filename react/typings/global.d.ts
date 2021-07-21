@@ -8,7 +8,7 @@ declare global {
     buttonList: string,
     colorDetailTitle: string,
     confirmButton: string,
-    file: string
+    // file: string
   }
   
   export interface FamilyPickerProps {
@@ -76,8 +76,8 @@ declare global {
   }
 
   interface TintometricContextInterface {
-    getData: (file: string) => void,
-    // getDataFromUrl: (fileUrl: string) => void,
+    // getData: (file: string) => void,
+    getData: (fileUrl: string) => void,
     families: Family[],
     activeFamily: Family | undefined,
     setActiveFamily: (Family) => void,
@@ -85,7 +85,7 @@ declare global {
     // activeProduct: ProductProps | undefined,
     handleModalClick: (state: boolean) => void,
     modalOpen: boolean,
-    activeProduct: ProductProps,
+    activeProduct: ProductProps | undefined,
     activeProductType: ProductType | undefined,
     selectedColor: any,
     setSelectedColor: (product: ProductProps) => void,
