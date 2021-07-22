@@ -36,13 +36,14 @@ const TintometricAdmin: FC = () => {
     const tinter5 = useInput(tinter5Query.data?.getData);
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setIsLoading(true)
         const data = { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value }
-
-        Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
-
-        updateSkusPrices({ variables: { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value } })
+        console.log("before foreach to saveData")
+        await Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
+        console.log("after foreach to saveData")
+        updateSkusPrices({ variables: { base1: parseFloat(base1.value), base2: parseFloat(base2.value), base3: parseFloat(base3.value), base4: parseFloat(base4.value), tinter1: parseFloat(tinter1.value), tinter2: parseFloat(tinter2.value), tinter3: parseFloat(tinter3.value), tinter4: parseFloat(tinter4.value), tinter5: parseFloat(tinter5.value) } })
+        console.log("after updateSkusPrices")
     }
 
 

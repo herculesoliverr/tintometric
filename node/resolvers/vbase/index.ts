@@ -1,6 +1,6 @@
 export const queries = {
     getData: async (
-        /* _: unknown, */
+        _: unknown,
         { key }: any,
         ctx: Context
     ): Promise<any> => {

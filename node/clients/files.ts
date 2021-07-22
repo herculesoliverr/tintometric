@@ -1,22 +1,16 @@
-import type { InstanceOptions, IOContext, IOResponse } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
 import { ExternalClient } from '@vtex/api'
 
 export default class Files extends ExternalClient {
   constructor(context: IOContext, options?: InstanceOptions) {
-    super('http://httpstat.us', context, options)
+    super(`http://${context.account}.vtexassets.com`, context, options)
   }
 
-  public async getStatus(status: number): Promise<string> {
-    return this.http.get(status.toString(), {
-      metric: 'status-get',
-    })
+  public async getFile(fileUrl: string): Promise<any> {
+    console.log(fileUrl)
+    const fileName = fileUrl.split('/')[fileUrl.split('/').length-1]
+    console.log(fileName)
+    return this.http.get(`/assets/vtex.file-manager-graphql/images/${fileName}`)
   }
 
-  public async getStatusWithHeaders(
-    status: number
-  ): Promise<IOResponse<string>> {
-    return this.http.getRaw(status.toString(), {
-      metric: 'status-get-raw',
-    })
-  }
 }

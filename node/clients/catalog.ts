@@ -6,7 +6,7 @@ const CATALOG_GRAPHQL_APP = 'vtex.catalog-graphql@1.x'
 
 const PRODUCTS_QUERY = `
   query getProducts ($page: Int!) {
-    products(term:"", page: $page, pageSize: 50) {
+    products(term:"", page: $page, pageSize: 50, filters: {active: true}) {
       items {
         skus{id}
       }
@@ -71,11 +71,12 @@ export default class Catalog extends AppGraphQLClient {
         }
     }
 
-    public getProductsPerPage = ({
+    public getProductsPerPage = async ({
         page,
     }: {
         page: number
     }) => {
+        await new Promise(r => setTimeout(r, 1000));
         return this.graphql.query<ProductResponse, { page: number }>({
             query: PRODUCTS_QUERY,
             variables: {
