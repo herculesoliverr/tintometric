@@ -4,14 +4,12 @@ export const queries = {
 export const mutations = {
     updateSkusPrices: async (
         _: unknown,
-        { base1, base2, base3, base4, tinter1, tinter2, tinter3, tinter4, tinter5 }: any,
+        { base1, base2, base3, base4, base5, tinter1, tinter2, tinter3, tinter4, tinter5, tinter6, tinter7, tinter8, tinter9, tinter10, tinter11 }: any,
         { clients: { pricing, catalog, vbase, files } }: Context
     ): Promise<String> => {
-
-        console.log(`bases--- ${base1} ${base2} ${base3} ${base4} ${tinter1} ${tinter2} ${tinter3} ${tinter4} ${tinter5}`)
-        console.log(pricing)
+    
         const products: any = await catalog.getProducts();
-        console.log("products---", products)
+        
         try {
             const jsonUrl = await vbase.getJSON<string>('tintometricData', "jsonFile")
             // console.log("----jsonUrl")
@@ -43,14 +41,25 @@ export const mutations = {
                     if (jsonProduct['composition']['base4']) {
                         base = base4
                     }
+                    if (jsonProduct['composition']['base4']) {
+                        base = base4
+                    }
+                    if (jsonProduct['composition']['base5']) {
+                        base = base5
+                    }
 
                     let price = tinter1 * jsonProduct?.composition?.tinter1 +
                         tinter2 * jsonProduct?.composition?.tinter2 +
                         tinter3 * jsonProduct?.composition?.tinter3 +
                         tinter4 * jsonProduct?.composition?.tinter4 +
                         tinter5 * jsonProduct?.composition?.tinter5 +
+                        tinter6 * jsonProduct?.composition?.tinter6 +
+                        tinter7 * jsonProduct?.composition?.tinter7 +
+                        tinter8 * jsonProduct?.composition?.tinter8 +
+                        tinter9 * jsonProduct?.composition?.tinter9 +
+                        tinter10 * jsonProduct?.composition?.tinter10 +
+                        tinter11 * jsonProduct?.composition?.tinter11 +
                         base
-                    console.log("price----", price)
                     pricing.updateSkuPrice(item, price, price, price * 1.3)
                 }
             })

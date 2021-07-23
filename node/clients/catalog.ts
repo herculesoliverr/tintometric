@@ -56,17 +56,14 @@ export default class Catalog extends AppGraphQLClient {
                 paging: { total },
             } = (response.data as ProductResponse).products
             const responsePromises = []
-            // console.log("total----", total)
             for (let i = 1; i <= total; i++) {
                 const promise = this.getProductsPerPage({ page: i })
                 responsePromises.push(promise)
             }
-
             const resolvedPromises: any = await Promise.all(responsePromises)
             let flattenResponse: PromiseInterface[] = []
 
-            flattenResponse = resolvedPromises.map((x: any) => x.data.products.items.map((y: any) => y.skus)).flat(2).map((item: any) => item.isActive && item.id);
-            console.log("flattenResponse----", JSON.stringify(flattenResponse))
+            flattenResponse = resolvedPromises.map((x: any) => x.data.products.items.map((y: any) => y.skus)).flat(2).map((item: any) => item.id);
             return flattenResponse
         } catch (error) {
             return statusToError(error)
