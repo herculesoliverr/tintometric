@@ -6,12 +6,12 @@ const CATALOG_GRAPHQL_APP = 'vtex.catalog-graphql@1.x'
 
 const PRODUCTS_QUERY = `
   query getProducts ($page: Int!) {
-    products(term:"", page: $page, pageSize: 50, filters: {active: true}) {
+    products(term:"", page: $page, pageSize: 50) {
       items {
-        skus{id}
+        skus{id, isActive}
       }
       paging {
-        pages
+        total
       }
     }
   }
@@ -23,7 +23,7 @@ interface ProductResponse {
             sku: Array<{ id: string }>
         }
         paging: {
-            pages: number
+            total: number
         }
     }
 }
@@ -53,10 +53,11 @@ export default class Catalog extends AppGraphQLClient {
         try {
             const response = await this.getProductsPerPage({ page: 1 })
             const {
-                paging: { pages },
+                paging: { total },
             } = (response.data as ProductResponse).products
             const responsePromises = []
-            for (let i = 2; i <= pages; i++) {
+            // console.log("total----", total)
+            for (let i = 1; i <= total; i++) {
                 const promise = this.getProductsPerPage({ page: i })
                 responsePromises.push(promise)
             }
@@ -64,7 +65,8 @@ export default class Catalog extends AppGraphQLClient {
             const resolvedPromises: any = await Promise.all(responsePromises)
             let flattenResponse: PromiseInterface[] = []
 
-            flattenResponse = resolvedPromises.map((x: any) => x.data.products.items.map((y: any) => y.skus)).flat(2).map((item: any) => item.id);
+            flattenResponse = resolvedPromises.map((x: any) => x.data.products.items.map((y: any) => y.skus)).flat(2).map((item: any) => item.isActive && item.id);
+            console.log("flattenResponse----", JSON.stringify(flattenResponse))
             return flattenResponse
         } catch (error) {
             return statusToError(error)
