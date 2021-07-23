@@ -2,7 +2,7 @@ import React, { FC, useState/* , useEffect  */ } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useMutation, useQuery } from 'react-apollo'
 
-import { InputCurrency, Button, Layout, PageBlock, PageHeader } from 'vtex.styleguide'
+import { InputCurrency, Button, Layout, PageBlock, PageHeader, Spinner, Alert } from 'vtex.styleguide'
 
 import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
 import getDataGQL from './graphql/getData.gql'
@@ -13,6 +13,7 @@ import UploadFile from './components/UploadFile/UploadFile'
 
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
     const [saveData] = useMutation(saveDataGQL)
     const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
@@ -38,17 +39,20 @@ const TintometricAdmin: FC = () => {
 
     const handleSubmit = async () => {
         setIsLoading(true)
+
         const data = { base1: base1.value, base2: base2.value, base3: base3.value, base4: base4.value, tinter1: tinter1.value, tinter2: tinter2.value, tinter3: tinter3.value, tinter4: tinter4.value, tinter5: tinter5.value }
-        console.log("before foreach to saveData")
+
         await Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
-        console.log("after foreach to saveData")
-        updateSkusPrices({ variables: { base1: parseFloat(base1.value), base2: parseFloat(base2.value), base3: parseFloat(base3.value), base4: parseFloat(base4.value), tinter1: parseFloat(tinter1.value), tinter2: parseFloat(tinter2.value), tinter3: parseFloat(tinter3.value), tinter4: parseFloat(tinter4.value), tinter5: parseFloat(tinter5.value) } })
-        console.log("after updateSkusPrices")
+
+        updateSkusPrices({ variables: { base1: parseFloat(base1.value), base2: parseFloat(base2.value), base3: parseFloat(base3.value), base4: parseFloat(base4.value), tinter1: parseFloat(tinter1.value), tinter2: parseFloat(tinter2.value), tinter3: parseFloat(tinter3.value), tinter4: parseFloat(tinter4.value), tinter5: parseFloat(tinter5.value) } }).then(() => {
+            setIsLoading(false)
+            setSuccess(true)
+        })
+
     }
 
-
     if (base1Query.loading || base2Query.loading) {
-        return (<Layout>"Loading...."</Layout>)
+        return (<div className="flex items-center justify-center mv8"><Spinner /></div>)
     }
     if (base1Query.error || base2Query.error) {
         return (
@@ -177,22 +181,17 @@ const TintometricAdmin: FC = () => {
                     >
                         <FormattedMessage id="admin.app.tintometric.update_skus_prices" />
                     </Button>
+                    {success &&
+                        <div className={`mt5`}>
+                            <Alert type="success" onClose={() => setSuccess(false)}>
+                                <FormattedMessage id="admin.app.tintometric.update_success" />
+                            </Alert>
+                        </div>
+                    }
                 </span>
-
 
                 <UploadFile />
 
-                {/* <span className="mr4">
-                    <Button
-                        variation="primary"
-                        onClick={() => {
-                            handleSubmitJson()
-                        }}
-                        isLoading={isLoading}
-                    >
-                        <FormattedMessage id="admin.app.tintometric.uploadFile_button" />
-                    </Button>
-                </span> */}
             </Layout>
         </>
     )
