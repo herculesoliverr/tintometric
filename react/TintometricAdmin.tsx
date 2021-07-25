@@ -11,6 +11,7 @@ import saveDataGQL from './graphql/saveData.gql'
 import useInput from "./hooks/useInput"
 import UploadFile from './components/UploadFile/UploadFile'
 
+
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -50,10 +51,20 @@ const TintometricAdmin: FC = () => {
     const tinter9 = useInput(tinter9Query.data?.getData);
     const tinter10 = useInput(tinter10Query.data?.getData);
     const tinter11 = useInput(tinter11Query.data?.getData);
+    const minArray = ["minBase1", "minBase2", "minBase3", "minBase4", "minBase5", "minTinter1", "minTinter2", "minTinter3", "minTinter4", "minTinter5", "minTinter6", "minTinter7", "minTinter8", "minTinter9", "minTinter10", "minTinter11"]
+
+    const minResponses: any = {};
+
+    minArray.forEach((item): any => {
+        console.log("item---", item)
+        const res = useQuery(getDataGQL, { variables: { key: item } })
+        minResponses[item] = res.data?.getData
+    })
+
+    console.log("minResponses---", minResponses)
 
     const handleSubmit = async () => {
         setIsLoading(true)
-
         const data = {
             base1: base1.value,
             base2: base2.value,
@@ -72,8 +83,8 @@ const TintometricAdmin: FC = () => {
             tinter10: tinter10.value,
             tinter11: tinter11.value
         }
-
         await Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
+
         console.log("data", data)
         updateSkusPrices({
             variables: {
@@ -98,8 +109,8 @@ const TintometricAdmin: FC = () => {
             setIsLoading(false)
             setSuccess(true)
         })
-
     }
+    // console.log(minResponses.find(item => console.log("item", item.variables?.key)))
 
     if (base1Query.loading || base2Query.loading) {
         return (<div className="flex items-center justify-center mv8"><Spinner /></div>)
@@ -130,6 +141,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...base1}
                         />
+                        {base1.value < minResponses.minBase1 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minBase1} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -141,6 +157,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...base2}
                         />
+                        {base2.value < minResponses.minBase2 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minBase2} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -152,6 +173,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...base3}
                         />
+                        {base3.value < minResponses.minBase3 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minBase3} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -163,6 +189,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...base4}
                         />
+                        {base4.value < minResponses.minBase4 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minBase4} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -174,6 +205,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...base5}
                         />
+                        {base5.value < minResponses.minBase5 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minBase5} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -185,6 +221,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter1}
                         />
+                        {tinter1.value < minResponses.minTinter1 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter1} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -196,6 +237,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter2}
                         />
+                        {tinter2.value < minResponses.minTinter2 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter2} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -206,8 +252,12 @@ const TintometricAdmin: FC = () => {
                             locale="en-US"
                             currencyCode="USD"
                             {...tinter3}
-
                         />
+                        {tinter3.value < minResponses.minTinter3 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter3} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -219,6 +269,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter4}
                         />
+                        {tinter4.value < minResponses.minTinter4 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter4} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -230,6 +285,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter5}
                         />
+                        {tinter5.value < minResponses.minTinter5 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter5} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -241,6 +301,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter6}
                         />
+                        {tinter6.value < minResponses.minTinter6 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter6} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -252,6 +317,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter7}
                         />
+                        {tinter7.value < minResponses.minTinter7 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter7} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -263,6 +333,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter8}
                         />
+                        {tinter8.value < minResponses.minTinter8 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter8} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -274,6 +349,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter9}
                         />
+                        {tinter9.value < minResponses.minTinter9 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter9} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -285,6 +365,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter10}
                         />
+                        {tinter10.value < minResponses.minTinter10 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter10} mínimo
+                            </Alert>
+                        }
                     </span>
                     <span className={"mv5 db"}>
                         <InputCurrency
@@ -296,6 +381,11 @@ const TintometricAdmin: FC = () => {
                             currencyCode="USD"
                             {...tinter11}
                         />
+                        {tinter11.value < minResponses.minTinter11 &&
+                            <Alert type="error" onClose={() => setSuccess(false)}>
+                                {minResponses.minTinter11} mínimo
+                            </Alert>
+                        }
                     </span>
                 </PageBlock>
                 <span className="mr4 mb8 db">
