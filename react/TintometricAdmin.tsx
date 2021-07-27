@@ -1,8 +1,8 @@
-import React, { FC, useState/* , useEffect  */ } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useMutation, useQuery } from 'react-apollo'
 
-import { InputCurrency, Button, Layout, PageBlock, PageHeader, Spinner, Alert } from 'vtex.styleguide'
+import { InputCurrency, Button, Layout, PageBlock, PageHeader, Spinner, Alert, Checkbox } from 'vtex.styleguide'
 
 import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
 import getDataGQL from './graphql/getData.gql'
@@ -15,7 +15,9 @@ import UploadFile from './components/UploadFile/UploadFile'
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [formValidated, setFormValidated] = useState(false)
     const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
+    const [oldPrices, setOldPrices] = useState(false)
     const [saveData] = useMutation(saveDataGQL)
     const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
     const base2Query = useQuery(getDataGQL, { variables: { key: 'base2' } })
@@ -53,39 +55,66 @@ const TintometricAdmin: FC = () => {
     const tinter11 = useInput(tinter11Query.data?.getData);
     const minArray = ["minBase1", "minBase2", "minBase3", "minBase4", "minBase5", "minTinter1", "minTinter2", "minTinter3", "minTinter4", "minTinter5", "minTinter6", "minTinter7", "minTinter8", "minTinter9", "minTinter10", "minTinter11"]
 
+    const data = {
+        base1: base1.value,
+        base2: base2.value,
+        base3: base3.value,
+        base4: base4.value,
+        base5: base5.value,
+        tinter1: tinter1.value,
+        tinter2: tinter2.value,
+        tinter3: tinter3.value,
+        tinter4: tinter4.value,
+        tinter5: tinter5.value,
+        tinter6: tinter6.value,
+        tinter7: tinter7.value,
+        tinter8: tinter8.value,
+        tinter9: tinter9.value,
+        tinter10: tinter10.value,
+        tinter11: tinter11.value
+    }
     const minResponses: any = {};
 
     minArray.forEach((item): any => {
-        console.log("item---", item)
         const res = useQuery(getDataGQL, { variables: { key: item } })
         minResponses[item] = res.data?.getData
     })
 
-    console.log("minResponses---", minResponses)
+    const formValidation = () => {
+        if (data.base1 >= minResponses.minBase1 &&
+            data.base2 >= minResponses.minBase2 &&
+            data.base3 >= minResponses.minBase3 &&
+            data.base4 >= minResponses.minBase4 &&
+            data.base5 >= minResponses.minBase5 &&
+            data.tinter1 >= minResponses.minTinter1 &&
+            data.tinter2 >= minResponses.minTinter2 &&
+            data.tinter3 >= minResponses.minTinter3 &&
+            data.tinter4 >= minResponses.minTinter4 &&
+            data.tinter5 >= minResponses.minTinter5 &&
+            data.tinter6 >= minResponses.minTinter6 &&
+            data.tinter7 >= minResponses.minTinter7 &&
+            data.tinter8 >= minResponses.minTinter8 &&
+            data.tinter9 >= minResponses.minTinter9 &&
+            data.tinter10 >= minResponses.minTinter10 &&
+            data.tinter11 >= minResponses.minTinter11
+        ) {
+            setFormValidated(true)
+        } else {
+            setFormValidated(false)
+        }
+    }
+    console.log("oldPrices from admin", oldPrices)
+
 
     const handleSubmit = async () => {
         setIsLoading(true)
-        const data = {
-            base1: base1.value,
-            base2: base2.value,
-            base3: base3.value,
-            base4: base4.value,
-            base5: base5.value,
-            tinter1: tinter1.value,
-            tinter2: tinter2.value,
-            tinter3: tinter3.value,
-            tinter4: tinter4.value,
-            tinter5: tinter5.value,
-            tinter6: tinter6.value,
-            tinter7: tinter7.value,
-            tinter8: tinter8.value,
-            tinter9: tinter9.value,
-            tinter10: tinter10.value,
-            tinter11: tinter11.value
-        }
+
         await Object.entries(data).forEach(([key, val]) => saveData({ variables: { key: key, value: val.toString() } }))
 
-        console.log("data", data)
+        console.log("entro aca 1")
+        console.log("oldPrices from admin", oldPrices)
+
+
         updateSkusPrices({
             variables: {
                 base1: parseFloat(data.base1),
@@ -103,14 +132,18 @@ const TintometricAdmin: FC = () => {
                 tinter8: parseFloat(data.tinter8),
                 tinter9: parseFloat(data.tinter9),
                 tinter10: parseFloat(data.tinter10),
-                tinter11: parseFloat(data.tinter11)
+                tinter11: parseFloat(data.tinter11),
+                oldPrices: oldPrices
             }
         }).then(() => {
             setIsLoading(false)
             setSuccess(true)
         })
     }
-    // console.log(minResponses.find(item => console.log("item", item.variables?.key)))
+
+    useEffect(() => {
+        formValidation()
+    }, [data])
 
     if (base1Query.loading || base2Query.loading) {
         return (<div className="flex items-center justify-center mv8"><Spinner /></div>)
@@ -120,6 +153,7 @@ const TintometricAdmin: FC = () => {
             <Layout>`Error! ${base1Query?.error?.message} ${base2Query?.error?.message}`</Layout>
         )
     }
+
 
     return (
         <>
@@ -132,6 +166,16 @@ const TintometricAdmin: FC = () => {
             >
                 <PageBlock variation="full">
                     <span className={"mv5 db"}>
+                        <Checkbox
+                            checked={oldPrices}
+                            id="option-0"
+                            label="Precios viejos?"
+                            name="default-checkbox-group"
+                            onChange={() => setOldPrices(!oldPrices)}
+                            value="option-0"
+                        />
+                    </span>
+                    <span className={"mv5 db"}>
                         <InputCurrency
                             label="Base 1"
                             name="base1"
@@ -142,7 +186,7 @@ const TintometricAdmin: FC = () => {
                             {...base1}
                         />
                         {base1.value < minResponses.minBase1 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minBase1} mínimo
                             </Alert>
                         }
@@ -158,7 +202,7 @@ const TintometricAdmin: FC = () => {
                             {...base2}
                         />
                         {base2.value < minResponses.minBase2 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minBase2} mínimo
                             </Alert>
                         }
@@ -174,7 +218,7 @@ const TintometricAdmin: FC = () => {
                             {...base3}
                         />
                         {base3.value < minResponses.minBase3 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minBase3} mínimo
                             </Alert>
                         }
@@ -190,7 +234,7 @@ const TintometricAdmin: FC = () => {
                             {...base4}
                         />
                         {base4.value < minResponses.minBase4 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minBase4} mínimo
                             </Alert>
                         }
@@ -206,7 +250,7 @@ const TintometricAdmin: FC = () => {
                             {...base5}
                         />
                         {base5.value < minResponses.minBase5 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minBase5} mínimo
                             </Alert>
                         }
@@ -222,7 +266,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter1}
                         />
                         {tinter1.value < minResponses.minTinter1 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter1} mínimo
                             </Alert>
                         }
@@ -238,7 +282,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter2}
                         />
                         {tinter2.value < minResponses.minTinter2 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter2} mínimo
                             </Alert>
                         }
@@ -254,7 +298,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter3}
                         />
                         {tinter3.value < minResponses.minTinter3 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter3} mínimo
                             </Alert>
                         }
@@ -270,7 +314,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter4}
                         />
                         {tinter4.value < minResponses.minTinter4 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter4} mínimo
                             </Alert>
                         }
@@ -286,7 +330,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter5}
                         />
                         {tinter5.value < minResponses.minTinter5 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter5} mínimo
                             </Alert>
                         }
@@ -302,7 +346,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter6}
                         />
                         {tinter6.value < minResponses.minTinter6 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter6} mínimo
                             </Alert>
                         }
@@ -318,7 +362,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter7}
                         />
                         {tinter7.value < minResponses.minTinter7 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter7} mínimo
                             </Alert>
                         }
@@ -334,7 +378,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter8}
                         />
                         {tinter8.value < minResponses.minTinter8 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter8} mínimo
                             </Alert>
                         }
@@ -350,7 +394,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter9}
                         />
                         {tinter9.value < minResponses.minTinter9 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter9} mínimo
                             </Alert>
                         }
@@ -366,7 +410,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter10}
                         />
                         {tinter10.value < minResponses.minTinter10 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter10} mínimo
                             </Alert>
                         }
@@ -382,7 +426,7 @@ const TintometricAdmin: FC = () => {
                             {...tinter11}
                         />
                         {tinter11.value < minResponses.minTinter11 &&
-                            <Alert type="error" onClose={() => setSuccess(false)}>
+                            <Alert type="error" >
                                 {minResponses.minTinter11} mínimo
                             </Alert>
                         }
@@ -395,12 +439,13 @@ const TintometricAdmin: FC = () => {
                             handleSubmit()
                         }}
                         isLoading={isLoading}
+                        disabled={!formValidated}
                     >
                         <FormattedMessage id="admin.app.tintometric.update_skus_prices" />
                     </Button>
                     {success &&
                         <div className={`mt5`}>
-                            <Alert type="success" onClose={() => setSuccess(false)}>
+                            <Alert type="success" >
                                 <FormattedMessage id="admin.app.tintometric.update_success" />
                             </Alert>
                         </div>
