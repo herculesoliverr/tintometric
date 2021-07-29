@@ -75,7 +75,8 @@ export default class Catalog extends AppGraphQLClient {
     }: {
         page: number
     }) => {
-        await new Promise(r => setTimeout(r, 1000));
+        // this timeOut is to avoid 429
+        await new Promise(r => setTimeout(r, 500));
         return this.graphql.query<ProductResponse, { page: number }>({
             query: PRODUCTS_QUERY,
             variables: {

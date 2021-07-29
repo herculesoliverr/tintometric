@@ -4,6 +4,9 @@
   "admin.app.tintometric.update_skus_prices": "Actualizar Precios de Skus",
   "admin.app.tintometric.update_success": "Precios de skus actualizados correctamente",
   "admin.app.tintometric.uploadFile": "Subir Archivo JSON",
+  "admin.app.tintometric.minText": "El precio mínimo es: ",
+  "admin.app.tintometric.oldPrices": "Precios Antiguos",
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component"
+  
 }

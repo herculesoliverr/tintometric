@@ -3,6 +3,8 @@
   "admin.app.tintometric.title": "Tintometric",
   "admin.app.tintometric.update_skus_prices": "Update Skus Prices",
   "admin.app.tintometric.update_success": "Skus prices succesfully updated",
+  "admin.app.tintometric.oldPrices": "Old Prices",
+  "admin.app.tintometric.minText": "The minium price is: ",
   "admin.app.tintometric.uploadFile": "Upload JSON File",
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component"

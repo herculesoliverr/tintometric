@@ -10,7 +10,7 @@ export default class Pricing extends JanusClient {
             headers: {
                 ...options?.headers,
                 VtexIdclientAutCookie:
-                context.storeUserAuthToken ?? context.adminUserAuthToken ?? context.authToken ??'',
+                    context.storeUserAuthToken ?? context.adminUserAuthToken ?? context.authToken ?? '',
                 'x-vtex-user-agent': context.userAgent,
             },
         })
@@ -23,6 +23,7 @@ export default class Pricing extends JanusClient {
             listPrice: listPrice
         }
         console.log("body----", body)
+        console.log("skuID--", skuId)
         return this.http.put(`/${this.context.account}/${this.baseUrl}/${skuId}?an=${this.context.account}`, body, { metric: 'pricing__update' })
     }
 

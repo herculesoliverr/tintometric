@@ -1,12 +1,6 @@
 {
   "section": "products",
-  "subSection": "catalog",
-  "subSectionItems": [
-    {
-      "isNew": true,
-      "labelId": "admin.app.tintometric.title",
-      "path": "/admin/tintometric"
-    }
-  ],
+  "titleId": "admin.app.tintometric.title",
+  "path": "/admin/tintometric",
   "searchKeyWordsHelpers": "admin/admin.app.navigation.search.kws"
 }

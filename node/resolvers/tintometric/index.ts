@@ -14,14 +14,14 @@ export const mutations = {
             const jsonProducts = jsonFileContent['products']
 
             products.forEach(async (item: string) => {
-                await new Promise(r => setTimeout(r, 1000));
+                // this timeOut is to avoid 429
+                await new Promise(r => setTimeout(r, 100));
                 const jsonProduct = jsonProducts.find((element: any) => {
-                    // console.log("element", element)
                     return element.skuId == item
                 })
 
-                if (oldPrices) {
-                    if (jsonProduct && jsonProduct['composition']) {
+                if (jsonProduct && jsonProduct['composition']) {
+                    if (oldPrices) {
                         let base = 0
                         if (jsonProduct['composition']?.oldPrices?.base1) {
                             base = base1
@@ -54,10 +54,10 @@ export const mutations = {
                             tinter10 * jsonProduct?.composition?.oldPrices?.tinter10 +
                             tinter11 * jsonProduct?.composition?.oldPrices?.tinter11 +
                             base
+                        console.log("price--", price)
                         pricing.updateSkuPrice(item, price, price, price * 1.3)
                     }
-                } else {
-                    if (jsonProduct && jsonProduct['composition']) {
+                    else {
                         let base = 0
                         if (jsonProduct['composition']?.newPrices?.base1) {
                             base = base1
@@ -90,9 +90,11 @@ export const mutations = {
                             tinter10 * jsonProduct?.composition?.newPrices?.tinter10 +
                             tinter11 * jsonProduct?.composition?.newPrices?.tinter11 +
                             base
+                        console.log("price----", price)
                         pricing.updateSkuPrice(item, price, price, price * 1.3)
                     }
                 }
+
             })
             return "end"
         } catch (err) {
