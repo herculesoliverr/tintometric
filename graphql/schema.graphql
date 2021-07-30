@@ -1,0 +1,18 @@
+type Query {
+    "Cant be empty"
+    doNotCall: String
+
+    "Get data from VBase"
+    getData(key: String!): String
+}
+
+type Mutation {
+    "Change price of list of sku ids"
+    updateSkusPrices(base1: Float!, base2: Float!, base3: Float!, base4: Float!, base5: Float!, tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, oldPrices: Boolean): String
+    
+    "Upload file"
+    uploadFile(file: Upload!) : String
+
+    "Save data to VBase"
+    saveData(key: String!, value: String!): String
+}

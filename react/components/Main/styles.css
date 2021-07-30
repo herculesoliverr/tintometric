@@ -1,0 +1,77 @@
+.container {
+    display: flex;
+}
+
+.colorPicker-container {
+    width: 55%;
+    padding-right: 2rem;
+}
+
+.sliderTrackContainer {
+    padding: 1rem;
+}
+
+
+.sliderLeftArrow {
+    left: -2rem;
+}
+
+.sliderRightArrow {
+    right: -2rem;
+}
+
+.header {
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(148, 148, 148, 0.596);
+}
+
+.header-subtitle {
+    font-size: .85rem;
+}
+
+.buttonGroup-container {
+    width: fit-content;
+    border: 1px solid rgb(0 0 0 / 29%);
+}
+
+.button.button--active {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+.button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: .5rem 1.5rem;
+    font-size: .8rem;
+}
+
+.modal-button--trigger {
+    background-color: rgb(240, 235, 232);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    cursor: pointer;
+    border: 0;
+}
+
+.inputSearch--container {
+    margin: 1rem 0;
+}
+
+@media screen and (max-width: 720px){
+    .container{
+        flex-direction: column;
+    }
+    .colorPicker-container{
+        width: 100%;
+        padding-right: 0;
+    }
+    .modal-button--trigger{
+        width: 100%;
+    }
+}

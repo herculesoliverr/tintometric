@@ -1,93 +1,84 @@
-📢 Use this project, [contribute](https://github.com/{OrganizationName}/{AppName}) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+📢 Use this project, [contribute](https://github.com/vtex-apps/promotion-cloner) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
-# APP NAME
+# Promotion Cloner
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Under the app's name, you should explain the topic, giving a **brief description** of its **functionality** in a store when installed.
+The Promotion Cloner application allows you to **clone promotions** from one environment to another, in **architecture master + white labels** and **marketplaces**.
 
-Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
+![Media Placeholder](https://media.giphy.com/media/vJVAtKTUVcMqTmUzCd/giphy.gif)
 
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+___
 
-## Configuration 
+## Master-data Configuration
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
+1. Create a new Data Entity with the Acronym **RP** in your Master Data with the following data:
 
-1. Adding the app as a theme dependency in the `manifest.json` file;
-2. Declaring the app's main block in a given theme template or inside another block from the theme.
+![Media Placeholder](https://user-images.githubusercontent.com/74916156/115772324-58291f80-a385-11eb-907f-0da1b915390d.jpg)
 
-Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
+**Acronym:** 'RP'
 
-Next, add the **props table** containing your block's props. 
+**Fields:** 
+- idCalculatorConfigurationDestination
+- idCalculatorConfigurationOrigin
+- updateDate
 
-If the app exports more than one block, create several tables - one for each block. For example:
+:information_source: Notice that the type of the three fields above is the same: `varchar 750` 
 
-### `block-1` props
+2. Create another Data Entity with Acronym `RC` and the following data:
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+![Media Placeholder](https://user-images.githubusercontent.com/74916156/115776323-5e6dca80-a38a-11eb-948d-6bb7dabcaee5.jpg)
 
+**Acronym:** 'RC'
 
-### `block-2` props
+**Fields:** 
+- idCampaignsDestination
+- idCampaignsOrigin
+- updateDate
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+:information_source: The type of the three fields above is `varchar 750` too.
 
-Prop types are: 
+___
 
-- `string` 
-- `enum` 
-- `number` 
-- `boolean` 
-- `object` 
-- `array` 
+## Configuration
 
-When documenting a prop whose type is `object` or `array` another prop table will be needed. You can create it following the example below:
+1. Using your terminal and the [VTEX IO Toolbelt](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference), log into the desired VTEX account.
+2. Run `vtex install vtexarg.promotion-cloner` on the account you're working on.
+3. Access your VTEX account's admin.
+4. Access **Products**, then **Promotions & Taxes** and then **Clone Promotions**.
 
-- `propName` object:
+___
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+## Modus Operandi
 
+Get the promotions of the environment that you want with **Get Promotions** button.
 
-Remember to also use this Configuration section to  **showcase any necessary disclaimer** related to the app and its blocks, such as the different behavior it may display during its configuration. 
+![Media Placeholder](https://media.giphy.com/media/NWtVULVw8N9UPTdCyJ/giphy.gif)
 
-## Modus Operandi *(not mandatory)*
+Select the promotion and then where do you want to clone. Also, you can use the **Select All** button.
 
-There are scenarios in which an app can behave differently in a store, according to how it was added to the catalog, for example. It's crucial to go through these **behavioral changes** in this section, allowing users to fully understand the **practical application** of the app in their store.
+![Media Placeholder](https://media.giphy.com/media/GvWXjCQTAbfVXdAYnj/giphy.gif)
 
-If you feel compelled to give further details about the app, such as it's **relationship with the VTEX admin**, don't hesitate to use this section. 
+Duplicate the promotions selected with **Duplicate Promotions** button.
 
-## Customization
+![Media Placeholder](https://media.giphy.com/media/qQJbOSXX1NzG0KkN0X/giphy.gif)
 
-The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
+If you want to duplicate many promotions and do not want to select for each promotion where you will clone, you can use **Duplicate Promotions in Some Stores** button to duplicate the selected promotions to the selected enviroments.
 
-`In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).`
+![Media Placeholder](https://media.giphy.com/media/d2qgs1YKZZgb2Tq2FN/giphy.gif)
 
-Thereafter, you should add a single column table with the available CSS handles for the app, like the one below. Note that the Handles must be ordered alphabetically.
-
-| CSS Handles |
-| ----------- | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` |
-
-
-If there are none, add the following sentence instead:
-
-`No CSS Handles are available yet for the app customization.`
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 
 <!-- DOCS-IGNORE:start -->
+___
 
 ## Contributors ✨
 
@@ -103,12 +94,3 @@ Thanks goes to these wonderful people:
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
 <!-- DOCS-IGNORE:end -->
-
----- 
-
-Check out some documentation models that are already live: 
-- [Breadcrumb](https://github.com/vtex-apps/breadcrumb)
-- [Image](https://vtex.io/docs/components/general/vtex.store-components/image)
-- [Condition Layout](https://vtex.io/docs/components/all/vtex.condition-layout@1.1.6/)
-- [Add To Cart Button](https://vtex.io/docs/components/content-blocks/vtex.add-to-cart-button@0.9.0/)
-- [Store Form](https://vtex.io/docs/components/all/vtex.store-form@0.3.4/)
