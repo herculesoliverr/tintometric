@@ -1,6 +1,6 @@
 📢 Use this project, [contribute](https://github.com/{OrganizationName}/{AppName}) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
-# APP NAME
+# TINTOMETRIC
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -8,18 +8,48 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Under the app's name, you should explain the topic, giving a **brief description** of its **functionality** in a store when installed.
+The Tintometric application renders a Tintometric on the Product Page and allows you to massively update the prices of skus based on color composition.
+It can be used in architecture master + white labels.
 
 Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
 
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+![Media Placeholder](https://media.giphy.com/media/MujEk2RiUShcSKtR0L/giphy.gif)
 
 ## Configuration 
 
 In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
 
-1. Adding the app as a theme dependency in the `manifest.json` file;
-2. Declaring the app's main block in a given theme template or inside another block from the theme.
+1. Using your terminal and the [VTEX IO Toolbelt](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference), log into the desired VTEX account.
+2. Run `vtex install vtexarg.tintometric` on the account you're working on.
+
+You are now able to use the Tintometric block: 
+
+```
+"flex-layout.col#right-col": {
+    "props": {
+      "preventVerticalStretch": true,
+      "rowGap": 0
+    },
+    "children": [
+      "flex-layout.row#product-name",
+      "flex-layout.row#list-price-savings",
+      "flex-layout.row#selling-price",
++     "tintometric",
+      "sku-selector",
+      "product-quantity"
+    ]
+  },
++ "tintometric": {
+    "props": {
+      "blockClass": "tintometric-pdp"
+    }
+  }
+}
+```
+
+3. Access your VTEX account's admin.
+4. Access **Products**, and then **Tintometric**.
+![Media Placeholder](![Media Placeholder](https://media.giphy.com/media/MujEk2RiUShcSKtR0L/giphy.gif))
 
 Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
 

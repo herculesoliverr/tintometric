@@ -71,7 +71,6 @@ const UploadFile = () => {
 
     const handleDropFile = async (acceptedFiles: File[]) => {
         if (acceptedFiles && acceptedFiles[0]) {
-            console.log("acceptedFiles[0]", acceptedFiles[0])
             setState(prevState => ({ ...prevState, fileName: acceptedFiles[0].name }))
             uploadFile({
                 variables: { file: acceptedFiles[0] },

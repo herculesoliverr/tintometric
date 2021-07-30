@@ -54,7 +54,6 @@ export const mutations = {
                             tinter10 * jsonProduct?.composition?.oldPrices?.tinter10 +
                             tinter11 * jsonProduct?.composition?.oldPrices?.tinter11 +
                             base
-                        console.log("price--", price)
                         pricing.updateSkuPrice(item, price, price, price * 1.3)
                     }
                     else {
@@ -90,7 +89,6 @@ export const mutations = {
                             tinter10 * jsonProduct?.composition?.newPrices?.tinter10 +
                             tinter11 * jsonProduct?.composition?.newPrices?.tinter11 +
                             base
-                        console.log("price----", price)
                         pricing.updateSkuPrice(item, price, price, price * 1.3)
                     }
                 }
@@ -98,7 +96,6 @@ export const mutations = {
             })
             return "end"
         } catch (err) {
-            console.log("error tintometric", err)
             return err
         }
 
