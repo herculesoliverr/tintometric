@@ -176,6 +176,9 @@ const TintometricAdmin: FC = () => {
                     />
                 }
             >
+                <span className={"mv5 db"}>
+                    <FormattedMessage id="admin.app.tintometric.description" />
+                </span>
                 <PageBlock variation="full">
                     <span className={"mv5 db"}>
                         <Checkbox
