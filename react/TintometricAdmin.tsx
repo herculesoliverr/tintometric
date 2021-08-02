@@ -166,11 +166,6 @@ const TintometricAdmin: FC = () => {
     if (base1Query.loading || base2Query.loading) {
         return (<div className="flex items-center justify-center mv8"><Spinner /></div>)
     }
-    if (base1Query.error || base2Query.error) {
-        return (
-            <Layout>`Error! ${base1Query?.error?.message} ${base2Query?.error?.message}`</Layout>
-        )
-    }
 
     return (
         <>
