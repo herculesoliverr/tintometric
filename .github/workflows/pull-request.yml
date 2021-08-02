@@ -3,6 +3,7 @@ name: PR actions
   pull_request:
     branches:
       - master
+      - dev
 jobs:
   danger-ci:
     name: Danger CI
