@@ -36,28 +36,6 @@ const TintometricAdmin: FC = () => {
     const tinter9Query = useQuery(getDataGQL, { variables: { key: 'tinter9' } })
     const tinter10Query = useQuery(getDataGQL, { variables: { key: 'tinter10' } })
     const tinter11Query = useQuery(getDataGQL, { variables: { key: 'tinter11' } })
-
-    /*  const [values, setValues] = useState({
-         base1: base1Query.data?.getData,
-         base2: base2Query.data?.getData,
-         base3: base3Query.data?.getData,
-         base4: base4Query.data?.getData,
-         base5: base5Query.data?.getData,
-         tinter1: tinter1Query.data?.getData,
-         tinter2: tinter3Query.data?.getData,
-         tinter3: tinter3Query.data?.getData,
-         tinter4: tinter4Query.data?.getData,
-         tinter5: tinter5Query.data?.getData,
-         tinter6: tinter6Query.data?.getData,
-         tinter7: tinter7Query.data?.getData,
-         tinter8: tinter8Query.data?.getData,
-         tinter9: tinter9Query.data?.getData,
-         tinter10: tinter10Query.data?.getData,
-         tinter11: tinter11Query.data?.getData
-     })
- 
-     console.log(values) */
-
     const base1 = useInput(base1Query.data?.getData);
     const base2 = useInput(base2Query.data?.getData);
     const base3 = useInput(base3Query.data?.getData);
@@ -100,26 +78,26 @@ const TintometricAdmin: FC = () => {
 
     minArray.forEach((item): any => {
         const res = useQuery(getDataGQL, { variables: { key: item } })
-        minResponses[item] = res.data?.getData
+        res.data?.getData ? minResponses[item] = res.data?.getData : minResponses[item] = 1
     })
 
     const formValidation = () => {
-        if (data.base1 >= minResponses.minbase1 &&
-            data.base2 >= minResponses.minbase2 &&
-            data.base3 >= minResponses.minbase3 &&
-            data.base4 >= minResponses.minbase4 &&
-            data.base5 >= minResponses.minbase5 &&
-            data.tinter1 >= minResponses.mintinter1 &&
-            data.tinter2 >= minResponses.mintinter2 &&
-            data.tinter3 >= minResponses.mintinter3 &&
-            data.tinter4 >= minResponses.mintinter4 &&
-            data.tinter5 >= minResponses.mintinter5 &&
-            data.tinter6 >= minResponses.mintinter6 &&
-            data.tinter7 >= minResponses.mintinter7 &&
-            data.tinter8 >= minResponses.mintinter8 &&
-            data.tinter9 >= minResponses.mintinter9 &&
-            data.tinter10 >= minResponses.mintinter10 &&
-            data.tinter11 >= minResponses.mintinter11 || !minResponses.minbase1
+        if (Number(data.base1) > minResponses.minbase1 &&
+            Number(data.base2) > minResponses.minbase2 &&
+            Number(data.base3) > minResponses.minbase3 &&
+            Number(data.base4) > minResponses.minbase4 &&
+            Number(data.base5) > minResponses.minbase5 &&
+            Number(data.tinter1) > minResponses.mintinter1 &&
+            Number(data.tinter2) > minResponses.mintinter2 &&
+            Number(data.tinter3) > minResponses.mintinter3 &&
+            Number(data.tinter4) > minResponses.mintinter4 &&
+            Number(data.tinter5) > minResponses.mintinter5 &&
+            Number(data.tinter6) > minResponses.mintinter6 &&
+            Number(data.tinter7) > minResponses.mintinter7 &&
+            Number(data.tinter8) > minResponses.mintinter8 &&
+            Number(data.tinter9) > minResponses.mintinter9 &&
+            Number(data.tinter10) > minResponses.mintinter10 &&
+            Number(data.tinter11) > minResponses.mintinter11
         ) {
             setFormValidated(true)
         } else {
@@ -132,6 +110,7 @@ const TintometricAdmin: FC = () => {
         setIsLoading(true)
         setSuccess(false)
         await Object.entries(data).forEach(([key, val]: any) => saveData({ variables: { key: key, value: val.toString() } }))
+        console.log("data---", data)
 
         updateSkusPrices({
             variables: {
@@ -449,32 +428,6 @@ const TintometricAdmin: FC = () => {
                             </Alert>
                         }
                     </span>
-                    {/* {
-                        Object.entries(data).map(([key]) => {
-                            console.log("minResponses[`min${key}`]", minResponses[`min${key}`])
-                            console.log("data[key]", data[key])
-                            return (
-                                <span className={"mv5 db"}>
-                                    <InputCurrency
-                                        label={key.toUpperCase()}
-                                        name={key}
-                                        size="large"
-                                        placeholder="Type a monetary value"
-                                        locale="en-US"
-                                        currencyCode="USD"
-                                        // values={values[key]}
-                                        onChange={(e: EventInterface) => setValues(state => ({ ...state, [key]: e.target.value }))}
-                                    />
-                                    {data[key] < minResponses[`min${key}`] &&
-                                        <Alert type="error" >
-                                            <FormattedMessage id="admin.app.tintometric.minText" /> {minResponses[`min${key}`]}
-                                        </Alert>
-                                    }
-                                </span>
-                            )
-                        })
-
-                    } */}
                 </PageBlock>
                 <span className="mr4 mb8 db">
                     <Button
