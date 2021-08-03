@@ -8,5 +8,6 @@
   "admin.app.tintometric.description": "Agregar los precios de las bases y los tinters para actualizar los precios de skus masivamente. Los skus afectados serán los que estén en el json debajo.",
   "admin.app.tintometric.oldPrices": "Precios Antiguos",
   "editor.tintometric.title": "Tintometric",
-  "editor.tintometric.description": "Tintometric component"
+  "editor.tintometric.description": "Tintometric component",
+  "siteeditor.app.tintometric.title": "Vamos a encontrar tu color!"
 }

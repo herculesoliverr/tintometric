@@ -15,12 +15,12 @@ import getDataGQL from './../../graphql/getData.gql'
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
 const Main: StorefrontFunctionComponent<TintometricProps> = ({
-  title = "VAMOS ENCONTRAR A SUA COR!",
-  subtitle = "BUSQUE PELA MATRIZ OU PELO NOME",
-  buttonGrid = "Matriz",
-  buttonList = "Nome",
-  colorDetailTitle = "Cor Escolhida:",
-  confirmButton = "Confirme",
+  title,
+  subtitle,
+  buttonGrid,
+  buttonList,
+  colorDetailTitle,
+  confirmButton,
 }) => {
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [showSearch, setShowSearch] = useState(false)

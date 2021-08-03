@@ -8,10 +8,9 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-The Tintometric application renders a Tintometric on the Product Page and allows you to massively update the prices of skus based on color composition.
+The Tintometric application **renders a Tintometric** on the Product Page and allows you to **massively update** the prices of skus based on color composition.
 It can be used in architecture master + white labels.
 
-Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
 
 ![Media Placeholder](https://media.giphy.com/media/MujEk2RiUShcSKtR0L/giphy.gif)
 
@@ -47,55 +46,56 @@ You are now able to use the Tintometric block:
 }
 ```
 
+### `tintometric` props
+
+| Prop name    | Type            | Description    | Default value                                                                                                                               |
+| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
+| `title`      | `string`       | Title used in the modal         | `LET'S FIND YOUR COLOR!`        |
+| `subtitle`      | `string`       | Subtitle used in the modal         |         |
+| `buttonGrid`      | `string`       | Grid button label used in the modal         | `Matriz`        |
+| `buttonList`      | `string`       | List button label used in the modal         |  `Name`       |
+| `colorDetailTitle`      | `string`       | Color Detail Title        |      `Selected Colour:`   |
+| `confirmButton`      | `string`       | Confirm button label used in the modal         |    `Confirm`     |
+
+
+This props can be modified in the site editor
+
+
 3. Access your VTEX account's admin.
-4. Access **Products**, and then **Tintometric**.
-![Media Placeholder](![Media Placeholder](https://media.giphy.com/media/MujEk2RiUShcSKtR0L/giphy.gif))
+4. In the **Products** tab click on **Tintometric**.
 
-Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
+![Media Placeholder](https://user-images.githubusercontent.com/36748003/128002681-1a8e1813-0d12-404f-981c-deaf7a61bd7e.png)
 
-Next, add the **props table** containing your block's props. 
-
-If the app exports more than one block, create several tables - one for each block. For example:
-
-### `block-1` props
-
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+| Label    | Description                                                                                                                                 |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
+| `Checkbox Old Prices`      | If checked will take the prices that are marked as oldPrices in the json
+| `Bases`      | Price of the bases     
+| `Tinters`      | Price of the tinters
 
 
-### `block-2` props
-
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
-
-Prop types are: 
-
-- `string` 
-- `enum` 
-- `number` 
-- `boolean` 
-- `object` 
-- `array` 
-
-When documenting a prop whose type is `object` or `array` another prop table will be needed. You can create it following the example below:
-
-- `propName` object:
-
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+## JSON File Structure
 
 
-Remember to also use this Configuration section to  **showcase any necessary disclaimer** related to the app and its blocks, such as the different behavior it may display during its configuration. 
 
-## Modus Operandi *(not mandatory)*
 
-There are scenarios in which an app can behave differently in a store, according to how it was added to the catalog, for example. It's crucial to go through these **behavioral changes** in this section, allowing users to fully understand the **practical application** of the app in their store.
+## Formula used to update the prices
+The formula takes 1 base (the one loaded in the json file).
+Then adds the amount of each tinter and multiplies by the price  
 
-If you feel compelled to give further details about the app, such as it's **relationship with the VTEX admin**, don't hesitate to use this section. 
-
+```
+base +
+quantity tinter 1 * tinter1 +
+quantity tinter 2 * tinter2 +
+quantity tinter 3 * tinter3 + 
+quantity tinter 4 * tinter4 + 
+quantity tinter 5 * tinter5 + 
+quantity tinter 6 * tinter6 + 
+quantity tinter 7 * tinter7 + 
+quantity tinter 8 * tinter8 + 
+quantity tinter 9 * tinter9 + 
+quantity tinter 10 * tinter10 + 
+quantity tinter 11 * tinter11
+```
 ## Customization
 
 The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
@@ -106,11 +106,38 @@ Thereafter, you should add a single column table with the available CSS handles 
 
 | CSS Handles |
 | ----------- | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` |
+| `modal-button--trigger` | 
+| `modal-button--trigger-icon` | 
+| `header` | 
+| `header-title` | 
+| `header-subtitle` |
+| `buttonGroup-container` |
+| `button` |
+| `button--active` |
+| `button--active` |
+| `colorPicker-container` |
+| `colorPicker-container` |
+| `inputSearch--container`|
+| `colorDetail-container`|
+| `colorDetail-title`|
+| `colorDetail-info--container`|
+| `colorDetail-image`|
+| `colorDetail-name`|
+| `colorDetail-code`|
+| `confirm-button`|
+| `colorList-container`|
+| `colorList-item`|
+| `colorList-grid`|
+| `colorList-list`|
+| `familyActive-label--wrapper`|
+| `familyActive-label--text`|
+| `familyPicker-container`|
+| `familyPicker-item`|
+| `familyPicker-span`|
+| `familyPicker-item--isActive`|
+| `tooltip-name`|
+| `tooltip-code`|
+
 
 
 If there are none, add the following sentence instead:
