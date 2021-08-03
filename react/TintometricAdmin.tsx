@@ -110,7 +110,6 @@ const TintometricAdmin: FC = () => {
         setIsLoading(true)
         setSuccess(false)
         await Object.entries(data).forEach(([key, val]: any) => saveData({ variables: { key: key, value: val.toString() } }))
-        console.log("data---", data)
 
         updateSkusPrices({
             variables: {
