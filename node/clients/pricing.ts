@@ -24,26 +24,4 @@ export default class Pricing extends JanusClient {
         }
         return this.http.put(`/${this.context.account}/${this.baseUrl}/${skuId}?an=${this.context.account}`, body, { metric: 'pricing__update' })
     }
-
-    // public async updateSkusPrices(skuIds: [string], costPrices: [number], basePrices: [number], listPrices: [number]): Promise<string> {
-    //     if (costPrices.length != skuIds.length || basePrices.length != skuIds.length || listPrices.length != skuIds.length) {
-    //         return 'strings length do not match'
-    //     }
-
-    //     let body = {
-    //         costPrice: 0,
-    //         basePrice: 0,
-    //         listPrice: 0
-    //     }
-
-    //     for (let i = 0; i < skuIds.length; i++) {
-    //         body.costPrice = costPrices[i]
-    //         body.basePrice = basePrices[i]
-    //         body.listPrice = listPrices[i]
-    //         this.http.put(`/${this.context.account}/${this.baseUrl}/${skuIds[i]}?an=${this.context.account}`, body, { metric: 'pricing__update' })
-    //     }
-
-    //     return 'iteration update ended'
-    // }
-
 }
