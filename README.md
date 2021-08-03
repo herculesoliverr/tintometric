@@ -98,12 +98,6 @@ quantity tinter 11 * tinter11
 ```
 ## Customization
 
-The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
-
-`In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).`
-
-Thereafter, you should add a single column table with the available CSS handles for the app, like the one below. Note that the Handles must be ordered alphabetically.
-
 | CSS Handles |
 | ----------- | 
 | `modal-button--trigger` | 
@@ -138,13 +132,6 @@ Thereafter, you should add a single column table with the available CSS handles 
 | `tooltip-name`|
 | `tooltip-code`|
 
-
-
-If there are none, add the following sentence instead:
-
-`No CSS Handles are available yet for the app customization.`
-
-<!-- DOCS-IGNORE:start -->
 
 ## Contributors ✨
 
