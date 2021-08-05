@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useMutation, useQuery } from 'react-apollo'
 
-import { InputCurrency, Button, Layout, PageBlock, PageHeader, Spinner, Alert, Checkbox } from 'vtex.styleguide'
+import { InputCurrency, Button, Layout, PageBlock, Spinner, Alert, Checkbox } from 'vtex.styleguide'
 
 import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
 import getDataGQL from './graphql/getData.gql'
@@ -171,14 +171,22 @@ const TintometricAdmin: FC = () => {
 
     return (
         <>
-            <Layout
-                pageHeader={
-                    <PageHeader
-                        title={<FormattedMessage id="admin.app.tintometric.title" />}
-                    />
-                }
-            >
-                <PageBlock variation="full">
+            <Layout>
+                <PageBlock
+                    title={intl.formatMessage({
+                        id: 'admin.app.tintometric.title'
+                    })}
+                    subtitle={intl.formatMessage({
+                        id: 'admin.app.tintometric.description'
+                    })}
+                    variation="full">
+                    {success &&
+                        <div className={`mt5`}>
+                            <Alert type="success" >
+                                <FormattedMessage id="admin.app.tintometric.update_success" />
+                            </Alert>
+                        </div>
+                    }
                     <span className={"mv5 db"}>
                         <Checkbox
                             checked={oldPrices}
@@ -448,51 +456,22 @@ const TintometricAdmin: FC = () => {
                             </Alert>
                         }
                     </span>
-                    {/* {
-                        Object.entries(data).map(([key]) => {
-                            return (
-                                <span className={"mv5 db"}>
-                                    <InputCurrency
-                                        label={key.toUpperCase()}
-                                        name={key}
-                                        size="large"
-                                        placeholder="Type a monetary value"
-                                        locale="en-US"
-                                        currencyCode="USD"
-                                        onChange={(e: EventInterface) => setValues(state => ({ ...state, field1: e.target.value }))}
-                                    />
-                                    {data[key] < minResponses[`min${key}`] &&
-                                        <Alert type="error" >
-                                            <FormattedMessage id="admin.app.tintometric.minText" /> {minResponses[`min${key}`]}
-                                        </Alert>
-                                    }
-                                </span>
-                            )
-                        })
-
-                    } */}
+                    <span className={"mv5 db"}>
+                        <UploadFile />
+                    </span>
+                    <span className="mr4 mb8 db">
+                        <Button
+                            variation="primary"
+                            onClick={() => {
+                                handleSubmit()
+                            }}
+                            isLoading={isLoading}
+                            disabled={!formValidated}
+                        >
+                            <FormattedMessage id="admin.app.tintometric.update_skus_prices" />
+                        </Button>
+                    </span>
                 </PageBlock>
-                <span className="mr4 mb8 db">
-                    <Button
-                        variation="primary"
-                        onClick={() => {
-                            handleSubmit()
-                        }}
-                        isLoading={isLoading}
-                        disabled={!formValidated}
-                    >
-                        <FormattedMessage id="admin.app.tintometric.update_skus_prices" />
-                    </Button>
-                    {success &&
-                        <div className={`mt5`}>
-                            <Alert type="success" >
-                                <FormattedMessage id="admin.app.tintometric.update_success" />
-                            </Alert>
-                        </div>
-                    }
-                </span>
-
-                <UploadFile />
 
             </Layout>
         </>

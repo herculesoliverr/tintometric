@@ -2,20 +2,26 @@ import React, { useState, useEffect } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import Dropzone from 'react-dropzone'
-import { Spinner } from 'vtex.styleguide'
+
+import { Spinner, Button } from 'vtex.styleguide'
+
 import UploadFileQuery from './../../graphql/uploadFile.gql'
+import DeleteFileQuery from './../../graphql/deleteFile.gql'
+
 import ErrorAlert from './ErrorAlert'
 import EmptyState from './EmptyState'
 import saveDataGQL from './../../graphql/saveData.gql'
 import getDataGQL from './../../graphql/getData.gql'
 
-
-// import { useTintometricContext } from '../../context'
+import { defaultData } from "../../utils/defaultData";
+import { downloadFile } from "./../../utils/downloadFile";
 
 interface State {
     error: string | null
     isLoading: boolean,
-    fileName: string
+    fileName: string,
+    fileUrl: string | undefined,
+    pathFile: string
 }
 
 const messages = defineMessages({
@@ -38,18 +44,30 @@ const UploadFile = () => {
     const [saveData] = useMutation(saveDataGQL)
     const intl = useIntl()
     const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
+    const jsonUrlQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+    const jsonPathQuery = useQuery(getDataGQL, { variables: { key: 'jsonPath' } })
 
     const [state, setState] = useState<State>({
         error: null,
         isLoading: false,
-        fileName: intl.formatMessage(messages.fileEmpty)
+        fileName: intl.formatMessage(messages.fileEmpty),
+        fileUrl: "",
+        pathFile: ""
     })
 
     useEffect(() => {
         jsonNameQuery.data?.getData !== "" && setState(prevState => ({ ...prevState, fileName: jsonNameQuery.data?.getData }))
-    }, [jsonNameQuery])
+        jsonUrlQuery.data?.getData !== "" && setState(prevState => ({ ...prevState, fileUrl: jsonUrlQuery.data?.getData }))
+
+    }, [jsonNameQuery, jsonUrlQuery])
 
     const [uploadFile, { loading: loadinUploadFile, error: errorUploadFile, data: dataUploadFile }] = useMutation(UploadFileQuery)
+
+    const [deleteFile, { loading: loadinDeleteFile, error: errorDeleteFile, data: dataDeleteFile }] = useMutation(DeleteFileQuery)
+
+    console.log("loadinDeleteFile", loadinDeleteFile)
+    console.log("errorDeleteFile", errorDeleteFile)
+    console.log("dataDeleteFile", dataDeleteFile)
 
     useEffect(() => {
         if (loadinUploadFile) {
@@ -59,17 +77,23 @@ const UploadFile = () => {
             setState({
                 error: intl.formatMessage(messages.genericError),
                 isLoading: false,
-                fileName: intl.formatMessage(messages.fileEmpty)
+                fileName: intl.formatMessage(messages.fileEmpty),
+                fileUrl: "",
+                pathFile: ""
             })
         }
         if (dataUploadFile) {
             setState(prevState => ({ ...prevState, isLoading: false }))
             saveData({ variables: { key: "jsonFile", value: dataUploadFile.uploadFile.fileUrl } })
             saveData({ variables: { key: "jsonName", value: state.fileName } })
+            saveData({ variables: { key: "jsonPath", value: state.pathFile } })
         }
     }, [loadinUploadFile, errorUploadFile, dataUploadFile])
 
+
     const handleDropFile = async (acceptedFiles: File[]) => {
+        console.log(acceptedFiles[0])
+        setState(prevState => ({ ...prevState, pathFile: acceptedFiles[0].name }))
         if (acceptedFiles && acceptedFiles[0]) {
             setState(prevState => ({ ...prevState, fileName: acceptedFiles[0].name }))
             uploadFile({
@@ -82,13 +106,26 @@ const UploadFile = () => {
             }))
         }
     }
+
+    const removeFile = async () => {
+        console.log("jsonPathQuery.data?.getData", jsonPathQuery.data?.getData)
+        deleteFile({
+            variables: { path: jsonPathQuery.data?.getData },
+        })
+    }
+
+    console.log(removeFile)
+
     return (
         <>
             <span className={"mv5 db"}>
                 <FormattedMessage id="admin.app.tintometric.uploadFile" />
             </span>
 
-            <Dropzone onDrop={acceptedFiles => handleDropFile(acceptedFiles)}>
+            <Dropzone
+                onDrop={acceptedFiles => handleDropFile(acceptedFiles)}
+                accept="application/json"
+            >
                 {({ getRootProps, getInputProps }) => (
                     <section>
                         <div
@@ -111,6 +148,21 @@ const UploadFile = () => {
                     </section>
                 )}
             </Dropzone>
+
+            <span className="mv4 db flex">
+                <Button
+                    variation="tertiary"
+                    onClick={() => downloadFile("template_tintometric.json", JSON.stringify(defaultData))}>
+                    <FormattedMessage id="admin.app.tintometric.downloadTemplate" />
+                </Button>
+                {/*  {state.fileUrl && <Button
+                    variation="tertiary"
+                    onClick={() => removeFile()}
+                >
+                    <FormattedMessage id="admin.app.tintometric.removeFile" />
+                </Button>} */}
+            </span>
+
             {state.error && <ErrorAlert message={state.error} />}
         </>
     )
