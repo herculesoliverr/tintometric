@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { useQuery } from 'react-apollo'
+
 import { useCssHandles } from 'vtex.css-handles'
+import { Modal, InputSearch, IconCaretDown } from 'vtex.styleguide'
+
 import FamilyPicker from '../FamilyPicker/FamilyPicker'
-import { Modal, InputSearch } from 'vtex.styleguide'
 import ColorList from '../ColorList/ColorList'
 import ColorDetail from '../ColorDetail/ColorDetail'
 import "./styles.css"
-import { IconCaretDown } from 'vtex.styleguide'
 import { useTintometricContext } from '../../context'
-import { useQuery } from 'react-apollo'
 import getDataGQL from './../../graphql/getData.gql'
+
 
 const CSS_HANDLES = ['container', 'header', 'header-title', 'header-subtitle', 'buttonGroup-container', 'button', 'button--active', 'colorPicker-container', 'modal-button--trigger', 'modal-button--trigger-icon', 'inputSearch--container'];
 
 const Main: StorefrontFunctionComponent<TintometricProps> = ({
-  title = "VAMOS ENCONTRAR A SUA COR!",
-  subtitle = "BUSQUE PELA MATRIZ OU PELO NOME",
-  buttonGrid = "Matriz",
-  buttonList = "Nome",
-  colorDetailTitle = "Cor Escolhida:",
-  confirmButton = "Confirme",
+  title,
+  subtitle,
+  buttonGrid,
+  buttonList,
+  colorDetailTitle,
+  confirmButton,
 }) => {
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [showSearch, setShowSearch] = useState(false)

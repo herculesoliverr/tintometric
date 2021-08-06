@@ -1,9 +1,12 @@
 import React from 'react'
+
 import { useCssHandles } from 'vtex.css-handles'
 import { Tooltip } from 'vtex.styleguide';
+
 import Label from '../Label/Label';
 import "./styles.css"
 import { useTintometricContext } from '../../context'
+
 
 const CSS_HANDLES = ['colorList-container', 'colorList-item', 'colorList-grid', 'colorList-list', 'familyActive-label--wrapper', 'familyActive-label--text'];
 

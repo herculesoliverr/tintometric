@@ -5,6 +5,7 @@
   "admin.app.tintometric.update_success": "Preços skus atualizados corretamente",
   "admin.app.tintometric.oldPrices": "Preços Antigos",
   "admin.app.tintometric.minText": "O preço mínimo é: ",
+  "admin.app.tintometric.description": "Adicione os preços das bases e das tintas para atualizar os preços do skus en masse. Os skus afetados serão aqueles no json abaixo.",
   "admin.app.tintometric.uploadFile": "Insira arquivo JSON",
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component",

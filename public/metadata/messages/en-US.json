@@ -1,9 +1,10 @@
 {
   "name": "Tintometric",
   "headline": "Manage color combination for paint bussines.",
-  "overview": "Manage color combination for paint bussines.",
+  "overview": "The application allows both displaying a tintometer on the product page and making a price update based on the color composition.",
   "features": [
-    "Manage color combination for paint bussines."
+    "Manage color combination for paint bussines.",
+    "Massively update skus prices based on color composition."
   ],
   "websiteURL": "https://vtex.com/",
   "support": {

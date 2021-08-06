@@ -54,7 +54,12 @@ export const mutations = {
                             tinter10 * jsonProduct?.composition?.oldPrices?.tinter10 +
                             tinter11 * jsonProduct?.composition?.oldPrices?.tinter11 +
                             base
-                        pricing.updateSkuPrice(item, price, price, price * 1.3)
+                        try {
+                            pricing.updateSkuPrice(item, price, price, price * 1.3)
+
+                        } catch (err) {
+                            console.log("error---", err)
+                        }
                     }
                     else {
                         let base = 0

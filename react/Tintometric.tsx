@@ -4,7 +4,7 @@ import Main from "./components/Main/Main";
 import { TintometricProvider } from './context/index';
 
 const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
-    title = "VAMOS ENCONTRAR A SUA COR!", subtitle = "BUSQUE PELA MATRIZ OU PELO NOME", buttonGrid = "Matriz", buttonList = "Nome", colorDetailTitle = "Cor Escolhida:", confirmButton = "Confirme"
+    title = "LET'S FIND YOUR COLOUR!", subtitle = "", buttonGrid = "Matriz", buttonList = "Name", colorDetailTitle = "Selected colour:", confirmButton = "Confirm"
 }) => {
     return (
         <TintometricProvider>
@@ -31,13 +31,13 @@ Tintometric.schema = {
             title: 'Title',
             description: 'Title used in the modal',
             type: 'string',
-            default: 'VAMOS ENCONTRAR A SUA COR!',
+            default: "LET'S FIND YOUR COLOUR!",
         },
         subtitle: {
             title: 'Subtitle',
             description: 'Subtitle used in the modal',
             type: 'string',
-            default: 'BUSQUE PELA MATRIZ OU PELO NOME',
+            default: '',
         },
         buttonGrid: {
             title: 'Grid Button Label',
@@ -49,19 +49,19 @@ Tintometric.schema = {
             title: 'List Button Label',
             description: 'List button label used in the modal',
             type: 'string',
-            default: 'Nome',
+            default: 'Name',
         },
         colorDetailTitle: {
             title: 'List Button Label',
-            description: 'List button label used in the modal',
+            description: 'Color Detail Title',
             type: 'string',
-            default: 'Cor Escolhida:',
+            default: 'Selected Colour:',
         },
         confirmButton: {
             title: 'Confirm Button Label',
             description: 'Confirm button label used in the modal',
             type: 'string',
-            default: 'Confirme',
+            default: 'Confirm',
         }
     }
 }

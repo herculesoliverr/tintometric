@@ -2,6 +2,8 @@
   "admin.app.navigation.search.kws": "tintometric, tinto",
   "admin.app.tintometric.title": "Tintometric",
   "admin.app.tintometric.update_skus_prices": "Update Skus Prices",
+  "admin.app.tintometric.description": "Add the prices of the bases and the tinters to update the price massively. The affected skus will be the ones added in the json below.",
+  "siteeditor.app.tintometric.title": "Let's find your color!",
   "admin.app.tintometric.update_success": "Skus prices succesfully updated",
   "admin.app.tintometric.oldPrices": "Old Prices",
   "admin.app.tintometric.minText": "The minium price is: ",

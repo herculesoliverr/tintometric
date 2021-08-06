@@ -1,7 +1,5 @@
 import React from 'react'
-// import { FormattedMessage } from 'react-intl'
 
-// import IconImage from '../../MediaGalleryWidget/icons/IconImage'
 import styles from './styles.css'
 interface EmptyStateProps {
   fileName: string

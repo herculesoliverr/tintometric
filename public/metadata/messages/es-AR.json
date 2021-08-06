@@ -1,9 +1,10 @@
 {
   "name": "Tintometric",
-  "headline": "Manage color combination for paint bussines.",
-  "overview": "Manage color combination for paint bussines.",
+  "headline": "Muestrario de colores para pinturerías.",
+  "overview": "La aplicación permite tanto mostrar un tintométrico en la página de producto como hacer una actualización de precios en base a la composición de colores.",
   "features": [
-    "Manage color combination for paint bussines."
+    "Muestrario de colores en la página de producto.",
+    "Actualizar masivamente precios de los skus en base a la composición de los colores."
   ],
   "websiteURL": "https://vtex.com/",
   "support": {

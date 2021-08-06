@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['tooltip-name', 'tooltip-code']
