@@ -3,8 +3,8 @@
   "headline": "Cartela de cores para lojas de pintura.",
   "overview": "O aplicativo permite exibir um tintômetro na página do produto e fazer uma atualização de preço com base na composição de cores.",
   "features": [
-    "Cartela de cores na página do produto.",
-    "Atualize maciçamente os preços de skus com base na composição de cores."
+    "Cartela de cores na página do produto",
+    "Atualize em massa os preços dos SKUs com base nas cores"
   ],
   "websiteURL": "https://vtex.com/",
   "support": {

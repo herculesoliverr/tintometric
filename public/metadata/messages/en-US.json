@@ -1,6 +1,6 @@
 {
-  "name": "Tintometric",
-  "headline": "Manage color combination for paint bussines.",
+  "name": "Color Chart",
+  "headline": "Introduce a Color Chart to your paint store",
   "overview": "The application allows both displaying a tintometer on the product page and making a price update based on the color composition.",
   "features": [
     "Manage color combination for paint bussines.",
