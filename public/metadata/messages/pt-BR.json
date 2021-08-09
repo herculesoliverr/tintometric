@@ -1,9 +1,9 @@
 {
   "name": "Tintometric",
-  "headline": "Amostra de cor para lojas de pintura.",
+  "headline": "Cartela de cores para lojas de pintura.",
   "overview": "O aplicativo permite exibir um tintômetro na página do produto e fazer uma atualização de preço com base na composição de cores.",
   "features": [
-    "Amostra de cor na página do produto.",
+    "Cartela de cores na página do produto.",
     "Atualize maciçamente os preços de skus com base na composição de cores."
   ],
   "websiteURL": "https://vtex.com/",

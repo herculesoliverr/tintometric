@@ -13,7 +13,11 @@ import UploadFile from './components/UploadFile/UploadFile'
 
 const TintometricAdmin: FC = () => {
     const [isLoading, setIsLoading] = useState(false)
-    const [success, setSuccess] = useState(false)
+    const [state, setState] = useState({
+        success: false,
+        error: false,
+        failToUpdate: ""
+    })
     const [formValidated, setFormValidated] = useState(false)
     const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
     const intl = useIntl()
@@ -108,7 +112,11 @@ const TintometricAdmin: FC = () => {
 
     const handleSubmit = async () => {
         setIsLoading(true)
-        setSuccess(false)
+        setState({
+            success: false,
+            error: false,
+            failToUpdate: ""
+        })
         await Object.entries(data).forEach(([key, val]: any) => saveData({ variables: { key: key, value: val.toString() } }))
 
         updateSkusPrices({
@@ -133,8 +141,14 @@ const TintometricAdmin: FC = () => {
             }
         }).then(({ data }) => {
             setIsLoading(false)
-            setSuccess(true)
-            console.log("data----", data)
+            const failedSkus = data.updateSkusPrices
+            if (failedSkus.length > 0) {
+                setState({
+                    success: false,
+                    error: true,
+                    failToUpdate: `${failedSkus}`
+                })
+            }
         })
     }
 
@@ -157,10 +171,17 @@ const TintometricAdmin: FC = () => {
                         id: 'admin.app.tintometric.description'
                     })}
                     variation="full">
-                    {success &&
+                    {state.success &&
                         <div className={`mt5`}>
                             <Alert type="success" >
                                 <FormattedMessage id="admin.app.tintometric.update_success" />
+                            </Alert>
+                        </div>
+                    }
+                    {state.error &&
+                        <div className={`mt5`}>
+                            <Alert type="error" >
+                                <FormattedMessage id="admin.app.tintometric.failedSkus" /> {state.failToUpdate}
                             </Alert>
                         </div>
                     }

@@ -12,98 +12,60 @@ export const mutations = {
             const jsonUrl = await vbase.getJSON<string>('tintometricData', "jsonFile")
             const jsonFileContent = await files.getFile(jsonUrl)
             const jsonProducts = jsonFileContent['products']
-
-            products.forEach(async (item: string) => {
+            let failToUpdate: any[] = [];
+            jsonProducts.forEach(/* async */(item: any) => {
                 // this timeOut is to avoid 429
-                await new Promise(r => setTimeout(r, 100));
-                const jsonProduct = jsonProducts.find((element: any) => {
-                    return element.skuId == item
+                // await new Promise(r => setTimeout(r, 100));
+                const skuId = products.find((element: string) => {
+                    return element == item.skuId
                 })
 
-                if (jsonProduct && jsonProduct['composition']) {
-                    if (oldPrices) {
-                        let base = 0
-                        if (jsonProduct['composition']?.oldPrices?.base1) {
-                            base = base1
-                        }
-                        if (jsonProduct['composition']?.oldPrices?.base2) {
-                            base = base2
-                        }
-                        if (jsonProduct['composition']?.oldPrices?.base3) {
-                            base = base3
-                        }
-                        if (jsonProduct['composition']?.oldPrices?.base4) {
-                            base = base4
-                        }
-                        if (jsonProduct['composition']?.oldPrices?.base4) {
-                            base = base4
-                        }
-                        if (jsonProduct['composition']?.oldPrices?.base5) {
-                            base = base5
-                        }
+                const priceType = oldPrices ? "oldPrices" : "newPrices"
 
-                        let price = tinter1 * jsonProduct?.composition?.oldPrices?.tinter1 +
-                            tinter2 * jsonProduct?.composition?.oldPrices?.tinter2 +
-                            tinter3 * jsonProduct?.composition?.oldPrices?.tinter3 +
-                            tinter4 * jsonProduct?.composition?.oldPrices?.tinter4 +
-                            tinter5 * jsonProduct?.composition?.oldPrices?.tinter5 +
-                            tinter6 * jsonProduct?.composition?.oldPrices?.tinter6 +
-                            tinter7 * jsonProduct?.composition?.oldPrices?.tinter7 +
-                            tinter8 * jsonProduct?.composition?.oldPrices?.tinter8 +
-                            tinter9 * jsonProduct?.composition?.oldPrices?.tinter9 +
-                            tinter10 * jsonProduct?.composition?.oldPrices?.tinter10 +
-                            tinter11 * jsonProduct?.composition?.oldPrices?.tinter11 +
-                            base
-                        try {
-                            pricing.updateSkuPrice(item, price, price, price * 1.3)
-
-                        } catch (err) {
-                            console.log("error---", err)
-                        }
+                if (!skuId) {
+                    failToUpdate.push(item.skuId)
+                } else if (item['composition']) {
+                    let base = 0
+                    if (item['composition']?.[priceType]?.base1) {
+                        base = base1
                     }
-                    else {
-                        let base = 0
-                        if (jsonProduct['composition']?.newPrices?.base1) {
-                            base = base1
-                        }
-                        if (jsonProduct['composition']?.newPrices?.base2) {
-                            base = base2
-                        }
-                        if (jsonProduct['composition']?.newPrices?.base3) {
-                            base = base3
-                        }
-                        if (jsonProduct['composition']?.newPrices?.base4) {
-                            base = base4
-                        }
-                        if (jsonProduct['composition']?.newPrices?.base4) {
-                            base = base4
-                        }
-                        if (jsonProduct['composition']?.newPrices?.base5) {
-                            base = base5
-                        }
-
-                        let price = tinter1 * jsonProduct?.composition?.newPrices?.tinter1 +
-                            tinter2 * jsonProduct?.composition?.newPrices?.tinter2 +
-                            tinter3 * jsonProduct?.composition?.newPrices?.tinter3 +
-                            tinter4 * jsonProduct?.composition?.newPrices?.tinter4 +
-                            tinter5 * jsonProduct?.composition?.newPrices?.tinter5 +
-                            tinter6 * jsonProduct?.composition?.newPrices?.tinter6 +
-                            tinter7 * jsonProduct?.composition?.newPrices?.tinter7 +
-                            tinter8 * jsonProduct?.composition?.newPrices?.tinter8 +
-                            tinter9 * jsonProduct?.composition?.newPrices?.tinter9 +
-                            tinter10 * jsonProduct?.composition?.newPrices?.tinter10 +
-                            tinter11 * jsonProduct?.composition?.newPrices?.tinter11 +
-                            base
-                        pricing.updateSkuPrice(item, price, price, price * 1.3)
+                    if (item['composition']?.[priceType]?.base2) {
+                        base = base2
                     }
+                    if (item['composition']?.[priceType]?.base3) {
+                        base = base3
+                    }
+                    if (item['composition']?.[priceType]?.base4) {
+                        base = base4
+                    }
+                    if (item['composition']?.[priceType]?.base4) {
+                        base = base4
+                    }
+                    if (item['composition']?.[priceType]?.base5) {
+                        base = base5
+                    }
+
+                    let price = tinter1 * item?.composition?.[priceType]?.tinter1 +
+                        tinter2 * item?.composition?.[priceType]?.tinter2 +
+                        tinter3 * item?.composition?.[priceType]?.tinter3 +
+                        tinter4 * item?.composition?.[priceType]?.tinter4 +
+                        tinter5 * item?.composition?.[priceType]?.tinter5 +
+                        tinter6 * item?.composition?.[priceType]?.tinter6 +
+                        tinter7 * item?.composition?.[priceType]?.tinter7 +
+                        tinter8 * item?.composition?.[priceType]?.tinter8 +
+                        tinter9 * item?.composition?.[priceType]?.tinter9 +
+                        tinter10 * item?.composition?.[priceType]?.tinter10 +
+                        tinter11 * item?.composition?.[priceType]?.tinter11 +
+                        base
+
+                    setTimeout(() => {
+                        pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
+                    }, 100)
                 }
-
             })
-            return "end"
+            return failToUpdate.join(', ')
         } catch (err) {
             return err
         }
-
-
     }
 }
