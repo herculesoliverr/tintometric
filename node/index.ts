@@ -4,7 +4,6 @@ import { LRUCache, method, Service } from '@vtex/api'
 import { Clients } from './clients'
 import { status } from './middlewares/status'
 import { validate } from './middlewares/validate'
-import { tintometricPriceUpdate } from './middlewares/tintometricPriceUpdate'
 
 import { resolvers } from './resolvers'
 
@@ -51,9 +50,6 @@ export default new Service<Clients, State, Context>({
     // `status` is the route ID from service.json. It maps to an array of middlewares (or a single handler).
     status: method({
       GET: [validate, status],
-    }),
-    tintometric_price_update: method({
-      PUT: [tintometricPriceUpdate]
     })
   },
 })

@@ -131,9 +131,10 @@ const TintometricAdmin: FC = () => {
                 tinter11: parseFloat(data.tinter11),
                 oldPrices: oldPrices
             }
-        }).then(() => {
+        }).then(({ data }) => {
             setIsLoading(false)
             setSuccess(true)
+            console.log("data----", data)
         })
     }
 

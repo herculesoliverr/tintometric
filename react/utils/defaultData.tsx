@@ -3,7 +3,6 @@ export const defaultData = {
         {
             "id": 1,
             "name": "Tons Suaves",
-            "slug": "tons-suaves",
             "color": "#E8DDCB",
             "products": [
                 1,
@@ -32,7 +31,6 @@ export const defaultData = {
         {
             "id": 2,
             "name": "Marrons e Cinzas",
-            "slug": "marrons-e-cinzas",
             "color": "#6B4708",
             "products": [
                 1,
@@ -63,7 +61,6 @@ export const defaultData = {
         {
             "id": 3,
             "name": "Verdes",
-            "slug": "verdes",
             "color": "#169105",
             "products": [
                 1,

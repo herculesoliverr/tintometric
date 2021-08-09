@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone'
 import { Spinner, Button } from 'vtex.styleguide'
 
 import UploadFileQuery from './../../graphql/uploadFile.gql'
-import DeleteFileQuery from './../../graphql/deleteFile.gql'
+// import DeleteFileQuery from './../../graphql/deleteFile.gql'
 
 import ErrorAlert from './ErrorAlert'
 import EmptyState from './EmptyState'
@@ -45,7 +45,7 @@ const UploadFile = () => {
     const intl = useIntl()
     const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
     const jsonUrlQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
-    const jsonPathQuery = useQuery(getDataGQL, { variables: { key: 'jsonPath' } })
+    // const jsonPathQuery = useQuery(getDataGQL, { variables: { key: 'jsonPath' } })
 
     const [state, setState] = useState<State>({
         error: null,
@@ -63,11 +63,11 @@ const UploadFile = () => {
 
     const [uploadFile, { loading: loadinUploadFile, error: errorUploadFile, data: dataUploadFile }] = useMutation(UploadFileQuery)
 
-    const [deleteFile, { loading: loadinDeleteFile, error: errorDeleteFile, data: dataDeleteFile }] = useMutation(DeleteFileQuery)
+    /* const [deleteFile, { loading: loadinDeleteFile, error: errorDeleteFile, data: dataDeleteFile }] = useMutation(DeleteFileQuery)
 
     console.log("loadinDeleteFile", loadinDeleteFile)
     console.log("errorDeleteFile", errorDeleteFile)
-    console.log("dataDeleteFile", dataDeleteFile)
+    console.log("dataDeleteFile", dataDeleteFile) */
 
     useEffect(() => {
         if (loadinUploadFile) {
@@ -107,14 +107,14 @@ const UploadFile = () => {
         }
     }
 
-    const removeFile = async () => {
-        console.log("jsonPathQuery.data?.getData", jsonPathQuery.data?.getData)
-        deleteFile({
-            variables: { path: jsonPathQuery.data?.getData },
-        })
-    }
-
-    console.log(removeFile)
+    /*  const removeFile = async () => {
+         console.log("jsonPathQuery.data?.getData", jsonPathQuery.data?.getData)
+              deleteFile({
+                  variables: { path: jsonPathQuery.data?.getData },
+              })
+     }
+  */
+    /*   console.log(removeFile) */
 
     return (
         <>
