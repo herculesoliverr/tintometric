@@ -12,6 +12,7 @@ export const mutations = {
             const jsonUrl = await vbase.getJSON<string>('tintometricData', "jsonFile")
             const jsonFileContent = await files.getFile(jsonUrl)
             const jsonProducts = jsonFileContent['products']
+            const priceType = oldPrices ? "oldPrices" : "newPrices"
             let failToUpdate: any[] = [];
             jsonProducts.forEach(/* async */(item: any) => {
                 // this timeOut is to avoid 429
@@ -19,12 +20,10 @@ export const mutations = {
                 const skuId = products.find((element: string) => {
                     return element == item.skuId
                 })
-
-                const priceType = oldPrices ? "oldPrices" : "newPrices"
-
                 if (!skuId) {
                     failToUpdate.push(item.skuId)
                 } else if (item['composition']) {
+                    console.log("entra", item)
                     let base = 0
                     if (item['composition']?.[priceType]?.base1) {
                         base = base1

@@ -25,7 +25,6 @@ export function TintometricProvider({ children }: ContextChildren) {
       families.length && setActiveFamily(families[0])
    }, [families])
 
-
    useEffect(() => {
       const filteredFamilies = data?.families.filter(family => family.products?.find(item => item === activeProductType?.id));
       filteredFamilies && setFamilies(filteredFamilies)
@@ -50,6 +49,7 @@ export function TintometricProvider({ children }: ContextChildren) {
    async function getData(fileUrl: string) {
       const res = await fetch(`${fileUrl}`);
       const data = await res.json();
+      console.log("data---", data)
       setData(data);
       setProducts(data.products)
    }
