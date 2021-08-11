@@ -18,6 +18,7 @@ const TintometricAdmin: FC = () => {
         error: false,
         failToUpdate: ""
     })
+    const [fileLoaded, setFileLoaded] = useState(false)
     const [formValidated, setFormValidated] = useState(false)
     const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
     const intl = useIntl()
@@ -101,14 +102,13 @@ const TintometricAdmin: FC = () => {
             Number(data.tinter8) > minResponses.mintinter8 &&
             Number(data.tinter9) > minResponses.mintinter9 &&
             Number(data.tinter10) > minResponses.mintinter10 &&
-            Number(data.tinter11) > minResponses.mintinter11
+            Number(data.tinter11) > minResponses.mintinter11 && fileLoaded
         ) {
             setFormValidated(true)
         } else {
             setFormValidated(false)
         }
     }
-
 
     const handleSubmit = async () => {
         setIsLoading(true)
@@ -455,7 +455,7 @@ const TintometricAdmin: FC = () => {
                         }
                     </span>
                     <span className={"mv5 db"}>
-                        <UploadFile />
+                        <UploadFile setFileLoaded={setFileLoaded} />
                     </span>
                     <span className="mr4 mb8 db">
                         <Button

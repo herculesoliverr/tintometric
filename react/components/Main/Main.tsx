@@ -45,6 +45,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     jsonFileQuery.data?.getData && getData(jsonFileQuery.data?.getData)
   }, [jsonFileQuery])
 
+
   useEffect(() => {
     activeFamily && setFilteredProducts(products.filter(product => product.family === activeFamily?.id && product.products?.find(item => item === activeProductType?.id)))
   }, [activeFamily])

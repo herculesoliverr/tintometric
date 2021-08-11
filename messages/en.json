@@ -12,5 +12,6 @@
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component",
   "admin.app.tintometric.downloadTemplate": "Download template",
-  "admin.app.tintometric.removeFile": "Remove"
+  "admin.app.tintometric.removeFile": "Remove",
+  "admin.app.tintometric.generic.error": "An error occurred, please try again"
 }

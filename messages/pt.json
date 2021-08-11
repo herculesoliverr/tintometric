@@ -11,5 +11,6 @@
   "editor.tintometric.title": "Tintometric",
   "editor.tintometric.description": "Tintometric component",
   "admin.app.tintometric.downloadTemplate": "Baixar modelo",
-  "admin.app.tintometric.removeFile": "Remover"
+  "admin.app.tintometric.removeFile": "Remover",
+  "admin.app.tintometric.generic.error": "Ocorreu um erro. Por favor, tente novamente"
 }

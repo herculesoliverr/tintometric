@@ -12,5 +12,6 @@
   "editor.tintometric.description": "Tintometric component",
   "siteeditor.app.tintometric.title": "Vamos a encontrar tu color!",
   "admin.app.tintometric.downloadTemplate": "Descargar template",
-  "admin.app.tintometric.removeFile": "Eliminar"
+  "admin.app.tintometric.removeFile": "Eliminar",
+  "admin.app.tintometric.generic.error": "Ocurrió un error, inténtalo nuevamente."
 }
