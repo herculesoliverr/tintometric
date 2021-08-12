@@ -61,11 +61,14 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
 
     useEffect(() => {
         jsonNameQuery.data && setState(prevState => ({ ...prevState, fileName: jsonNameQuery.data?.getData }))
-        jsonUrlQuery.data?.getData !== "" && setState(prevState => ({
-            ...prevState,
-            fileUrl: jsonUrlQuery.data?.getData,
-            pathFile: jsonUrlQuery.data?.getData.split("/")[jsonUrlQuery.data?.getData.split("/").length - 1]
-        }))
+        if (jsonUrlQuery.data?.getData) {
+            setFileLoaded(true)
+            setState(prevState => ({
+                ...prevState,
+                fileUrl: jsonUrlQuery.data?.getData,
+                pathFile: jsonUrlQuery.data?.getData.split("/")[jsonUrlQuery.data?.getData.split("/").length - 1]
+            }))
+        }
     }, [jsonNameQuery, jsonUrlQuery])
 
 
@@ -82,6 +85,7 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
             setState(prevState => ({ ...prevState, isLoading: false, jsonFile: dataUploadFile.uploadFile.fileUrl, pathFile: dataUploadFile.uploadFile.fileUrl.split("/")[dataUploadFile.uploadFile.fileUrl.split('/').length - 1] }))
             saveData({ variables: { key: "jsonFile", value: dataUploadFile.uploadFile.fileUrl } })
             saveData({ variables: { key: "jsonName", value: state.fileName } })
+            setFileLoaded(true)
         }
     }, [loadingUploadFile, errorUploadFile, dataUploadFile])
 
