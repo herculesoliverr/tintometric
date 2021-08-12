@@ -157,7 +157,6 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
                     onClick={() => downloadFile("template_tintometric.json", JSON.stringify(defaultData))}>
                     <FormattedMessage id="admin.app.tintometric.downloadTemplate" />
                 </Button>
-                {("state.pathFile", state.pathFile)}
                 {state.pathFile && <Button
                     variation="tertiary"
                     onClick={() => removeFile()}
