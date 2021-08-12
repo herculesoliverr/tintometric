@@ -219,12 +219,10 @@ export const defaultData = {
     "productType": [
         {
             "id": 4,
-            "name": "Tinta alba Família Protegida Acetinado",
             "slug": "tinta-alba-familia-protegida-acetinado"
         },
         {
             "id": 5,
-            "name": "Tinta alba Clássica Fosco Aveludado",
             "slug": "tinta-alba-classica-fosco"
         }
     ]

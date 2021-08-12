@@ -14,6 +14,7 @@ It can be used in architecture master + white labels.
 
 ![Media Placeholder](https://media.giphy.com/media/MujEk2RiUShcSKtR0L/giphy.gif)
 
+---- 
 ## Configuration 
 
 In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
@@ -45,7 +46,7 @@ You are now able to use the Tintometric block:
   }
 }
 ```
-
+---- 
 ### `tintometric` props
 
 | Prop name    | Type            | Description    | Default value                                                                                                                               |
@@ -72,15 +73,83 @@ This props can be modified in the site editor
 | `Bases`      | Price of the bases     
 | `Tinters`      | Price of the tinters
 
-
+---- 
 ## JSON File Structure
 
+The structure in the JSON file has 3 important keys: 
 
+"families", "products" and "productType".
 
+### FAMILIES
+| Label    | type       | Description                                                                                                                            |
+| ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
+| `id`   | number   | Family color id (used to filter the products to show)
+| `name`  | string     | Family color name  
+| `color`    | string  | Family Hexadecimal color
+| `products`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
 
+### PRODUCTS
+| Label    | type       | Description                                                                                                                            |
+| ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
+| `code`   | string   | Product code
+| `name`   | string   | Product name
+| `slug`   | string   | Product slug (used to generate the url when "confirm" button is clicked)
+| `family` | number     | Family Id (used to filter the products to show)
+| `R`      | number | value of the RGB color (used to change the image background)
+| `G`      | number | value of the RGB color (used to change the image background)
+| `B`      | number | value of the RGB color (used to change the image background)
+| `products`      | Array of numbers | Array of productTypes id's (used to filter only the products that match the productTypes)
+| `skuId`  | number | skuId of the product (used to update the price)
+| `composition`  | object | color composition used to estimate the sku price.
+
+### COMPOSITION
+```
+"composition": {
+      "newPrices": {
+          "base1": 1,
+          "tinter1": 1,
+          "tinter2": 1,
+          "tinter3": 1,
+          "tinter4": 1,
+          "tinter5": 0,
+          "tinter6": 0,
+          "tinter7": 0,
+          "tinter8": 0,
+          "tinter9": 0,
+          "tinter10": 0,
+          "tinter11": 0
+      },
+      "oldPrices": {
+          "base1": 1,
+          "tinter1": 2,
+          "tinter2": 2,
+          "tinter3": 2,
+          "tinter4": 2,
+          "tinter5": 0,
+          "tinter6": 0,
+          "tinter7": 0,
+          "tinter8": 0,
+          "tinter9": 0,
+          "tinter10": 0,
+          "tinter11": 0
+      }
+}
+```
+
+#### The structure of the composition object must have only one base and all the 11 tinters.
+
+----
+
+### PRODUCT TYPE
+| Label    | type       | Description                                                                                                                            |
+| ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
+| `id`   | number   | ProductType id (used to filter only the products that matchs with it)
+| `slug`   | string   | ProductType slug (used to generate the url when "confirm" button is clicked)
+
+---- 
 ## Formula used to update the prices
-The formula takes 1 base (the one loaded in the json file).
-Then adds the amount of each tinter and multiplies by the price  
+#### The formula takes 1 base (the one loaded in the json file).
+#### Then adds the amount of each tinter and multiplies by the price  
 
 ```
 base +
@@ -96,6 +165,8 @@ quantity tinter 9 * tinter9 +
 quantity tinter 10 * tinter10 + 
 quantity tinter 11 * tinter11
 ```
+
+---- 
 ## Customization
 
 | CSS Handles |
