@@ -24,10 +24,10 @@ const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
             </div>}
             <div className={`${layout === 'grid' ? handles['colorList-grid'] : handles['colorList-list']}`}>
                 {
-                    items && items.map((item) => {
+                    items && items.map((item, index) => {
                         return (
                             layout === 'grid' ?
-                                <Tooltip key={item.skuId} label={
+                                <Tooltip key={index} label={
                                     <Label name={item.name} code={item.code} />
                                 }>
                                     <span

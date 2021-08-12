@@ -13,12 +13,6 @@ export const mutations = {
             const jsonFileContent = await files.getFile(jsonUrl)
             const jsonProducts = jsonFileContent['products']
             const priceType = oldPrices ? "oldPrices" : "newPrices";
-            /*
-            errors{
-                skusNotFound: [1, 2, 3, 4],
-                skusBadStructure: [5, 6, 7]
-            }
-            */
             const skusNotFound: any[] = [];
             const skusBadStructure: any[] = [];
 
@@ -28,7 +22,10 @@ export const mutations = {
                 const skuId = products.find((element: string) => {
                     return element == item.skuId
                 })
-                if (!skuId) {
+
+                if (!item.skuId) {
+                    return
+                } else if (!skuId) {
                     skusNotFound.push(item.skuId)
                 } else if (item['composition']) {
                     let base = 0
@@ -74,12 +71,16 @@ export const mutations = {
                     }
 
                 }
+
             })
-            const errors = {
+            /*     const errors = {
+                    skusNotFound: skusNotFound,
+                    skusBadStructure: skusBadStructure
+                } */
+            return JSON.stringify({
                 skusNotFound: skusNotFound,
                 skusBadStructure: skusBadStructure
-            }
-            return JSON.stringify(errors)
+            })
         } catch (err) {
             return err
         }
