@@ -49,7 +49,6 @@ export function TintometricProvider({ children }: ContextChildren) {
    async function getData(fileUrl: string) {
       const res = await fetch(`${fileUrl}`);
       const data = await res.json();
-      console.log("data---", data)
       setData(data);
       setProducts(data.products)
    }

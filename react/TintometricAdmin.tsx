@@ -16,7 +16,8 @@ const TintometricAdmin: FC = () => {
     const [state, setState] = useState({
         success: false,
         error: false,
-        failToUpdate: ""
+        skusNotFound: "",
+        skusBadStructure: ""
     })
     const [fileLoaded, setFileLoaded] = useState(false)
     const [formValidated, setFormValidated] = useState(false)
@@ -115,7 +116,8 @@ const TintometricAdmin: FC = () => {
         setState({
             success: false,
             error: false,
-            failToUpdate: ""
+            skusNotFound: "",
+            skusBadStructure: ""
         })
         await Object.entries(data).forEach(([key, val]: any) => saveData({ variables: { key: key, value: val.toString() } }))
 
@@ -140,14 +142,18 @@ const TintometricAdmin: FC = () => {
                 oldPrices: oldPrices
             }
         }).then(({ data }) => {
+            const res = JSON.parse(data.updateSkusPrices)
+            const { skusNotFound, skusBadStructure } = res;
             setIsLoading(false)
-            const failedSkus = data.updateSkusPrices
-            if (failedSkus.length > 0) {
+            if (skusNotFound.length > 0) {
                 setState({
                     success: false,
                     error: true,
-                    failToUpdate: `${failedSkus}`
+                    skusNotFound: `${skusNotFound}`,
+                    skusBadStructure: `${skusBadStructure}`
                 })
+            } else {
+                setState(prevState => ({ ...prevState, success: true }))
             }
         })
     }
@@ -155,6 +161,15 @@ const TintometricAdmin: FC = () => {
     useEffect(() => {
         formValidation()
     }, [data])
+
+    useEffect(() => {
+        setState({
+            success: false,
+            error: false,
+            skusNotFound: "",
+            skusBadStructure: ""
+        })
+    }, [fileLoaded])
 
     if (base1Query.loading || base2Query.loading) {
         return (<div className="flex items-center justify-center mv8"><Spinner /></div>)
@@ -178,10 +193,18 @@ const TintometricAdmin: FC = () => {
                             </Alert>
                         </div>
                     }
-                    {state.error &&
+                    {state.error && state.skusNotFound?.length > 0 &&
                         <div className={`mt5`}>
                             <Alert type="error" >
-                                <FormattedMessage id="admin.app.tintometric.failedSkus" /> {state.failToUpdate}
+                                <FormattedMessage id="admin.app.tintometric.skusNotFound" /> {state.skusNotFound}
+                            </Alert>
+                        </div>
+                    }
+
+                    {state.error && state.skusBadStructure?.length > 0 &&
+                        <div className={`mt5`}>
+                            <Alert type="error" >
+                                <FormattedMessage id="admin.app.tintometric.skusBadStructure" /> {state.skusBadStructure}
                             </Alert>
                         </div>
                     }

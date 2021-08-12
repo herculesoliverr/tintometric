@@ -39,7 +39,6 @@ const messages = defineMessages({
         id: 'admin.app.tintometric.generic.error',
     },
 })
-
 interface UploadFileProps {
     setFileLoaded: Dispatch<SetStateAction<boolean>>
 }
@@ -49,7 +48,8 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
     const intl = useIntl()
     const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
     const jsonUrlQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
-    const jsonPathQuery = useQuery(getDataGQL, { variables: { key: 'jsonPath' } })
+    const [uploadFile, { loading: loadingUploadFile, error: errorUploadFile, data: dataUploadFile }] = useMutation(UploadFileQuery)
+    const [deleteFile, { loading: loadingDeleteFile, error: errorDeleteFile, data: dataDeleteFile }] = useMutation(DeleteFileQuery)
 
     const [state, setState] = useState<State>({
         error: null,
@@ -59,49 +59,45 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
         pathFile: ""
     })
 
-    const [uploadFile, { loading: loadingUploadFile, error: errorUploadFile, data: dataUploadFile }] = useMutation(UploadFileQuery)
-    const [deleteFile, { loading: loadingDeleteFile, error: errorDeleteFile, data: dataDeleteFile }] = useMutation(DeleteFileQuery)
-
     useEffect(() => {
-        if (jsonNameQuery.data) console.log("entra", jsonNameQuery.data)
         jsonNameQuery.data && setState(prevState => ({ ...prevState, fileName: jsonNameQuery.data?.getData }))
-        console.log("jsonNameQuery.data?.getData", jsonNameQuery.data)
-        console.log("State", state)
-        jsonUrlQuery.data?.getData !== "" && setState(prevState => ({ ...prevState, fileUrl: jsonUrlQuery.data?.getData }))
-        if (jsonPathQuery.data?.getData) {
-            setState(prevState => ({ ...prevState, pathFile: jsonPathQuery.data?.getData }))
-            setFileLoaded(true)
-        }
-    }, [jsonNameQuery, jsonUrlQuery, jsonPathQuery, dataDeleteFile])
+        jsonUrlQuery.data?.getData !== "" && setState(prevState => ({
+            ...prevState,
+            fileUrl: jsonUrlQuery.data?.getData,
+            pathFile: jsonUrlQuery.data?.getData.split("/")[jsonUrlQuery.data?.getData.split("/").length - 1]
+        }))
+    }, [jsonNameQuery, jsonUrlQuery])
 
 
     useEffect(() => {
-        if (loadingUploadFile || loadingDeleteFile) {
+        if (loadingUploadFile) {
             setState(prevState => ({ ...prevState, isLoading: true }))
         }
         if (errorUploadFile) {
             setState(prevState => ({ ...prevState, isLoading: false, error: intl.formatMessage(messages.genericError) }))
             setFileLoaded(false)
         }
-        if (errorDeleteFile) {
-            setState(prevState => ({ ...prevState, isLoading: false, error: intl.formatMessage(messages.genericError) }))
-        }
+
         if (dataUploadFile) {
             setState(prevState => ({ ...prevState, isLoading: false, jsonFile: dataUploadFile.uploadFile.fileUrl, pathFile: dataUploadFile.uploadFile.fileUrl.split("/")[dataUploadFile.uploadFile.fileUrl.split('/').length - 1] }))
             saveData({ variables: { key: "jsonFile", value: dataUploadFile.uploadFile.fileUrl } })
             saveData({ variables: { key: "jsonName", value: state.fileName } })
-            saveData({ variables: { key: "jsonPath", value: dataUploadFile.uploadFile.fileUrl.split("/")[dataUploadFile.uploadFile.fileUrl.split('/').length - 1] } })
-            setFileLoaded(true)
         }
+    }, [loadingUploadFile, errorUploadFile, dataUploadFile])
+
+    useEffect(() => {
+        if (loadingDeleteFile) setState(prevState => ({ ...prevState, isLoading: true }))
         if (dataDeleteFile) {
             saveData({ variables: { key: "jsonFile", value: "" } })
             saveData({ variables: { key: "jsonPath", value: "" } })
             saveData({ variables: { key: "jsonName", value: "" } })
-            setState(prevState => ({ ...prevState, isLoading: false }))
+            setState(prevState => ({ ...prevState, isLoading: false, fileName: intl.formatMessage(messages.fileEmpty), pathFile: "" }))
             setFileLoaded(false)
         }
-    }, [loadingUploadFile, loadingDeleteFile, errorUploadFile, errorDeleteFile, dataUploadFile, dataDeleteFile])
-
+        if (errorDeleteFile) {
+            setState(prevState => ({ ...prevState, isLoading: false, error: intl.formatMessage(messages.genericError) }))
+        }
+    }, [dataDeleteFile, errorDeleteFile, loadingDeleteFile])
 
     const handleDropFile = async (acceptedFiles: File[]) => {
         if (acceptedFiles && acceptedFiles[0]) {
@@ -161,8 +157,8 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
                     onClick={() => downloadFile("template_tintometric.json", JSON.stringify(defaultData))}>
                     <FormattedMessage id="admin.app.tintometric.downloadTemplate" />
                 </Button>
-                {console.log("state.pathFile", state.pathFile)}
-                {state.pathFile !== "" && <Button
+                {("state.pathFile", state.pathFile)}
+                {state.pathFile && <Button
                     variation="tertiary"
                     onClick={() => removeFile()}
                 >

@@ -12,8 +12,16 @@ export const mutations = {
             const jsonUrl = await vbase.getJSON<string>('tintometricData', "jsonFile")
             const jsonFileContent = await files.getFile(jsonUrl)
             const jsonProducts = jsonFileContent['products']
-            const priceType = oldPrices ? "oldPrices" : "newPrices"
-            let failToUpdate: any[] = [];
+            const priceType = oldPrices ? "oldPrices" : "newPrices";
+            /*
+            errors{
+                skusNotFound: [1, 2, 3, 4],
+                skusBadStructure: [5, 6, 7]
+            }
+            */
+            const skusNotFound: any[] = [];
+            const skusBadStructure: any[] = [];
+
             jsonProducts.forEach(/* async */(item: any) => {
                 // this timeOut is to avoid 429
                 // await new Promise(r => setTimeout(r, 100));
@@ -21,9 +29,8 @@ export const mutations = {
                     return element == item.skuId
                 })
                 if (!skuId) {
-                    failToUpdate.push(item.skuId)
+                    skusNotFound.push(item.skuId)
                 } else if (item['composition']) {
-                    console.log("entra", item)
                     let base = 0
                     if (item['composition']?.[priceType]?.base1) {
                         base = base1
@@ -57,12 +64,22 @@ export const mutations = {
                         tinter11 * item?.composition?.[priceType]?.tinter11 +
                         base
 
-                    setTimeout(() => {
-                        pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
-                    }, 100)
+                    if (Number.isNaN(price)) {
+                        skusBadStructure.push(item.skuId)
+                        return
+                    } else {
+                        setTimeout(() => {
+                            pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
+                        }, 100)
+                    }
+
                 }
             })
-            return failToUpdate.join(', ')
+            const errors = {
+                skusNotFound: skusNotFound,
+                skusBadStructure: skusBadStructure
+            }
+            return JSON.stringify(errors)
         } catch (err) {
             return err
         }
