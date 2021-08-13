@@ -1,102 +1,98 @@
-import { VerifyKeyObjectInput } from 'crypto';
-import { ReactNode, SetStateAction, Dispatch } from 'react';
+import { VerifyKeyObjectInput } from 'crypto'
+import { ReactNode, SetStateAction, Dispatch } from 'react'
 declare global {
   export interface TintometricProps {
-    title: string,
-    subtitle: string,
-    buttonGrid: string,
-    buttonList: string,
-    colorDetailTitle: string,
-    confirmButton: string,
+    title: string
+    subtitle: string
+    buttonGrid: string
+    buttonList: string
+    colorDetailTitle: string
+    confirmButton: string
     // file: string
   }
-  
+
   export interface FamilyPickerProps {
-    action: (family) => void,
+    action: (family) => void
     activeId: number
   }
 
   export interface ProductType {
-    id: number,
-    name: string,
+    id: number
+    name: string
     slug: string
   }
 
   export interface DataProps {
-    families: Family[],
-    productType: ProductType[],
+    families: Family[]
+    productType: ProductType[]
     products: ProductProps[]
   }
 
   export interface ColorListProps {
-    items: ProductProps[] | undefined,
-    familyName: string,
+    items: ProductProps[] | undefined
+    familyName: string
     layout?: string
   }
 
   export interface LabelProps {
-    name: string,
+    name: string
     code: string
   }
 
   interface ProductProps {
-    R: number,
-    G: number,
-    B: number,
-    code: string,
-    family: number,
-    name: string,
-    slug: string,
-    products?: number[],
-    skuId?: number,
-    order?: number,
-    page?: number,
+    R: number
+    G: number
+    B: number
+    code: string
+    family: number
+    name: string
+    slug: string
+    products?: number[]
+    skuId?: number
+    order?: number
+    page?: number
     image?: string
   }
 
   interface ColorDetailProps {
-    handleClick: function,
-    colorDetailTitle: string,
+    handleClick: function
+    colorDetailTitle: string
     confirmButton: string
   }
 
   interface EventInterface {
     target: {
-      value: string,
-      name: string 
+      value: string
+      name: string
     }
   }
 
   interface Family {
-    color: string,
-    id: number,
-    name: string,
-    products: number[],
+    color: string
+    id: number
+    name: string
+    products: number[]
     slug: string
   }
 
   interface TintometricContextInterface {
     // getData: (file: string) => void,
-    getData: (fileUrl: string) => void,
-    families: Family[],
-    activeFamily: Family | undefined,
-    setActiveFamily: (Family) => void,
-    products: ProductProps[],
+    getData: (fileUrl: string) => void
+    families: Family[]
+    activeFamily: Family | undefined
+    setActiveFamily: (Family) => void
+    products: ProductProps[]
     // activeProduct: ProductProps | undefined,
-    handleModalClick: (state: boolean) => void,
-    modalOpen: boolean,
-    activeProduct: ProductProps | undefined,
-    activeProductType: ProductType | undefined,
-    selectedColor: any,
-    setSelectedColor: (product: ProductProps) => void,
+    handleModalClick: (state: boolean) => void
+    modalOpen: boolean
+    activeProduct: ProductProps | undefined
+    activeProductType: ProductType | undefined
+    selectedColor: any
+    setSelectedColor: (product: ProductProps) => void
   }
 
   //CONTEXT
   export interface ContextChildren {
-    children: ReactNode;
+    children: ReactNode
   }
 }
-
-
-
-
