@@ -8,6 +8,7 @@ export default class Files extends ExternalClient {
 
   public async getFile(fileUrl: string): Promise<any> {
     const fileName = fileUrl.split('/')[fileUrl.split('/').length-1]
+
     return this.http.get(`/assets/vtex.file-manager-graphql/images/${fileName}`)
   }
 

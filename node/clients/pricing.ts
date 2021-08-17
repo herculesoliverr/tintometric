@@ -17,11 +17,12 @@ export default class Pricing extends JanusClient {
     }
 
     public async updateSkuPrice(skuId: string, costPrice: number, basePrice: number, listPrice: number): Promise<string> {
-        let body = {
-            costPrice: costPrice,
-            basePrice: basePrice,
-            listPrice: listPrice
+        const body = {
+            costPrice,
+            basePrice,
+            listPrice
         }
+
         return this.http.put(`/${this.context.account}/${this.baseUrl}/${skuId}?an=${this.context.account}`, body, { metric: 'pricing__update' })
     }
 }

@@ -1,5 +1,5 @@
-import { VerifyKeyObjectInput } from 'crypto'
 import { ReactNode, SetStateAction, Dispatch } from 'react'
+
 declare global {
   export interface TintometricProps {
     title: string
@@ -8,7 +8,6 @@ declare global {
     buttonList: string
     colorDetailTitle: string
     confirmButton: string
-    // file: string
   }
 
   export interface FamilyPickerProps {
@@ -76,13 +75,11 @@ declare global {
   }
 
   interface TintometricContextInterface {
-    // getData: (file: string) => void,
     getData: (fileUrl: string) => void
     families: Family[]
     activeFamily: Family | undefined
     setActiveFamily: (Family) => void
     products: ProductProps[]
-    // activeProduct: ProductProps | undefined,
     handleModalClick: (state: boolean) => void
     modalOpen: boolean
     activeProduct: ProductProps | undefined
@@ -91,7 +88,6 @@ declare global {
     setSelectedColor: (product: ProductProps) => void
   }
 
-  //CONTEXT
   export interface ContextChildren {
     children: ReactNode
   }

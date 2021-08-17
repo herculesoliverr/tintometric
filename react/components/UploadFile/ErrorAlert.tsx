@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import { Alert } from 'vtex.styleguide'
 
 interface Props {

@@ -35,9 +35,9 @@ interface Skus {
 interface PromiseInterface {
   data: {
     products: {
-      items: {
+      items: Array<{
         skus: Skus[]
-      }[]
+      }>
     }
   }
 }
@@ -53,11 +53,15 @@ export default class Catalog extends AppGraphQLClient {
       const {
         paging: { total },
       } = (response.data as ProductResponse).products
+
       const responsePromises = []
+
       for (let i = 1; i <= total; i++) {
         const promise = this.getProductsPerPage({ page: i })
+
         responsePromises.push(promise)
       }
+
       const resolvedPromises: any = await Promise.all(responsePromises)
       let flattenResponse: PromiseInterface[] = []
 
@@ -65,6 +69,7 @@ export default class Catalog extends AppGraphQLClient {
         .map((x: any) => x.data.products.items.map((y: any) => y.skus))
         .flat(2)
         .map((item: any) => item.id)
+
       return flattenResponse
     } catch (error) {
       return statusToError(error)
@@ -74,6 +79,7 @@ export default class Catalog extends AppGraphQLClient {
   public getProductsPerPage = async ({ page }: { page: number }) => {
     // this timeOut is to avoid 429
     await new Promise(r => setTimeout(r, 500))
+
     return this.graphql.query<ProductResponse, { page: number }>({
       query: PRODUCTS_QUERY,
       variables: {

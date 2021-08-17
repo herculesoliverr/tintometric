@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './styles.css'
+
 interface EmptyStateProps {
   fileName: string
 }
@@ -13,9 +14,7 @@ const EmptyState = ({ fileName }: EmptyStateProps) => {
         // style={style}
         className={`h-100 flex flex-column justify-center items-center pointer b--mid-gray b--dashed ba br2 c-muted-1 ${styles.emptyState}`}
       >
-        <div className={`tc ${styles.imageUploaderText}`}>
-          {fileName}
-        </div>
+        <div className={`tc ${styles.imageUploaderText}`}>{fileName}</div>
       </div>
     </div>
   )

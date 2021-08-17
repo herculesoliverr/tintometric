@@ -4,6 +4,7 @@ export const queries = {
       'tintometricData',
       key
     )
+
     return aux
   },
 }

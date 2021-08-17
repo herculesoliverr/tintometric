@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
   ActionMenu as StyleguideActionMenu,
   IconOptionsDots,
