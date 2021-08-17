@@ -24,7 +24,7 @@ interface State {
 const messages = defineMessages({
   fileEmpty: {
     defaultMessage: 'Add a file',
-    id: 'admin.app.tintometric.uploadFile',
+    id: 'admin/admin.app.tintometric.uploadFile',
   },
   fileSizeError: {
     defaultMessage:
@@ -33,7 +33,7 @@ const messages = defineMessages({
   },
   genericError: {
     defaultMessage: 'Something went wrong. Please try again.',
-    id: 'admin.app.tintometric.generic.error',
+    id: 'admin/admin.app.tintometric.generic.error',
   },
 })
 
@@ -176,7 +176,7 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
   return (
     <>
       <span className="mv5 db">
-        <FormattedMessage id="admin.app.tintometric.uploadFile" />
+        <FormattedMessage id="admin/admin.app.tintometric.uploadFile" />
       </span>
       <Dropzone
         onDrop={acceptedFiles => handleDropFile(acceptedFiles)}
@@ -188,7 +188,7 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
               {...getRootProps()}
               className={`
                                 ${state.isLoading &&
-                                  'ba b--dashed bw1 b--light-gray bg-white b--solid'}
+                'ba b--dashed bw1 b--light-gray bg-white b--solid'}
                                 `}
             >
               <input {...getInputProps()} />
@@ -213,11 +213,11 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
             )
           }
         >
-          <FormattedMessage id="admin.app.tintometric.downloadTemplate" />
+          <FormattedMessage id="admin/admin.app.tintometric.downloadTemplate" />
         </Button>
         {state.pathFile && (
           <Button variation="tertiary" onClick={() => removeFile()}>
-            <FormattedMessage id="admin.app.tintometric.removeFile" />
+            <FormattedMessage id="admin/admin.app.tintometric.removeFile" />
           </Button>
         )}
       </span>

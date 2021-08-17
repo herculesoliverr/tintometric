@@ -28,8 +28,8 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
 export default Tintometric
 
 Tintometric.schema = {
-  title: 'editor.tintometric.title',
-  description: 'editor.tintometric.description',
+  title: 'admin/editor.tintometric.title',
+  description: 'admin/editor.tintometric.description',
   type: 'object',
   properties: {
     title: {

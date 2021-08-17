@@ -231,24 +231,24 @@ const TintometricAdmin: FC = () => {
       <Layout>
         <PageBlock
           title={intl.formatMessage({
-            id: 'admin.app.tintometric.title',
+            id: 'store/admin.app.tintometric.title',
           })}
           subtitle={intl.formatMessage({
-            id: 'admin.app.tintometric.description',
+            id: 'admin/admin.app.tintometric.description',
           })}
           variation="full"
         >
           {state.success && (
             <div className="mt5">
               <Alert type="success">
-                <FormattedMessage id="admin.app.tintometric.update_success" />
+                <FormattedMessage id="admin/admin.app.tintometric.update_success" />
               </Alert>
             </div>
           )}
           {state.error && state.skusNotFound?.length > 0 && (
             <div className="mt5">
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.skusNotFound" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.skusNotFound" />{' '}
                 {state.skusNotFound}
               </Alert>
             </div>
@@ -257,7 +257,7 @@ const TintometricAdmin: FC = () => {
           {state.error && state.skusBadStructure?.length > 0 && (
             <div className="mt5">
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.skusBadStructure" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.skusBadStructure" />{' '}
                 {state.skusBadStructure}
               </Alert>
             </div>
@@ -268,7 +268,7 @@ const TintometricAdmin: FC = () => {
               id="option-0"
               label={intl.formatMessage({
                 defaultMessage: 'Old Prices',
-                id: 'admin.app.tintometric.oldPrices',
+                id: 'admin/admin.app.tintometric.oldPrices',
               })}
               name="default-checkbox-group"
               onChange={() => setOldPrices(!oldPrices)}
@@ -287,7 +287,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.base1 < minResponses.base1 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.base1}
               </Alert>
             )}
@@ -304,7 +304,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.base2 < minResponses.base2 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.base2}
               </Alert>
             )}
@@ -321,7 +321,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.base3 < minResponses.base3 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.base3}
               </Alert>
             )}
@@ -338,7 +338,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.base4 < minResponses.base4 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.base4}
               </Alert>
             )}
@@ -355,7 +355,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.base5 < minResponses.base5 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.base5}
               </Alert>
             )}
@@ -372,7 +372,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter1 < minResponses.tinter1 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter1}
               </Alert>
             )}
@@ -389,7 +389,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter2 < minResponses.tinter2 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter2}
               </Alert>
             )}
@@ -406,7 +406,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter3 < minResponses.tinter3 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter3}
               </Alert>
             )}
@@ -423,7 +423,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter4 < minResponses.tinter4 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter4}
               </Alert>
             )}
@@ -440,7 +440,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter5 < minResponses.tinter5 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter5}
               </Alert>
             )}
@@ -457,7 +457,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter6 < minResponses.tinter6 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter6}
               </Alert>
             )}
@@ -474,7 +474,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter7 < minResponses.tinter7 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter7}
               </Alert>
             )}
@@ -491,7 +491,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter8 < minResponses.tinter8 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter8}
               </Alert>
             )}
@@ -508,7 +508,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter9 < minResponses.tinter9 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter9}
               </Alert>
             )}
@@ -525,7 +525,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter10 < minResponses.tinter10 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter10}
               </Alert>
             )}
@@ -542,7 +542,7 @@ const TintometricAdmin: FC = () => {
             />
             {compositionValues.tinter11 < minResponses.tinter11 && (
               <Alert type="error">
-                <FormattedMessage id="admin.app.tintometric.minText" />{' '}
+                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
                 {minResponses.tinter11}
               </Alert>
             )}
@@ -559,7 +559,7 @@ const TintometricAdmin: FC = () => {
               isLoading={isLoading}
               disabled={!formValidated}
             >
-              <FormattedMessage id="admin.app.tintometric.update_skus_prices" />
+              <FormattedMessage id="admin/admin.app.tintometric.update_skus_prices" />
             </Button>
           </span>
         </PageBlock>
