@@ -3,13 +3,10 @@ import {
   ServiceContext,
   RecorderState,
   LRUCache,
-  method,
   Service,
 } from '@vtex/api'
 
 import { Clients } from './clients'
-import { status } from './middlewares/status'
-import { validate } from './middlewares/validate'
 import { resolvers } from './resolvers'
 
 const TIMEOUT_MS = 600000
@@ -42,9 +39,4 @@ declare global {
 export default new Service<Clients, State, Context>({
   clients,
   graphql: { resolvers },
-  routes: {
-    status: method({
-      GET: [validate, status],
-    }),
-  },
 })
