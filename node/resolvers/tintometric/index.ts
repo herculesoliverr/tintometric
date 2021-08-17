@@ -36,11 +36,10 @@ export const mutations = {
 
       jsonProducts.forEach((item: any) => {
         const skuId = products.find((element: string) => {
-          return element == item.skuId
+          return Number(element) === item.skuId
         })
 
-        if (!item.skuId) {
-        } else if (!skuId) {
+        if (!skuId) {
           skusNotFound.push(item.skuId)
         } else if (item.composition) {
           let base = 0

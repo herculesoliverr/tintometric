@@ -1,5 +1,11 @@
-import type { ClientsConfig, ServiceContext, RecorderState } from '@vtex/api'
-import { LRUCache, method, Service } from '@vtex/api'
+import {
+  ClientsConfig,
+  ServiceContext,
+  RecorderState,
+  LRUCache,
+  method,
+  Service,
+} from '@vtex/api'
 
 import { Clients } from './clients'
 import { status } from './middlewares/status'
@@ -39,6 +45,6 @@ export default new Service<Clients, State, Context>({
   routes: {
     status: method({
       GET: [validate, status],
-    })
+    }),
   },
 })

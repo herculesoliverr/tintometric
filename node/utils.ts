@@ -1,5 +1,5 @@
 import { AuthenticationError, ForbiddenError, UserInputError } from '@vtex/api'
-import type { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 
 export const BUCKET_NAME = 'product-translation'
 export const ALL_TRANSLATIONS_FILES = 'all-translations'
