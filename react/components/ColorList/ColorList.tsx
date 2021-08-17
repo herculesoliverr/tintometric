@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Tooltip } from 'vtex.styleguide'
@@ -47,6 +49,8 @@ const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
               >
                 <span
                   onClick={() => setSelectedColor(item)}
+                  role="button"
+                  tabIndex={index}
                   className={handles['colorList-item']}
                   style={{
                     backgroundColor: `rgb(${item.R}, ${item.G}, ${item.B})`,
@@ -55,6 +59,8 @@ const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
               </Tooltip>
             ) : (
               <div
+                role="button"
+                tabIndex={index}
                 onClick={() => setSelectedColor(item)}
                 className={handles['colorList-item']}
                 style={{

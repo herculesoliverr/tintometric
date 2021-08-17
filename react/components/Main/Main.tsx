@@ -53,6 +53,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
 
   useEffect(() => {
     jsonFileQuery.data?.getData && getData(jsonFileQuery.data?.getData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jsonFileQuery])
   useEffect(() => {
     activeFamily &&
@@ -63,6 +64,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
             product.products?.find(item => item === activeProductType?.id)
         )
       )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFamily])
 
   function handleSearch(search: string) {

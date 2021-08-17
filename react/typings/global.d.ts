@@ -1,4 +1,4 @@
-import { ReactNode, SetStateAction, Dispatch } from 'react'
+import { ReactNode } from 'react'
 
 declare global {
   export interface TintometricProps {

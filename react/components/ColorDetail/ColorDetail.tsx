@@ -24,8 +24,6 @@ const ColorDetail = ({ colorDetailTitle, confirmButton }: ColorDetailProps) => {
     activeProductType,
   } = useTintometricContext()
 
-  console.log('selectedColor', selectedColor)
-
   return (
     <section className={handles['colorDetail-container']}>
       <p className={`${handles['colorDetail-title']} ma0 mb2`}>

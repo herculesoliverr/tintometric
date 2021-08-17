@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import './styles.css'
@@ -34,6 +36,7 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
           return (
             <div
               role="button"
+              tabIndex={family.id}
               key={family.id}
               onClick={() => action(family)}
               className={`${handles['familyPicker-item']} ${

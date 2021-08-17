@@ -19,6 +19,9 @@ import UploadFile from './components/UploadFile/UploadFile'
 
 const TintometricAdmin: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const [oldPrices, setOldPrices] = useState(false)
+  const [fileLoaded, setFileLoaded] = useState(false)
+  const [formValidated, setFormValidated] = useState(false)
   const [state, setState] = useState({
     success: false,
     error: false,
@@ -26,12 +29,10 @@ const TintometricAdmin: FC = () => {
     skusBadStructure: '',
   })
 
-  const [fileLoaded, setFileLoaded] = useState(false)
-  const [formValidated, setFormValidated] = useState(false)
   const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
-  const intl = useIntl()
-  const [oldPrices, setOldPrices] = useState(false)
   const [saveData] = useMutation(saveDataGQL)
+  const intl = useIntl()
+
   const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
   const base2Query = useQuery(getDataGQL, { variables: { key: 'base2' } })
   const base3Query = useQuery(getDataGQL, { variables: { key: 'base3' } })
@@ -49,6 +50,29 @@ const TintometricAdmin: FC = () => {
   const tinter9Query = useQuery(getDataGQL, { variables: { key: 'tinter9' } })
   const tinter10Query = useQuery(getDataGQL, { variables: { key: 'tinter10' } })
   const tinter11Query = useQuery(getDataGQL, { variables: { key: 'tinter11' } })
+
+  const minbase1 = useQuery(getDataGQL, { variables: { key: 'minbase1' } })
+  const minbase2 = useQuery(getDataGQL, { variables: { key: 'minbase2' } })
+  const minbase3 = useQuery(getDataGQL, { variables: { key: 'minbase3' } })
+  const minbase4 = useQuery(getDataGQL, { variables: { key: 'minbase4' } })
+  const minbase5 = useQuery(getDataGQL, { variables: { key: 'minbase5' } })
+  const mintinter1 = useQuery(getDataGQL, { variables: { key: 'mintinter1' } })
+  const mintinter2 = useQuery(getDataGQL, { variables: { key: 'mintinter2' } })
+  const mintinter3 = useQuery(getDataGQL, { variables: { key: 'mintinter3' } })
+  const mintinter4 = useQuery(getDataGQL, { variables: { key: 'mintinter4' } })
+  const mintinter5 = useQuery(getDataGQL, { variables: { key: 'mintinter5' } })
+  const mintinter6 = useQuery(getDataGQL, { variables: { key: 'mintinter6' } })
+  const mintinter7 = useQuery(getDataGQL, { variables: { key: 'mintinter7' } })
+  const mintinter8 = useQuery(getDataGQL, { variables: { key: 'mintinter8' } })
+  const mintinter9 = useQuery(getDataGQL, { variables: { key: 'mintinter9' } })
+  const mintinter10 = useQuery(getDataGQL, {
+    variables: { key: 'mintinter10' },
+  })
+
+  const mintinter11 = useQuery(getDataGQL, {
+    variables: { key: 'mintinter11' },
+  })
+
   const base1 = useInput(base1Query.data?.getData)
   const base2 = useInput(base2Query.data?.getData)
   const base3 = useInput(base3Query.data?.getData)
@@ -66,26 +90,26 @@ const TintometricAdmin: FC = () => {
   const tinter10 = useInput(tinter10Query.data?.getData)
   const tinter11 = useInput(tinter11Query.data?.getData)
 
-  const minArray = [
-    'minbase1',
-    'minbase2',
-    'minbase3',
-    'minbase4',
-    'minbase5',
-    'mintinter1',
-    'mintinter2',
-    'mintinter3',
-    'mintinter4',
-    'mintinter5',
-    'mintinter6',
-    'mintinter7',
-    'mintinter8',
-    'mintinter9',
-    'mintinter10',
-    'mintinter11',
-  ]
+  const minResponses = {
+    base1: minbase1.data?.getData || 1,
+    base2: minbase2.data?.getData || 1,
+    base3: minbase3.data?.getData || 1,
+    base4: minbase4.data?.getData || 1,
+    base5: minbase5.data?.getData || 1,
+    tinter1: mintinter1.data?.getData || 1,
+    tinter2: mintinter2.data?.getData || 1,
+    tinter3: mintinter3.data?.getData || 1,
+    tinter4: mintinter4.data?.getData || 1,
+    tinter5: mintinter5.data?.getData || 1,
+    tinter6: mintinter6.data?.getData || 1,
+    tinter7: mintinter7.data?.getData || 1,
+    tinter8: mintinter8.data?.getData || 1,
+    tinter9: mintinter9.data?.getData || 1,
+    tinter10: mintinter10.data?.getData || 1,
+    tinter11: mintinter11.data?.getData || 1,
+  }
 
-  const data: any = {
+  const compositionValues: any = {
     base1: base1.value,
     base2: base2.value,
     base3: base3.value,
@@ -104,40 +128,52 @@ const TintometricAdmin: FC = () => {
     tinter11: tinter11.value,
   }
 
-  const minResponses: any = {}
-
-  minArray.forEach((item): any => {
-    const res = useQuery(getDataGQL, { variables: { key: item } })
-
-    res.data?.getData
-      ? (minResponses[item] = res.data?.getData)
-      : (minResponses[item] = 1)
-  })
-
   const formValidation = () => {
     if (
-      Number(data.base1) > minResponses.minbase1 &&
-      Number(data.base2) > minResponses.minbase2 &&
-      Number(data.base3) > minResponses.minbase3 &&
-      Number(data.base4) > minResponses.minbase4 &&
-      Number(data.base5) > minResponses.minbase5 &&
-      Number(data.tinter1) > minResponses.mintinter1 &&
-      Number(data.tinter2) > minResponses.mintinter2 &&
-      Number(data.tinter3) > minResponses.mintinter3 &&
-      Number(data.tinter4) > minResponses.mintinter4 &&
-      Number(data.tinter5) > minResponses.mintinter5 &&
-      Number(data.tinter6) > minResponses.mintinter6 &&
-      Number(data.tinter7) > minResponses.mintinter7 &&
-      Number(data.tinter8) > minResponses.mintinter8 &&
-      Number(data.tinter9) > minResponses.mintinter9 &&
-      Number(data.tinter10) > minResponses.mintinter10 &&
-      Number(data.tinter11) > minResponses.mintinter11 &&
+      Number(compositionValues.base1) >= minResponses.base1 &&
+      Number(compositionValues.base2) >= minResponses.base2 &&
+      Number(compositionValues.base3) >= minResponses.base3 &&
+      Number(compositionValues.base4) >= minResponses.base4 &&
+      Number(compositionValues.base5) >= minResponses.base5 &&
+      Number(compositionValues.tinter1) >= minResponses.tinter1 &&
+      Number(compositionValues.tinter2) >= minResponses.tinter2 &&
+      Number(compositionValues.tinter3) >= minResponses.tinter3 &&
+      Number(compositionValues.tinter4) >= minResponses.tinter4 &&
+      Number(compositionValues.tinter5) >= minResponses.tinter5 &&
+      Number(compositionValues.tinter6) >= minResponses.tinter6 &&
+      Number(compositionValues.tinter7) >= minResponses.tinter7 &&
+      Number(compositionValues.tinter8) >= minResponses.tinter8 &&
+      Number(compositionValues.tinter9) >= minResponses.tinter9 &&
+      Number(compositionValues.tinter10) >= minResponses.tinter10 &&
+      Number(compositionValues.tinter11) >= minResponses.tinter11 &&
       fileLoaded
     ) {
       setFormValidated(true)
     } else {
       setFormValidated(false)
     }
+  }
+
+  useEffect(() => {
+    formValidation()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [compositionValues])
+
+  useEffect(() => {
+    setState({
+      success: false,
+      error: false,
+      skusNotFound: '',
+      skusBadStructure: '',
+    })
+  }, [fileLoaded])
+
+  if (base1Query.loading || base2Query.loading) {
+    return (
+      <div className="flex items-center justify-center mv8">
+        <Spinner />
+      </div>
+    )
   }
 
   const handleSubmit = async () => {
@@ -148,28 +184,28 @@ const TintometricAdmin: FC = () => {
       skusNotFound: '',
       skusBadStructure: '',
     })
-    await Object.entries(data).forEach(([key, val]: any) =>
+    await Object.entries(compositionValues).forEach(([key, val]: any) =>
       saveData({ variables: { key, value: val.toString() } })
     )
 
     updateSkusPrices({
       variables: {
-        base1: parseFloat(data.base1),
-        base2: parseFloat(data.base2),
-        base3: parseFloat(data.base3),
-        base4: parseFloat(data.base4),
-        base5: parseFloat(data.base5),
-        tinter1: parseFloat(data.tinter1),
-        tinter2: parseFloat(data.tinter2),
-        tinter3: parseFloat(data.tinter3),
-        tinter4: parseFloat(data.tinter4),
-        tinter5: parseFloat(data.tinter5),
-        tinter6: parseFloat(data.tinter6),
-        tinter7: parseFloat(data.tinter7),
-        tinter8: parseFloat(data.tinter8),
-        tinter9: parseFloat(data.tinter9),
-        tinter10: parseFloat(data.tinter10),
-        tinter11: parseFloat(data.tinter11),
+        base1: parseFloat(compositionValues.base1),
+        base2: parseFloat(compositionValues.base2),
+        base3: parseFloat(compositionValues.base3),
+        base4: parseFloat(compositionValues.base4),
+        base5: parseFloat(compositionValues.base5),
+        tinter1: parseFloat(compositionValues.tinter1),
+        tinter2: parseFloat(compositionValues.tinter2),
+        tinter3: parseFloat(compositionValues.tinter3),
+        tinter4: parseFloat(compositionValues.tinter4),
+        tinter5: parseFloat(compositionValues.tinter5),
+        tinter6: parseFloat(compositionValues.tinter6),
+        tinter7: parseFloat(compositionValues.tinter7),
+        tinter8: parseFloat(compositionValues.tinter8),
+        tinter9: parseFloat(compositionValues.tinter9),
+        tinter10: parseFloat(compositionValues.tinter10),
+        tinter11: parseFloat(compositionValues.tinter11),
         oldPrices,
       },
     }).then(({ data }) => {
@@ -188,27 +224,6 @@ const TintometricAdmin: FC = () => {
         setState(prevState => ({ ...prevState, success: true }))
       }
     })
-  }
-
-  useEffect(() => {
-    formValidation()
-  }, [data])
-
-  useEffect(() => {
-    setState({
-      success: false,
-      error: false,
-      skusNotFound: '',
-      skusBadStructure: '',
-    })
-  }, [fileLoaded])
-
-  if (base1Query.loading || base2Query.loading) {
-    return (
-      <div className="flex items-center justify-center mv8">
-        <Spinner />
-      </div>
-    )
   }
 
   return (
@@ -270,10 +285,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...base1}
             />
-            {data.base1 < minResponses.minbase1 && (
+            {compositionValues.base1 < minResponses.base1 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.minbase1}
+                {minResponses.base1}
               </Alert>
             )}
           </span>
@@ -287,10 +302,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...base2}
             />
-            {data.base2 < minResponses.minbase2 && (
+            {compositionValues.base2 < minResponses.base2 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.minbase2}
+                {minResponses.base2}
               </Alert>
             )}
           </span>
@@ -304,10 +319,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...base3}
             />
-            {data.base3 < minResponses.minbase3 && (
+            {compositionValues.base3 < minResponses.base3 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.minbase3}
+                {minResponses.base3}
               </Alert>
             )}
           </span>
@@ -321,10 +336,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...base4}
             />
-            {data.base4 < minResponses.minbase4 && (
+            {compositionValues.base4 < minResponses.base4 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.minbase4}
+                {minResponses.base4}
               </Alert>
             )}
           </span>
@@ -338,10 +353,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...base5}
             />
-            {data.base5 < minResponses.minbase5 && (
+            {compositionValues.base5 < minResponses.base5 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.minbase5}
+                {minResponses.base5}
               </Alert>
             )}
           </span>
@@ -355,10 +370,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter1}
             />
-            {data.tinter1 < minResponses.mintinter1 && (
+            {compositionValues.tinter1 < minResponses.tinter1 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter1}
+                {minResponses.tinter1}
               </Alert>
             )}
           </span>
@@ -372,10 +387,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter2}
             />
-            {data.tinter2 < minResponses.mintinter2 && (
+            {compositionValues.tinter2 < minResponses.tinter2 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter2}
+                {minResponses.tinter2}
               </Alert>
             )}
           </span>
@@ -389,10 +404,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter3}
             />
-            {data.tinter3 < minResponses.mintinter3 && (
+            {compositionValues.tinter3 < minResponses.tinter3 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter3}
+                {minResponses.tinter3}
               </Alert>
             )}
           </span>
@@ -406,10 +421,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter4}
             />
-            {data.tinter4 < minResponses.mintinter4 && (
+            {compositionValues.tinter4 < minResponses.tinter4 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter4}
+                {minResponses.tinter4}
               </Alert>
             )}
           </span>
@@ -423,10 +438,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter5}
             />
-            {data.tinter5 < minResponses.mintinter5 && (
+            {compositionValues.tinter5 < minResponses.tinter5 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter5}
+                {minResponses.tinter5}
               </Alert>
             )}
           </span>
@@ -440,10 +455,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter6}
             />
-            {data.tinter6 < minResponses.mintinter6 && (
+            {compositionValues.tinter6 < minResponses.tinter6 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter6}
+                {minResponses.tinter6}
               </Alert>
             )}
           </span>
@@ -457,10 +472,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter7}
             />
-            {data.tinter7 < minResponses.mintinter7 && (
+            {compositionValues.tinter7 < minResponses.tinter7 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter7}
+                {minResponses.tinter7}
               </Alert>
             )}
           </span>
@@ -474,10 +489,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter8}
             />
-            {data.tinter8 < minResponses.mintinter8 && (
+            {compositionValues.tinter8 < minResponses.tinter8 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter8}
+                {minResponses.tinter8}
               </Alert>
             )}
           </span>
@@ -491,10 +506,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter9}
             />
-            {data.tinter9 < minResponses.mintinter9 && (
+            {compositionValues.tinter9 < minResponses.tinter9 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter9}
+                {minResponses.tinter9}
               </Alert>
             )}
           </span>
@@ -508,10 +523,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter10}
             />
-            {data.tinter10 < minResponses.mintinter10 && (
+            {compositionValues.tinter10 < minResponses.tinter10 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter10}
+                {minResponses.tinter10}
               </Alert>
             )}
           </span>
@@ -525,10 +540,10 @@ const TintometricAdmin: FC = () => {
               currencyCode="USD"
               {...tinter11}
             />
-            {data.tinter11 < minResponses.mintinter11 && (
+            {compositionValues.tinter11 < minResponses.tinter11 && (
               <Alert type="error">
                 <FormattedMessage id="admin.app.tintometric.minText" />{' '}
-                {minResponses.mintinter11}
+                {minResponses.tinter11}
               </Alert>
             )}
           </span>
