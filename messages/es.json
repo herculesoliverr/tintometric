@@ -1,6 +1,6 @@
 {
   "admin/admin.app.navigation.search.kws": "tintometric, tinto",
-  "store/admin.app.tintometric.title": "Tintometric",
+  "admin/admin.app.tintometric.title": "Tintometric",
   "admin/admin.app.tintometric.update_skus_prices": "Actualizar Precios de Skus",
   "admin/admin.app.tintometric.update_success": "Precios de skus actualizados correctamente",
   "admin/admin.app.tintometric.uploadFile": "Subir Archivo JSON",

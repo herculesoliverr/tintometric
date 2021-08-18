@@ -1,6 +1,6 @@
 {
   "admin/admin.app.navigation.search.kws": "tintometric, tinto",
-  "store/admin.app.tintometric.title": "Tintometric",
+  "admin/admin.app.tintometric.title": "Tintometric",
   "admin/admin.app.tintometric.update_skus_prices": "Update Skus Prices",
   "admin/admin.app.tintometric.description": "Add the prices of the bases and the tinters to update the price massively. The affected skus will be the ones added in the json below.",
   "admin/admin.app.tintometric.update_success": "Skus prices succesfully updated",

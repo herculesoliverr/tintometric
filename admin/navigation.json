@@ -1,6 +1,6 @@
 {
   "section": "products",
-  "titleId": "store/admin.app.tintometric.title",
+  "titleId": "admin/admin.app.tintometric.title",
   "path": "/admin/tintometric",
   "searchKeyWordsHelpers": "admin/admin.app.navigation.search.kws"
 }

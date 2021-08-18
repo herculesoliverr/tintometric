@@ -1,6 +1,6 @@
 {
   "admin/admin.app.navigation.search.kws": "tintometric, tinto",
-  "store/admin.app.tintometric.title": "Tintometric",
+  "admin/admin.app.tintometric.title": "Tintometric",
   "admin/admin.app.tintometric.update_skus_prices": "Atualizar preços de Skus",
   "admin/admin.app.tintometric.update_succes": "Preços skus atualizados corretamente",
   "admin/admin.app.tintometric.oldPrices": "Preços Antigos",

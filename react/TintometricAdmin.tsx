@@ -231,7 +231,7 @@ const TintometricAdmin: FC = () => {
       <Layout>
         <PageBlock
           title={intl.formatMessage({
-            id: 'store/admin.app.tintometric.title',
+            id: 'admin/admin.app.tintometric.title',
           })}
           subtitle={intl.formatMessage({
             id: 'admin/admin.app.tintometric.description',
