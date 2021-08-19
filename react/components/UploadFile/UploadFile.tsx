@@ -188,7 +188,7 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
               {...getRootProps()}
               className={`
                                 ${state.isLoading &&
-                'ba b--dashed bw1 b--light-gray bg-white b--solid'}
+                                  'ba b--dashed bw1 b--light-gray bg-white b--solid'}
                                 `}
             >
               <input {...getInputProps()} />

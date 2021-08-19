@@ -9,6 +9,7 @@ import {
   Spinner,
   Alert,
   Checkbox,
+  PageHeader,
 } from 'vtex.styleguide'
 
 import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
@@ -16,6 +17,7 @@ import getDataGQL from './graphql/getData.gql'
 import saveDataGQL from './graphql/saveData.gql'
 import useInput from './hooks/useInput'
 import UploadFile from './components/UploadFile/UploadFile'
+import ErrorAlert from './components/UploadFile/ErrorAlert'
 
 const TintometricAdmin: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -228,11 +230,14 @@ const TintometricAdmin: FC = () => {
 
   return (
     <>
-      <Layout>
+      <Layout
+        pageHeader={
+          <PageHeader
+            title={<FormattedMessage id="admin/admin.app.tintometric.title" />}
+          />
+        }
+      >
         <PageBlock
-          title={intl.formatMessage({
-            id: 'admin/admin.app.tintometric.title',
-          })}
           subtitle={intl.formatMessage({
             id: 'admin/admin.app.tintometric.description',
           })}
@@ -240,26 +245,33 @@ const TintometricAdmin: FC = () => {
         >
           {state.success && (
             <div className="mt5">
-              <Alert type="success">
+              <Alert
+                onClose={() =>
+                  setState(prevState => ({ ...prevState, success: false }))
+                }
+                type="success"
+              >
                 <FormattedMessage id="admin/admin.app.tintometric.update_success" />
               </Alert>
             </div>
           )}
           {state.error && state.skusNotFound?.length > 0 && (
             <div className="mt5">
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.skusNotFound" />{' '}
-                {state.skusNotFound}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.skusNotFound',
+                })} ${state.skusNotFound}`}
+              />
             </div>
           )}
 
           {state.error && state.skusBadStructure?.length > 0 && (
             <div className="mt5">
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.skusBadStructure" />{' '}
-                {state.skusBadStructure}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.skusBadStructure',
+                })} ${state.skusBadStructure}`}
+              />
             </div>
           )}
           <span className="mv5 db">
@@ -286,10 +298,11 @@ const TintometricAdmin: FC = () => {
               {...base1}
             />
             {compositionValues.base1 < minResponses.base1 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.base1}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.base1}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -303,10 +316,11 @@ const TintometricAdmin: FC = () => {
               {...base2}
             />
             {compositionValues.base2 < minResponses.base2 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.base2}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.base2}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -320,10 +334,11 @@ const TintometricAdmin: FC = () => {
               {...base3}
             />
             {compositionValues.base3 < minResponses.base3 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.base3}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.base3}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -337,10 +352,11 @@ const TintometricAdmin: FC = () => {
               {...base4}
             />
             {compositionValues.base4 < minResponses.base4 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.base4}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.base4}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -354,10 +370,11 @@ const TintometricAdmin: FC = () => {
               {...base5}
             />
             {compositionValues.base5 < minResponses.base5 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.base5}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.base5}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -371,10 +388,11 @@ const TintometricAdmin: FC = () => {
               {...tinter1}
             />
             {compositionValues.tinter1 < minResponses.tinter1 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter1}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter1}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -388,10 +406,11 @@ const TintometricAdmin: FC = () => {
               {...tinter2}
             />
             {compositionValues.tinter2 < minResponses.tinter2 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter2}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter2}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -405,10 +424,11 @@ const TintometricAdmin: FC = () => {
               {...tinter3}
             />
             {compositionValues.tinter3 < minResponses.tinter3 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter3}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter3}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -422,10 +442,11 @@ const TintometricAdmin: FC = () => {
               {...tinter4}
             />
             {compositionValues.tinter4 < minResponses.tinter4 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter4}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter4}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -439,10 +460,11 @@ const TintometricAdmin: FC = () => {
               {...tinter5}
             />
             {compositionValues.tinter5 < minResponses.tinter5 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter5}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter5}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -456,10 +478,11 @@ const TintometricAdmin: FC = () => {
               {...tinter6}
             />
             {compositionValues.tinter6 < minResponses.tinter6 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter6}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter6}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -473,10 +496,11 @@ const TintometricAdmin: FC = () => {
               {...tinter7}
             />
             {compositionValues.tinter7 < minResponses.tinter7 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter7}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter7}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -490,10 +514,11 @@ const TintometricAdmin: FC = () => {
               {...tinter8}
             />
             {compositionValues.tinter8 < minResponses.tinter8 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter8}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter8}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -507,10 +532,11 @@ const TintometricAdmin: FC = () => {
               {...tinter9}
             />
             {compositionValues.tinter9 < minResponses.tinter9 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter9}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter9}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -524,10 +550,11 @@ const TintometricAdmin: FC = () => {
               {...tinter10}
             />
             {compositionValues.tinter10 < minResponses.tinter10 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter10}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter10}`}
+              />
             )}
           </span>
           <span className="mv5 db">
@@ -541,10 +568,11 @@ const TintometricAdmin: FC = () => {
               {...tinter11}
             />
             {compositionValues.tinter11 < minResponses.tinter11 && (
-              <Alert type="error">
-                <FormattedMessage id="admin/admin.app.tintometric.minText" />{' '}
-                {minResponses.tinter11}
-              </Alert>
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.minText',
+                })} ${minResponses.tinter11}`}
+              />
             )}
           </span>
           <span className="mv5 db">
