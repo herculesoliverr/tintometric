@@ -1,10 +1,10 @@
 {
-  "name": "Color Chart",
+  "name": "Tintometer",
   "headline": "Introduce a Color Chart to your paint store",
-  "overview": "The application allows both displaying a tintometer on the product page and making a price update based on the color composition.",
+  "overview": "Through Tintometer, it is possible to display a color chart directly on your product page and promptly update its price based on the color composition.",
   "features": [
-    "Manage color combination for paint bussines.",
-    "Massively update skus prices based on color composition."
+    "Manage color combination for Color Chart for paint stores.",
+    "Bulk update SKU prices based on the product color."
   ],
   "websiteURL": "https://vtex.com/",
   "support": {

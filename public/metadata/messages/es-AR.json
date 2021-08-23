@@ -1,10 +1,10 @@
 {
   "name": "Tintometric",
   "headline": "Muestrario de colores para pinturerías.",
-  "overview": "La aplicación permite tanto mostrar un tintométrico en la página de producto como hacer una actualización de precios en base a la composición de colores.",
+  "overview": "A través del Tintómetro es posible mostrar una tabla de colores directamente en la página de su producto y actualizar su precio en función de la composición del color.",
   "features": [
-    "Muestrario de colores en la página de producto.",
-    "Actualizar masivamente precios de los skus en base a la composición de los colores."
+    "Administrar la combinación de colores para el muestrario de colores para tiendas de pintura.",
+    "Actualización masiva de los precios de SKU según el color del producto."
   ],
   "websiteURL": "https://vtex.com/",
   "support": {
