@@ -17,8 +17,6 @@ It can be used in architecture master + white labels.
 ---- 
 ## Configuration 
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
-
 1. Using your terminal and the [VTEX IO Toolbelt](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference), log into the desired VTEX account.
 2. Run `vtex install vtexarg.tintometric` on the account you're working on.
 
