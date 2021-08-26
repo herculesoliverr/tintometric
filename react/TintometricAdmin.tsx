@@ -111,7 +111,7 @@ const TintometricAdmin: FC = () => {
     tinter11: mintinter11.data?.getData || 1,
   }
 
-  const compositionValues: any = {
+  const compositionValues = {
     base1: base1.value,
     base2: base2.value,
     base3: base3.value,
@@ -292,18 +292,19 @@ const TintometricAdmin: FC = () => {
               label="Base 1"
               name="base1"
               size="large"
+              type="text"
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
               {...base1}
+              errorMessage={
+                !compositionValues.base1 ||
+                (compositionValues.base1 < minResponses.base1 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.base1}`)
+              }
             />
-            {compositionValues.base1 < minResponses.base1 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.base1}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -313,15 +314,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.base2 ||
+                (compositionValues.base2 < minResponses.base2 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.base2}`)
+              }
               {...base2}
             />
-            {compositionValues.base2 < minResponses.base2 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.base2}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -331,15 +332,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.base3 ||
+                (compositionValues.base3 < minResponses.base3 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.base3}`)
+              }
               {...base3}
             />
-            {compositionValues.base3 < minResponses.base3 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.base3}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -349,15 +350,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.base4 ||
+                (compositionValues.base4 < minResponses.base4 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.base4}`)
+              }
               {...base4}
             />
-            {compositionValues.base4 < minResponses.base4 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.base4}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -367,15 +368,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.base5 ||
+                (compositionValues.base5 < minResponses.base5 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.base5}`)
+              }
               {...base5}
             />
-            {compositionValues.base5 < minResponses.base5 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.base5}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -385,15 +386,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter1 ||
+                (compositionValues.tinter1 < minResponses.tinter1 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter1}`)
+              }
               {...tinter1}
             />
-            {compositionValues.tinter1 < minResponses.tinter1 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter1}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -403,15 +404,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter2 ||
+                (compositionValues.tinter2 < minResponses.tinter2 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter2}`)
+              }
               {...tinter2}
             />
-            {compositionValues.tinter2 < minResponses.tinter2 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter2}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -421,15 +422,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter3 ||
+                (compositionValues.tinter3 < minResponses.tinter3 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter3}`)
+              }
               {...tinter3}
             />
-            {compositionValues.tinter3 < minResponses.tinter3 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter3}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -439,15 +440,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter4 ||
+                (compositionValues.tinter4 < minResponses.tinter4 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter4}`)
+              }
               {...tinter4}
             />
-            {compositionValues.tinter4 < minResponses.tinter4 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter4}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -457,15 +458,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter5 ||
+                (compositionValues.tinter5 < minResponses.tinter5 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter5}`)
+              }
               {...tinter5}
             />
-            {compositionValues.tinter5 < minResponses.tinter5 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter5}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -475,15 +476,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter6 ||
+                (compositionValues.tinter6 < minResponses.tinter6 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter6}`)
+              }
               {...tinter6}
             />
-            {compositionValues.tinter6 < minResponses.tinter6 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter6}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -493,15 +494,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter7 ||
+                (compositionValues.tinter7 < minResponses.tinter7 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter7}`)
+              }
               {...tinter7}
             />
-            {compositionValues.tinter7 < minResponses.tinter7 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter7}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -511,15 +512,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter8 ||
+                (compositionValues.tinter8 < minResponses.tinter8 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter8}`)
+              }
               {...tinter8}
             />
-            {compositionValues.tinter8 < minResponses.tinter8 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter8}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -529,15 +530,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter9 ||
+                (compositionValues.tinter9 < minResponses.tinter9 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter9}`)
+              }
               {...tinter9}
             />
-            {compositionValues.tinter9 < minResponses.tinter9 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter9}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -547,15 +548,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter10 ||
+                (compositionValues.tinter10 < minResponses.tinter10 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter10}`)
+              }
               {...tinter10}
             />
-            {compositionValues.tinter10 < minResponses.tinter10 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter10}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <InputCurrency
@@ -565,15 +566,15 @@ const TintometricAdmin: FC = () => {
               placeholder="Type a monetary value"
               locale="en-US"
               currencyCode="USD"
+              errorMessage={
+                !compositionValues.tinter11 ||
+                (compositionValues.tinter11 < minResponses.tinter11 &&
+                  `${intl.formatMessage({
+                    id: 'admin/admin.app.tintometric.minText',
+                  })} ${minResponses.tinter11}`)
+              }
               {...tinter11}
             />
-            {compositionValues.tinter11 < minResponses.tinter11 && (
-              <ErrorAlert
-                message={`${intl.formatMessage({
-                  id: 'admin/admin.app.tintometric.minText',
-                })} ${minResponses.tinter11}`}
-              />
-            )}
           </span>
           <span className="mv5 db">
             <UploadFile setFileLoaded={setFileLoaded} />
