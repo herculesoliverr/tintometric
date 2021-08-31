@@ -9,6 +9,7 @@
   "admin/admin.app.tintometric.skusBadStructure": "Revisar la estructura del json en los siguientes skus: ",
   "admin/admin.app.tintometric.description": "Agregar los precios de las bases y los tinters para actualizar los precios de skus masivamente. Los skus afectados serán los que estén en el json debajo.",
   "admin/admin.app.tintometric.oldPrices": "Precios Antiguos",
+  "admin/admin.app.tintometric.oldPrices-subtitle": "Toma los precios marcados como 'oldPrices' en el json.",
   "admin/editor.tintometric.title": "Tintometric",
   "admin/editor.tintometric.description": "Tintometric component",
   "admin/admin.app.tintometric.downloadTemplate": "Descargar template",

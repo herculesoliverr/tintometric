@@ -286,7 +286,11 @@ const TintometricAdmin: FC = () => {
               onChange={() => setOldPrices(!oldPrices)}
               value="option-0"
             />
+            <div className="mv4 pa3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+              <FormattedMessage id="admin/admin.app.tintometric.oldPrices-subtitle" />
+            </div>
           </span>
+
           <span className="mv5 db">
             <InputCurrency
               label="Base 1"

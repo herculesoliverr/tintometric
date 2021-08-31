@@ -5,6 +5,7 @@
   "admin/admin.app.tintometric.description": "Add the prices of the bases and the tinters to update the price massively. The affected skus will be the ones added in the json below.",
   "admin/admin.app.tintometric.update_success": "Skus prices succesfully updated",
   "admin/admin.app.tintometric.oldPrices": "Old Prices",
+  "admin/admin.app.tintometric.oldPrices-subtitle": "Take the prices that are marked as oldPrices in the json",
   "admin/admin.app.tintometric.minText": "The minium price is: ",
   "admin/admin.app.tintometric.skusNotFound": "The following skus were not found: ",
   "admin/admin.app.tintometric.skusBadStructure": "Check the json structure in the following skus: ",
