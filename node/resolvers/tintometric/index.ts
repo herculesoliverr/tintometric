@@ -35,6 +35,7 @@ export const mutations = {
       const skusBadStructure: any[] = []
 
       jsonProducts.forEach((item: any) => {
+        if (!item.skuId) return
         const skuId = products.find((element: string) => {
           return Number(element) === item.skuId
         })
@@ -85,9 +86,11 @@ export const mutations = {
           if (Number.isNaN(price)) {
             skusBadStructure.push(item.skuId)
           } else {
-            setTimeout(() => {
+            try {
               pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
-            }, 100)
+            } catch (err) {
+              return err
+            }
           }
         }
       })
