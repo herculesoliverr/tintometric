@@ -14,5 +14,6 @@
   "admin/editor.tintometric.description": "Tintometric component",
   "admin/admin.app.tintometric.downloadTemplate": "Download template",
   "admin/admin.app.tintometric.removeFile": "Remove",
-  "admin/admin.app.tintometric.generic.error": "An error occurred, please try again"
+  "admin/admin.app.tintometric.generic.error": "An error occurred, please try again",
+  "store/search.placeholder": "Search..."
 }

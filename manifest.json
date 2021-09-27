@@ -38,13 +38,6 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "{{account}}.myvtex.com",
-        "path": "/*"
-      }
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
         "host": "portal.vtexcommercestable.com.br",
         "path": "/api/*"
       }
@@ -52,15 +45,15 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "portal.vtexcommercebeta.com.br",
-        "path": "/api/*"
+        "host": "api.vtex.com",
+        "path": "/{{account}}/pricing/prices/*"
       }
     },
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "{{account}}.vtexcommercestable.com.br",
-        "path": "/api/*"
+        "host": "*.vtexassets.com",
+        "path": "/assets/vtex.file-manager-graphql/images/*"
       }
     },
     {

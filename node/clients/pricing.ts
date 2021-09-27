@@ -9,17 +9,14 @@ export default class Pricing extends JanusClient {
       headers: {
         ...options?.headers,
         VtexIdclientAutCookie:
-          context.storeUserAuthToken ??
-          context.adminUserAuthToken ??
-          context.authToken ??
-          '',
+          context.adminUserAuthToken ?? context.authToken ?? '',
         'x-vtex-user-agent': context.userAgent,
       },
     })
   }
 
   public async updateSkuPrice(
-    skuId: string,
+    skuId: number,
     costPrice: number,
     basePrice: number,
     listPrice: number

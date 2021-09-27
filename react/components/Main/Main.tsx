@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useCssHandles } from 'vtex.css-handles'
 import { Modal, InputSearch, IconCaretDown } from 'vtex.styleguide'
+import { useIntl } from 'react-intl'
 
 import FamilyPicker from '../FamilyPicker/FamilyPicker'
 import ColorList from '../ColorList/ColorList'
@@ -36,6 +37,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const [showSearch, setShowSearch] = useState(false)
   const [searchVal, setSearchVal] = useState('')
   const jsonFileQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+  const intl = useIntl()
 
   const {
     getData,
@@ -105,21 +107,19 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
               className={`${handles['buttonGroup-container']} flex justify-between mt5 c-on-base`}
             >
               <button
-                className={`${handles.button} ${
-                  !showSearch
+                className={`${handles.button} ${!showSearch
                     ? `${handles['button--active']} c-action-primary`
                     : ''
-                }`}
+                  }`}
                 onClick={() => setShowSearch(false)}
               >
                 {buttonGrid}
               </button>
               <button
-                className={`${handles.button} ${
-                  showSearch
+                className={`${handles.button} ${showSearch
                     ? `${handles['button--active']} c-action-primary`
                     : ''
-                }`}
+                  }`}
                 onClick={() => setShowSearch(true)}
               >
                 {buttonList}
@@ -142,7 +142,9 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                   <>
                     <div className={handles['inputSearch--container']}>
                       <InputSearch
-                        placeholder="Search..."
+                        placeholder={intl.formatMessage({
+                          id: 'store/search.placeholder',
+                        })}
                         value={searchVal}
                         size="regular"
                         onChange={(ev: EventInterface): void =>

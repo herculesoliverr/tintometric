@@ -1,5 +1,9 @@
 export const queries = {
-  getData: async (_: unknown, { key }: any, ctx: Context): Promise<any> => {
+  getData: async (
+    _: unknown,
+    { key }: { key: string },
+    ctx: Context
+  ): Promise<any> => {
     const aux = await ctx.clients.vbase.getJSON<{ key: string }>(
       'tintometricData',
       key
@@ -12,7 +16,13 @@ export const queries = {
 export const mutations = {
   saveData: async (
     _: unknown,
-    { key, value }: any,
+    {
+      key,
+      value,
+    }: {
+      key: string
+      value: string
+    },
     ctx: Context
   ): Promise<void> => {
     await ctx.clients.vbase.saveJSON('tintometricData', key, value)
