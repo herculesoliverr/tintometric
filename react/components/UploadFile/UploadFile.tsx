@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable vtex/prefer-early-return */
 import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
@@ -24,7 +26,7 @@ interface State {
 const messages = defineMessages({
   fileEmpty: {
     defaultMessage: 'Add a file',
-    id: 'admin/admin.app.tintometric.uploadFile',
+    id: 'admin/admin.app.tintometric.uploadJson',
   },
   fileSizeError: {
     defaultMessage:
@@ -38,14 +40,23 @@ const messages = defineMessages({
 })
 
 interface UploadFileProps {
-  setFileLoaded: Dispatch<SetStateAction<boolean>>
+  action: Dispatch<SetStateAction<boolean>>
+  query: string
+  templateFile: string
 }
 
-const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
+const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   const [saveData] = useMutation(saveDataGQL)
   const intl = useIntl()
-  const jsonNameQuery = useQuery(getDataGQL, { variables: { key: 'jsonName' } })
-  const jsonUrlQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+
+  const fileNameQuery = useQuery(getDataGQL, {
+    variables: { key: `${query}Name` },
+  })
+
+  const fileUrlQuery = useQuery(getDataGQL, {
+    variables: { key: `${query}File` },
+  })
+
   const [
     uploadFile,
     {
@@ -73,24 +84,24 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
   })
 
   useEffect(() => {
-    jsonNameQuery.data &&
+    fileNameQuery.data &&
       setState(prevState => ({
         ...prevState,
-        fileName: jsonNameQuery.data?.getData,
+        fileName: fileNameQuery.data?.getData,
       }))
-    if (jsonUrlQuery.data?.getData) {
-      setFileLoaded(true)
+    if (fileUrlQuery.data?.getData) {
+      action(true)
       setState(prevState => ({
         ...prevState,
-        fileUrl: jsonUrlQuery.data?.getData,
-        pathFile: jsonUrlQuery.data?.getData.split('/')[
-          jsonUrlQuery.data?.getData.split('/').length - 1
+        fileUrl: fileUrlQuery.data?.getData,
+        pathFile: fileUrlQuery.data?.getData.split('/')[
+          fileUrlQuery.data?.getData.split('/').length - 1
         ],
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jsonNameQuery, jsonUrlQuery])
-
+  }, [fileNameQuery, fileUrlQuery])
+  console.log('state---', state)
   useEffect(() => {
     if (loadingUploadFile) {
       setState(prevState => ({ ...prevState, isLoading: true }))
@@ -102,26 +113,27 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
         isLoading: false,
         error: intl.formatMessage(messages.genericError),
       }))
-      setFileLoaded(false)
+      action(false)
     }
 
     if (dataUploadFile) {
       setState(prevState => ({
         ...prevState,
         isLoading: false,
-        jsonFile: dataUploadFile.uploadFile.fileUrl,
+        // fileName: dataUploadFile.uploadFile.fileUrl,
         pathFile: dataUploadFile.uploadFile.fileUrl.split('/')[
           dataUploadFile.uploadFile.fileUrl.split('/').length - 1
         ],
       }))
       saveData({
         variables: {
-          key: 'jsonFile',
+          key: `${query}File`,
           value: dataUploadFile.uploadFile.fileUrl,
         },
       })
-      saveData({ variables: { key: 'jsonName', value: state.fileName } })
-      setFileLoaded(true)
+      console.log('${query}File', `${query}File`)
+      saveData({ variables: { key: `${query}Name`, value: state.fileName } })
+      action(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingUploadFile, errorUploadFile, dataUploadFile])
@@ -130,16 +142,16 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
     if (loadingDeleteFile)
       setState(prevState => ({ ...prevState, isLoading: true }))
     if (dataDeleteFile) {
-      saveData({ variables: { key: 'jsonFile', value: '' } })
-      saveData({ variables: { key: 'jsonPath', value: '' } })
-      saveData({ variables: { key: 'jsonName', value: '' } })
+      saveData({ variables: { key: `${query}File`, value: '' } })
+      // saveData({ variables: { key: 'jsonPath', value: '' } })
+      saveData({ variables: { key: `${query}Name`, value: '' } })
       setState(prevState => ({
         ...prevState,
         isLoading: false,
         fileName: intl.formatMessage(messages.fileEmpty),
         pathFile: '',
       }))
-      setFileLoaded(false)
+      action(false)
     }
 
     if (errorDeleteFile) {
@@ -175,12 +187,9 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
 
   return (
     <>
-      <span className="mv5 db">
-        <FormattedMessage id="admin/admin.app.tintometric.uploadFile" />
-      </span>
       <Dropzone
         onDrop={acceptedFiles => handleDropFile(acceptedFiles)}
-        accept="application/json"
+        accept={query === 'json' ? 'application/json' : '.xlsx, .xls, .csv'}
       >
         {({ getRootProps, getInputProps }) => (
           <section>
@@ -188,7 +197,7 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
               {...getRootProps()}
               className={`
                                 ${state.isLoading &&
-                                  'ba b--dashed bw1 b--light-gray bg-white b--solid'}
+                'ba b--dashed bw1 b--light-gray bg-white b--solid'}
                                 `}
             >
               <input {...getInputProps()} />
@@ -203,23 +212,20 @@ const UploadFile = ({ setFileLoaded }: UploadFileProps) => {
           </section>
         )}
       </Dropzone>
-      <span className="mv4 db flex">
+      <span className="mv7 db flex">
+        {state.pathFile && (
+          <Button variation="primary" onClick={() => removeFile()}>
+            <FormattedMessage id="admin/admin.app.tintometric.removeFile" />
+          </Button>
+        )}
         <Button
           variation="tertiary"
           onClick={() =>
-            downloadFile(
-              'template_tintometric.json',
-              JSON.stringify(defaultData)
-            )
+            downloadFile(templateFile, JSON.stringify(defaultData))
           }
         >
           <FormattedMessage id="admin/admin.app.tintometric.downloadTemplate" />
         </Button>
-        {state.pathFile && (
-          <Button variation="tertiary" onClick={() => removeFile()}>
-            <FormattedMessage id="admin/admin.app.tintometric.removeFile" />
-          </Button>
-        )}
       </span>
 
       {state.error && <ErrorAlert message={state.error} />}

@@ -22,7 +22,7 @@ import ErrorAlert from './components/UploadFile/ErrorAlert'
 const TintometricAdmin: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [oldPrices, setOldPrices] = useState(false)
-  const [fileLoaded, setFileLoaded] = useState(false)
+  const [jsonFile, setJsonFile] = useState(false)
   const [formValidated, setFormValidated] = useState(false)
   const [state, setState] = useState({
     success: false,
@@ -35,11 +35,11 @@ const TintometricAdmin: FC = () => {
   const [saveData] = useMutation(saveDataGQL)
   const intl = useIntl()
 
-  const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
+  /*   const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
   const base2Query = useQuery(getDataGQL, { variables: { key: 'base2' } })
   const base3Query = useQuery(getDataGQL, { variables: { key: 'base3' } })
   const base4Query = useQuery(getDataGQL, { variables: { key: 'base4' } })
-  const base5Query = useQuery(getDataGQL, { variables: { key: 'base5' } })
+  const base5Query = useQuery(getDataGQL, { variables: { key: 'base5' } }) */
 
   const tinter1Query = useQuery(getDataGQL, { variables: { key: 'tinter1' } })
   const tinter2Query = useQuery(getDataGQL, { variables: { key: 'tinter2' } })
@@ -53,11 +53,6 @@ const TintometricAdmin: FC = () => {
   const tinter10Query = useQuery(getDataGQL, { variables: { key: 'tinter10' } })
   const tinter11Query = useQuery(getDataGQL, { variables: { key: 'tinter11' } })
 
-  const minbase1 = useQuery(getDataGQL, { variables: { key: 'minbase1' } })
-  const minbase2 = useQuery(getDataGQL, { variables: { key: 'minbase2' } })
-  const minbase3 = useQuery(getDataGQL, { variables: { key: 'minbase3' } })
-  const minbase4 = useQuery(getDataGQL, { variables: { key: 'minbase4' } })
-  const minbase5 = useQuery(getDataGQL, { variables: { key: 'minbase5' } })
   const mintinter1 = useQuery(getDataGQL, { variables: { key: 'mintinter1' } })
   const mintinter2 = useQuery(getDataGQL, { variables: { key: 'mintinter2' } })
   const mintinter3 = useQuery(getDataGQL, { variables: { key: 'mintinter3' } })
@@ -75,11 +70,6 @@ const TintometricAdmin: FC = () => {
     variables: { key: 'mintinter11' },
   })
 
-  const base1 = useInput(base1Query.data?.getData)
-  const base2 = useInput(base2Query.data?.getData)
-  const base3 = useInput(base3Query.data?.getData)
-  const base4 = useInput(base4Query.data?.getData)
-  const base5 = useInput(base5Query.data?.getData)
   const tinter1 = useInput(tinter1Query.data?.getData)
   const tinter2 = useInput(tinter2Query.data?.getData)
   const tinter3 = useInput(tinter3Query.data?.getData)
@@ -93,11 +83,11 @@ const TintometricAdmin: FC = () => {
   const tinter11 = useInput(tinter11Query.data?.getData)
 
   const minResponses = {
-    base1: minbase1.data?.getData || 1,
+    /*   base1: minbase1.data?.getData || 1,
     base2: minbase2.data?.getData || 1,
     base3: minbase3.data?.getData || 1,
     base4: minbase4.data?.getData || 1,
-    base5: minbase5.data?.getData || 1,
+    base5: minbase5.data?.getData || 1, */
     tinter1: mintinter1.data?.getData || 1,
     tinter2: mintinter2.data?.getData || 1,
     tinter3: mintinter3.data?.getData || 1,
@@ -112,11 +102,11 @@ const TintometricAdmin: FC = () => {
   }
 
   const compositionValues = {
-    base1: base1.value,
+    /* base1: base1.value,
     base2: base2.value,
     base3: base3.value,
     base4: base4.value,
-    base5: base5.value,
+    base5: base5.value, */
     tinter1: tinter1.value,
     tinter2: tinter2.value,
     tinter3: tinter3.value,
@@ -132,11 +122,11 @@ const TintometricAdmin: FC = () => {
 
   const formValidation = () => {
     if (
-      Number(compositionValues.base1) >= minResponses.base1 &&
+      /*       Number(compositionValues.base1) >= minResponses.base1 &&
       Number(compositionValues.base2) >= minResponses.base2 &&
       Number(compositionValues.base3) >= minResponses.base3 &&
       Number(compositionValues.base4) >= minResponses.base4 &&
-      Number(compositionValues.base5) >= minResponses.base5 &&
+      Number(compositionValues.base5) >= minResponses.base5 && */
       Number(compositionValues.tinter1) >= minResponses.tinter1 &&
       Number(compositionValues.tinter2) >= minResponses.tinter2 &&
       Number(compositionValues.tinter3) >= minResponses.tinter3 &&
@@ -148,7 +138,7 @@ const TintometricAdmin: FC = () => {
       Number(compositionValues.tinter9) >= minResponses.tinter9 &&
       Number(compositionValues.tinter10) >= minResponses.tinter10 &&
       Number(compositionValues.tinter11) >= minResponses.tinter11 &&
-      fileLoaded
+      jsonFile
     ) {
       setFormValidated(true)
     } else {
@@ -168,9 +158,9 @@ const TintometricAdmin: FC = () => {
       skusNotFound: '',
       skusBadStructure: '',
     })
-  }, [fileLoaded])
+  }, [jsonFile])
 
-  if (base1Query.loading || base2Query.loading) {
+  if (tinter11Query.loading || tinter11Query.loading) {
     return (
       <div className="flex items-center justify-center mv8">
         <Spinner />
@@ -192,11 +182,11 @@ const TintometricAdmin: FC = () => {
 
     updateSkusPrices({
       variables: {
-        base1: parseFloat(compositionValues.base1),
+        /*  base1: parseFloat(compositionValues.base1),
         base2: parseFloat(compositionValues.base2),
         base3: parseFloat(compositionValues.base3),
         base4: parseFloat(compositionValues.base4),
-        base5: parseFloat(compositionValues.base5),
+        base5: parseFloat(compositionValues.base5), */
         tinter1: parseFloat(compositionValues.tinter1),
         tinter2: parseFloat(compositionValues.tinter2),
         tinter3: parseFloat(compositionValues.tinter3),
@@ -290,8 +280,35 @@ const TintometricAdmin: FC = () => {
               <FormattedMessage id="admin/admin.app.tintometric.oldPrices-subtitle" />
             </div>
           </span>
-
-          <span className="mv5 db">
+          <div className="flex">
+            <span className="mv5 db mr9 pr8 br b--light-gray ">
+              <span className="mt5 db">
+                <FormattedMessage id="admin/admin.app.tintometric.uploadCSV" />
+              </span>
+              <span className="mv2 mb5 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                <FormattedMessage id="admin/admin.app.tintometric.uploadCSV.subtitle" />
+              </span>
+              <UploadFile
+                templateFile="template_tintometric.json"
+                query="csv"
+                action={setJsonFile}
+              />
+            </span>
+            <span className="mv5 db">
+              <span className="mt5 db">
+                <FormattedMessage id="admin/admin.app.tintometric.uploadJson" />
+              </span>
+              <span className="mv2 mb5 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                <FormattedMessage id="admin/admin.app.tintometric.uploadJson.subtitle" />
+              </span>
+              <UploadFile
+                templateFile="template_tintometric.json"
+                query="json"
+                action={setJsonFile}
+              />
+            </span>
+          </div>
+          {/*   <span className="mv5 db">
             <InputCurrency
               label="Base 1"
               name="base1"
@@ -381,7 +398,7 @@ const TintometricAdmin: FC = () => {
               }
               {...base5}
             />
-          </span>
+          </span> */}
           <span className="mv5 db">
             <InputCurrency
               label="Tinter 1"
@@ -579,9 +596,6 @@ const TintometricAdmin: FC = () => {
               }
               {...tinter11}
             />
-          </span>
-          <span className="mv5 db">
-            <UploadFile setFileLoaded={setFileLoaded} />
           </span>
           <span className="mr4 mb8 db">
             <Button

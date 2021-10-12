@@ -46,6 +46,10 @@ export const mutations = {
 
     try {
       const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
+      const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
+      const csvFileContent = await files.getFile(csvUrl)
+
+      console.log('csvFileContent----', csvFileContent)
       const jsonFileContent = await files.getFile(jsonUrl)
       const jsonProducts = jsonFileContent.data?.products
       const priceType = oldPrices ? 'oldPrices' : 'newPrices'
