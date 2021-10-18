@@ -101,7 +101,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileNameQuery, fileUrlQuery])
-  console.log('state---', state)
   useEffect(() => {
     if (loadingUploadFile) {
       setState(prevState => ({ ...prevState, isLoading: true }))
@@ -131,7 +130,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
           value: dataUploadFile.uploadFile.fileUrl,
         },
       })
-      console.log('${query}File', `${query}File`)
       saveData({ variables: { key: `${query}Name`, value: state.fileName } })
       action(true)
     }
@@ -189,7 +187,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     <>
       <Dropzone
         onDrop={acceptedFiles => handleDropFile(acceptedFiles)}
-        accept={query === 'json' ? 'application/json' : '.xlsx, .xls, .csv'}
+        accept={query === 'json' ? 'application/json' : '.csv'}
       >
         {({ getRootProps, getInputProps }) => (
           <section>

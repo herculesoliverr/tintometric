@@ -1,14 +1,13 @@
+// import { base64ToCSV, csvJSON } from '../../utils'
+
+import { parseCSVToJson } from '../../utils'
+
 export const queries = {}
 
 export const mutations = {
   updateSkusPrices: async (
     _: unknown,
     {
-      base1,
-      base2,
-      base3,
-      base4,
-      base5,
       tinter1,
       tinter2,
       tinter3,
@@ -22,11 +21,6 @@ export const mutations = {
       tinter11,
       oldPrices,
     }: {
-      base1: number
-      base2: number
-      base3: number
-      base4: number
-      base5: number
       tinter1: number
       tinter2: number
       tinter3: number
@@ -47,92 +41,75 @@ export const mutations = {
     try {
       const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
       const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
-      const csvFileContent = await files.getFile(csvUrl)
+      const { data } = await files.getFile(csvUrl)
 
-      console.log('csvFileContent----', csvFileContent)
+      const csv = parseCSVToJson(data)
+
       const jsonFileContent = await files.getFile(jsonUrl)
       const jsonProducts = jsonFileContent.data?.products
       const priceType = oldPrices ? 'oldPrices' : 'newPrices'
       const skusNotFound: number[] = []
       const skusBadStructure: number[] = []
+      const baseNotFound: number[] = []
 
-      jsonProducts.forEach(
-        (item: {
-          code: string
-          name: string
-          slug: string
-          family: number
-          R: number
-          G: number
-          B: number
-          products: number[]
-          skuId: number
-          composition: any
-        }) => {
-          if (!item.skuId) return
-          const skuId = products.find((element: string) => {
-            return Number(element) === item.skuId
-          })
+      jsonProducts.forEach((item: JsonItem) => {
+        if (!item.skuId) return
+        const skuId = products.find((element: string) => {
+          return Number(element) === item.skuId
+        })
 
-          if (!skuId) {
-            skusNotFound.push(item.skuId)
-          } else if (item.composition) {
-            let base = 0
+        if (!skuId) {
+          skusNotFound.push(item.skuId)
+        } else if (item.composition) {
+          let base = 0
 
-            if (item.composition?.[priceType]?.base1) {
-              base = base1
-            }
+          const baseJson: any = Object.entries(
+            item.composition[priceType]
+          ).find((arrayOfItem: any) => arrayOfItem[0].includes('base'))
 
-            if (item.composition?.[priceType]?.base2) {
-              base = base2
-            }
+          const basePrice =
+            baseJson && csv.find((csvItem: any) => csvItem.base === baseJson[0])
 
-            if (item.composition?.[priceType]?.base3) {
-              base = base3
-            }
+          if (!basePrice) {
+            baseJson
+              ? baseNotFound.push(baseJson[0])
+              : baseNotFound.push(item.skuId)
+          } else if (!baseJson) {
+            skusBadStructure.push(item.skuId)
+          } else {
+            base = baseJson[1] * basePrice.price
+          }
 
-            if (item.composition?.[priceType]?.base4) {
-              base = base4
-            }
+          const price =
+            tinter1 * item?.composition?.[priceType]?.tinter1 +
+            tinter2 * item?.composition?.[priceType]?.tinter2 +
+            tinter3 * item?.composition?.[priceType]?.tinter3 +
+            tinter4 * item?.composition?.[priceType]?.tinter4 +
+            tinter5 * item?.composition?.[priceType]?.tinter5 +
+            tinter6 * item?.composition?.[priceType]?.tinter6 +
+            tinter7 * item?.composition?.[priceType]?.tinter7 +
+            tinter8 * item?.composition?.[priceType]?.tinter8 +
+            tinter9 * item?.composition?.[priceType]?.tinter9 +
+            tinter10 * item?.composition?.[priceType]?.tinter10 +
+            tinter11 * item?.composition?.[priceType]?.tinter11 +
+            base
 
-            if (item.composition?.[priceType]?.base4) {
-              base = base4
-            }
-
-            if (item.composition?.[priceType]?.base5) {
-              base = base5
-            }
-
-            const price =
-              tinter1 * item?.composition?.[priceType]?.tinter1 +
-              tinter2 * item?.composition?.[priceType]?.tinter2 +
-              tinter3 * item?.composition?.[priceType]?.tinter3 +
-              tinter4 * item?.composition?.[priceType]?.tinter4 +
-              tinter5 * item?.composition?.[priceType]?.tinter5 +
-              tinter6 * item?.composition?.[priceType]?.tinter6 +
-              tinter7 * item?.composition?.[priceType]?.tinter7 +
-              tinter8 * item?.composition?.[priceType]?.tinter8 +
-              tinter9 * item?.composition?.[priceType]?.tinter9 +
-              tinter10 * item?.composition?.[priceType]?.tinter10 +
-              tinter11 * item?.composition?.[priceType]?.tinter11 +
-              base
-
-            if (Number.isNaN(price)) {
-              skusBadStructure.push(item.skuId)
-            } else {
-              try {
-                pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
-              } catch (err) {
-                return err
-              }
+          if (Number.isNaN(price)) {
+            skusBadStructure.push(item.skuId)
+          } else {
+            try {
+              pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
+            } catch (err) {
+              return err
             }
           }
         }
-      )
+      })
 
       return JSON.stringify({
         skusNotFound,
         skusBadStructure,
+        baseNotFound,
       })
     } catch (err) {
       return err

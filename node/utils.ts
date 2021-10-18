@@ -1,5 +1,6 @@
 import { AuthenticationError, ForbiddenError, UserInputError } from '@vtex/api'
 import { AxiosError } from 'axios'
+import Papa from 'papaparse'
 
 export const BUCKET_NAME = 'product-translation'
 export const ALL_TRANSLATIONS_FILES = 'all-translations'
@@ -32,3 +33,11 @@ export const statusToError = (e: AxiosError) => {
 }
 
 export const MAX_PRODUCTS_PER_CATEGORY = 50
+
+export const parseCSVToJson = (data: any) => {
+  const { data: parsedData }: any = Papa.parse(data, {
+    header: true,
+  })
+
+  return parsedData
+}

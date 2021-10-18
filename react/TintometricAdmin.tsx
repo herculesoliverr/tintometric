@@ -23,12 +23,14 @@ const TintometricAdmin: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [oldPrices, setOldPrices] = useState(false)
   const [jsonFile, setJsonFile] = useState(false)
+  const [csvFile, setCsvFile] = useState(false)
   const [formValidated, setFormValidated] = useState(false)
   const [state, setState] = useState({
     success: false,
     error: false,
     skusNotFound: '',
     skusBadStructure: '',
+    baseNotFound: '',
   })
 
   const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
@@ -138,7 +140,8 @@ const TintometricAdmin: FC = () => {
       Number(compositionValues.tinter9) >= minResponses.tinter9 &&
       Number(compositionValues.tinter10) >= minResponses.tinter10 &&
       Number(compositionValues.tinter11) >= minResponses.tinter11 &&
-      jsonFile
+      jsonFile &&
+      csvFile
     ) {
       setFormValidated(true)
     } else {
@@ -157,6 +160,7 @@ const TintometricAdmin: FC = () => {
       error: false,
       skusNotFound: '',
       skusBadStructure: '',
+      baseNotFound: '',
     })
   }, [jsonFile])
 
@@ -175,6 +179,7 @@ const TintometricAdmin: FC = () => {
       error: false,
       skusNotFound: '',
       skusBadStructure: '',
+      baseNotFound: '',
     })
     await Object.entries(compositionValues).forEach(([key, val]: any) =>
       saveData({ variables: { key, value: val.toString() } })
@@ -182,11 +187,6 @@ const TintometricAdmin: FC = () => {
 
     updateSkusPrices({
       variables: {
-        /*  base1: parseFloat(compositionValues.base1),
-        base2: parseFloat(compositionValues.base2),
-        base3: parseFloat(compositionValues.base3),
-        base4: parseFloat(compositionValues.base4),
-        base5: parseFloat(compositionValues.base5), */
         tinter1: parseFloat(compositionValues.tinter1),
         tinter2: parseFloat(compositionValues.tinter2),
         tinter3: parseFloat(compositionValues.tinter3),
@@ -202,7 +202,9 @@ const TintometricAdmin: FC = () => {
       },
     }).then(({ data }) => {
       const res = JSON.parse(data.updateSkusPrices)
-      const { skusNotFound, skusBadStructure } = res
+
+      console.log('res', res)
+      const { skusNotFound, skusBadStructure, baseNotFound } = res
 
       setIsLoading(false)
       if (skusNotFound.length > 0) {
@@ -211,6 +213,7 @@ const TintometricAdmin: FC = () => {
           error: true,
           skusNotFound: `${skusNotFound}`,
           skusBadStructure: `${skusBadStructure}`,
+          baseNotFound: `${baseNotFound}`,
         })
       } else {
         setState(prevState => ({ ...prevState, success: true }))
@@ -264,6 +267,15 @@ const TintometricAdmin: FC = () => {
               />
             </div>
           )}
+          {state.error && state.baseNotFound?.length > 0 && (
+            <div className="mt5">
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.baseNotFound',
+                })} ${state.baseNotFound}`}
+              />
+            </div>
+          )}
           <span className="mv5 db">
             <Checkbox
               checked={oldPrices}
@@ -291,7 +303,7 @@ const TintometricAdmin: FC = () => {
               <UploadFile
                 templateFile="template_tintometric.json"
                 query="csv"
-                action={setJsonFile}
+                action={setCsvFile}
               />
             </span>
             <span className="mv5 db">

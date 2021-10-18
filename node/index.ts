@@ -1,9 +1,4 @@
-import {
-  ClientsConfig,
-  ServiceContext,
-  RecorderState,
-  Service,
-} from '@vtex/api'
+import { ClientsConfig, RecorderState, Service } from '@vtex/api'
 
 import { Clients } from './clients'
 import { resolvers } from './resolvers'
@@ -27,8 +22,6 @@ const clients: ClientsConfig<Clients> = {
 }
 
 declare global {
-  type Context = ServiceContext<Clients, State>
-
   interface State extends RecorderState {
     code: number
   }
