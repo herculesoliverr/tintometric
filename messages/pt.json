@@ -3,7 +3,7 @@
   "admin/admin.app.tintometric.title": "Tintometric",
   "admin/admin.app.tintometric.update_skus_prices": "Atualizar preços de Skus",
   "admin/admin.app.tintometric.update_succes": "Preços skus atualizados corretamente",
-  "admin/admin.app.tintometric.oldPrices": "Preços Antigos",
+  "admin/admin.app.tintometric.oldPrices": "LOC",
   "admin/admin.app.tintometric.oldPrices-subtitle": "Toma los precios marcados como 'oldPrices' en el json.",
   "admin/admin.app.tintometric.minText": "O preço mínimo é: ",
   "admin/admin.app.tintometric.update_success": "Preços de Skus atualizados com sucesso",

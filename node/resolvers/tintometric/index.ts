@@ -43,7 +43,25 @@ export const mutations = {
       const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
       const { data } = await files.getFile(csvUrl)
 
-      const csv = parseCSVToJson(data)
+      const csv: Array<{ base: string; price: string }> = parseCSVToJson(data)
+
+      console.log('csv---', csv)
+
+      // save CSV in vbase
+
+      csv.forEach(async (element: { base: string; price: string }) => {
+        try {
+          const aux = await vbase.saveJSON(
+            'tintometricData',
+            element.base,
+            element.price
+          )
+
+          console.log('aux----', aux)
+        } catch (err) {
+          console.log(err)
+        }
+      })
 
       const jsonFileContent = await files.getFile(jsonUrl)
       const jsonProducts = jsonFileContent.data?.products
@@ -61,13 +79,13 @@ export const mutations = {
         if (!skuId) {
           skusNotFound.push(item.skuId)
         } else if (item.composition) {
-          let base = 0
+          const base = 0
 
-          const baseJson: any = Object.entries(
+          /*           const baseJson: any = Object.entries(
             item.composition[priceType]
-          ).find((arrayOfItem: any) => arrayOfItem[0].includes('base'))
+          ).find((arrayOfItem: any) => arrayOfItem[0].includes('base')) */
 
-          const basePrice =
+          /* const basePrice =
             baseJson && csv.find((csvItem: any) => csvItem.base === baseJson[0])
 
           if (!basePrice) {
@@ -78,7 +96,7 @@ export const mutations = {
             skusBadStructure.push(item.skuId)
           } else {
             base = baseJson[1] * basePrice.price
-          }
+          } */
 
           const price =
             tinter1 * item?.composition?.[priceType]?.tinter1 +

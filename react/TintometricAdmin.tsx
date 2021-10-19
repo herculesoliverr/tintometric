@@ -8,7 +8,8 @@ import {
   PageBlock,
   Spinner,
   Alert,
-  Checkbox,
+  // Checkbox,
+  Toggle,
   PageHeader,
 } from 'vtex.styleguide'
 
@@ -43,17 +44,49 @@ const TintometricAdmin: FC = () => {
   const base4Query = useQuery(getDataGQL, { variables: { key: 'base4' } })
   const base5Query = useQuery(getDataGQL, { variables: { key: 'base5' } }) */
 
-  const tinter1Query = useQuery(getDataGQL, { variables: { key: 'tinter1' } })
-  const tinter2Query = useQuery(getDataGQL, { variables: { key: 'tinter2' } })
-  const tinter3Query = useQuery(getDataGQL, { variables: { key: 'tinter3' } })
-  const tinter4Query = useQuery(getDataGQL, { variables: { key: 'tinter4' } })
-  const tinter5Query = useQuery(getDataGQL, { variables: { key: 'tinter5' } })
-  const tinter6Query = useQuery(getDataGQL, { variables: { key: 'tinter6' } })
-  const tinter7Query = useQuery(getDataGQL, { variables: { key: 'tinter7' } })
-  const tinter8Query = useQuery(getDataGQL, { variables: { key: 'tinter8' } })
-  const tinter9Query = useQuery(getDataGQL, { variables: { key: 'tinter9' } })
-  const tinter10Query = useQuery(getDataGQL, { variables: { key: 'tinter10' } })
-  const tinter11Query = useQuery(getDataGQL, { variables: { key: 'tinter11' } })
+  const tinter1Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC1' },
+  })
+
+  const tinter2Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC2' },
+  })
+
+  const tinter3Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC3' },
+  })
+
+  const tinter4Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC4' },
+  })
+
+  const tinter5Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC5' },
+  })
+
+  const tinter6Query = useQuery(getDataGQL, {
+    variables: { key: 'tintertinterLOC6' },
+  })
+
+  const tinter7Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC7' },
+  })
+
+  const tinter8Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC8' },
+  })
+
+  const tinter9Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC9' },
+  })
+
+  const tinter10Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC10' },
+  })
+
+  const tinter11Query = useQuery(getDataGQL, {
+    variables: { key: 'tinterLOC11' },
+  })
 
   const mintinter1 = useQuery(getDataGQL, { variables: { key: 'mintinter1' } })
   const mintinter2 = useQuery(getDataGQL, { variables: { key: 'mintinter2' } })
@@ -71,6 +104,13 @@ const TintometricAdmin: FC = () => {
   const mintinter11 = useQuery(getDataGQL, {
     variables: { key: 'mintinter11' },
   })
+
+  // TINTERS LABELS
+  const { data: tinterLabel1 } = useQuery(getDataGQL, {
+    variables: { key: 'tinterLabel1' },
+  })
+
+  console.log('tinterLabel1', tinterLabel1)
 
   const tinter1 = useInput(tinter1Query.data?.getData)
   const tinter2 = useInput(tinter2Query.data?.getData)
@@ -203,7 +243,6 @@ const TintometricAdmin: FC = () => {
     }).then(({ data }) => {
       const res = JSON.parse(data.updateSkusPrices)
 
-      console.log('res', res)
       const { skusNotFound, skusBadStructure, baseNotFound } = res
 
       setIsLoading(false)
@@ -276,22 +315,6 @@ const TintometricAdmin: FC = () => {
               />
             </div>
           )}
-          <span className="mv5 db">
-            <Checkbox
-              checked={oldPrices}
-              id="option-0"
-              label={intl.formatMessage({
-                defaultMessage: 'Old Prices',
-                id: 'admin/admin.app.tintometric.oldPrices',
-              })}
-              name="default-checkbox-group"
-              onChange={() => setOldPrices(!oldPrices)}
-              value="option-0"
-            />
-            <div className="mv4 pa3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
-              <FormattedMessage id="admin/admin.app.tintometric.oldPrices-subtitle" />
-            </div>
-          </span>
           <div className="flex">
             <span className="mv5 db mr9 pr8 br b--light-gray ">
               <span className="mt5 db">
@@ -300,11 +323,7 @@ const TintometricAdmin: FC = () => {
               <span className="mv2 mb5 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
                 <FormattedMessage id="admin/admin.app.tintometric.uploadCSV.subtitle" />
               </span>
-              <UploadFile
-                templateFile="template_tintometric.json"
-                query="csv"
-                action={setCsvFile}
-              />
+              <UploadFile templateFile="" query="csv" action={setCsvFile} />
             </span>
             <span className="mv5 db">
               <span className="mt5 db">
@@ -320,295 +339,451 @@ const TintometricAdmin: FC = () => {
               />
             </span>
           </div>
-          {/*   <span className="mv5 db">
-            <InputCurrency
-              label="Base 1"
-              name="base1"
-              size="large"
-              type="text"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              {...base1}
-              errorMessage={
-                !compositionValues.base1 ||
-                (compositionValues.base1 < minResponses.base1 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.base1}`)
-              }
-            />
-          </span>
           <span className="mv5 db">
-            <InputCurrency
-              label="Base 2"
-              name="base2"
+            <Toggle
+              checked={oldPrices}
+              label={intl.formatMessage({
+                defaultMessage: 'Old Prices',
+                id: 'admin/admin.app.tintometric.>',
+              })}
+              name="default-checkbox-group"
+              onChange={() => setOldPrices(!oldPrices)}
               size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.base2 ||
-                (compositionValues.base2 < minResponses.base2 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.base2}`)
-              }
-              {...base2}
             />
+            <div className="mv4 pa3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+              <FormattedMessage id="admin/admin.app.tintometric.oldPrices-subtitle" />
+            </div>
           </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Base 3"
-              name="base3"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.base3 ||
-                (compositionValues.base3 < minResponses.base3 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.base3}`)
-              }
-              {...base3}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Base 4"
-              name="base4"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.base4 ||
-                (compositionValues.base4 < minResponses.base4 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.base4}`)
-              }
-              {...base4}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Base 5"
-              name="base5"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.base5 ||
-                (compositionValues.base5 < minResponses.base5 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.base5}`)
-              }
-              {...base5}
-            />
-          </span> */}
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 1"
-              name="tinter1"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter1 ||
-                (compositionValues.tinter1 < minResponses.tinter1 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter1}`)
-              }
-              {...tinter1}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 2"
-              name="tinter2"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter2 ||
-                (compositionValues.tinter2 < minResponses.tinter2 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter2}`)
-              }
-              {...tinter2}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 3"
-              name="tinter3"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter3 ||
-                (compositionValues.tinter3 < minResponses.tinter3 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter3}`)
-              }
-              {...tinter3}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 4"
-              name="tinter4"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter4 ||
-                (compositionValues.tinter4 < minResponses.tinter4 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter4}`)
-              }
-              {...tinter4}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 5"
-              name="tinter5"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter5 ||
-                (compositionValues.tinter5 < minResponses.tinter5 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter5}`)
-              }
-              {...tinter5}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 6"
-              name="tinter6"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter6 ||
-                (compositionValues.tinter6 < minResponses.tinter6 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter6}`)
-              }
-              {...tinter6}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 7"
-              name="tinter7"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter7 ||
-                (compositionValues.tinter7 < minResponses.tinter7 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter7}`)
-              }
-              {...tinter7}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 8"
-              name="tinter8"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter8 ||
-                (compositionValues.tinter8 < minResponses.tinter8 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter8}`)
-              }
-              {...tinter8}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 9"
-              name="tinter9"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter9 ||
-                (compositionValues.tinter9 < minResponses.tinter9 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter9}`)
-              }
-              {...tinter9}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 10"
-              name="tinter10"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter10 ||
-                (compositionValues.tinter10 < minResponses.tinter10 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter10}`)
-              }
-              {...tinter10}
-            />
-          </span>
-          <span className="mv5 db">
-            <InputCurrency
-              label="Tinter 11"
-              name="tinter11"
-              size="large"
-              placeholder="Type a monetary value"
-              locale="en-US"
-              currencyCode="USD"
-              errorMessage={
-                !compositionValues.tinter11 ||
-                (compositionValues.tinter11 < minResponses.tinter11 &&
-                  `${intl.formatMessage({
-                    id: 'admin/admin.app.tintometric.minText',
-                  })} ${minResponses.tinter11}`)
-              }
-              {...tinter11}
-            />
-          </span>
+          {!oldPrices ? (
+            <>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label={tinterLabel1 ? tinterLabel1.getData : 'Tinter 1'}
+                    name="tinter1"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter1 ||
+                      (compositionValues.tinter1 < minResponses.tinter1 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter1}`)
+                    }
+                    {...tinter1}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 2"
+                    name="tinter2"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter2 ||
+                      (compositionValues.tinter2 < minResponses.tinter2 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter2}`)
+                    }
+                    {...tinter2}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 3"
+                    name="tinter3"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter3 ||
+                      (compositionValues.tinter3 < minResponses.tinter3 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter3}`)
+                    }
+                    {...tinter3}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 4"
+                    name="tinter4"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter4 ||
+                      (compositionValues.tinter4 < minResponses.tinter4 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter4}`)
+                    }
+                    {...tinter4}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 5"
+                    name="tinter5"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter5 ||
+                      (compositionValues.tinter5 < minResponses.tinter5 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter5}`)
+                    }
+                    {...tinter5}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 6"
+                    name="tinter6"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter6 ||
+                      (compositionValues.tinter6 < minResponses.tinter6 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter6}`)
+                    }
+                    {...tinter6}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 7"
+                    name="tinter7"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter7 ||
+                      (compositionValues.tinter7 < minResponses.tinter7 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter7}`)
+                    }
+                    {...tinter7}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 8"
+                    name="tinter8"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter8 ||
+                      (compositionValues.tinter8 < minResponses.tinter8 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter8}`)
+                    }
+                    {...tinter8}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 9"
+                    name="tinter9"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter9 ||
+                      (compositionValues.tinter9 < minResponses.tinter9 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter9}`)
+                    }
+                    {...tinter9}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 10"
+                    name="tinter10"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter10 ||
+                      (compositionValues.tinter10 < minResponses.tinter10 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter10}`)
+                    }
+                    {...tinter10}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 11"
+                    name="tinter11"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter11 ||
+                      (compositionValues.tinter11 < minResponses.tinter11 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter11}`)
+                    }
+                    {...tinter11}
+                  />
+                </span>
+                <span className="w-50" />
+              </div>
+            </>
+          ) : (
+            // NEW MACHINE
+            <>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label={tinterLabel1 ? tinterLabel1.getData : 'Tinter 12'}
+                    name="tinter12"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter1 ||
+                      (compositionValues.tinter1 < minResponses.tinter1 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter1}`)
+                    }
+                    {...tinter1}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 2"
+                    name="tinter2"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter2 ||
+                      (compositionValues.tinter2 < minResponses.tinter2 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter2}`)
+                    }
+                    {...tinter2}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 3"
+                    name="tinter3"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter3 ||
+                      (compositionValues.tinter3 < minResponses.tinter3 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter3}`)
+                    }
+                    {...tinter3}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 4"
+                    name="tinter4"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter4 ||
+                      (compositionValues.tinter4 < minResponses.tinter4 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter4}`)
+                    }
+                    {...tinter4}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 5"
+                    name="tinter5"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter5 ||
+                      (compositionValues.tinter5 < minResponses.tinter5 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter5}`)
+                    }
+                    {...tinter5}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 6"
+                    name="tinter6"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter6 ||
+                      (compositionValues.tinter6 < minResponses.tinter6 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter6}`)
+                    }
+                    {...tinter6}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 7"
+                    name="tinter7"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter7 ||
+                      (compositionValues.tinter7 < minResponses.tinter7 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter7}`)
+                    }
+                    {...tinter7}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 8"
+                    name="tinter8"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter8 ||
+                      (compositionValues.tinter8 < minResponses.tinter8 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter8}`)
+                    }
+                    {...tinter8}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 9"
+                    name="tinter9"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter9 ||
+                      (compositionValues.tinter9 < minResponses.tinter9 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter9}`)
+                    }
+                    {...tinter9}
+                  />
+                </span>
+                <span className="w-50">
+                  <InputCurrency
+                    label="Tinter 10"
+                    name="tinter10"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter10 ||
+                      (compositionValues.tinter10 < minResponses.tinter10 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter10}`)
+                    }
+                    {...tinter10}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label="Tinter 11"
+                    name="tinter11"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.tinter11 ||
+                      (compositionValues.tinter11 < minResponses.tinter11 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter11}`)
+                    }
+                    {...tinter11}
+                  />
+                </span>
+                <span className="w-50" />
+              </div>
+            </>
+          )}
           <span className="mr4 mb8 db">
             <Button
               variation="primary"
