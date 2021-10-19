@@ -6,7 +6,7 @@ type Query {
 
 type Mutation {
     "Change price of list of sku ids"
-    updateSkusPrices(tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, oldPrices: Boolean): String
+    updateSkusPrices(tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, tinter12: Float!, tinter13: Float!, oldPrices: Boolean): String
 
     "Upload file"
     uploadFile(file: Upload!) : String

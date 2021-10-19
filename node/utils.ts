@@ -41,3 +41,25 @@ export const parseCSVToJson = (data: any) => {
 
   return parsedData
 }
+
+export const validateNewPrices = (oldCSV: CsvItem[], newCSV: CsvItem[]) => {
+  const errors: string[] = []
+
+  newCSV.forEach((itemInNewCSV: CsvItem) => {
+    const itemInOldCSV = oldCSV.find(
+      (oldCSVItem: CsvItem) => oldCSVItem.base === itemInNewCSV.base
+    )
+
+    // eslint-disable-next-line vtex/prefer-early-return
+    if (itemInOldCSV) {
+      const res =
+        ((Number(itemInOldCSV.price) - Number(itemInNewCSV.price)) /
+          Number(itemInOldCSV.price)) *
+        100
+
+      if (res > 10) errors.push(itemInOldCSV.base)
+    }
+  })
+
+  return errors
+}

@@ -1,6 +1,6 @@
 // import { base64ToCSV, csvJSON } from '../../utils'
 
-import { parseCSVToJson } from '../../utils'
+import { parseCSVToJson, validateNewPrices } from '../../utils'
 
 export const queries = {}
 
@@ -19,6 +19,8 @@ export const mutations = {
       tinter9,
       tinter10,
       tinter11,
+      tinter12,
+      tinter13,
       oldPrices,
     }: {
       tinter1: number
@@ -32,6 +34,8 @@ export const mutations = {
       tinter9: number
       tinter10: number
       tinter11: number
+      tinter12: number
+      tinter13: number
       oldPrices: boolean
     },
     { clients: { pricing, catalog, vbase, files } }: Context
@@ -40,30 +44,41 @@ export const mutations = {
 
     try {
       const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
-      const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
-      const { data } = await files.getFile(csvUrl)
+      const jsonFileContent = await files.getFile(jsonUrl)
 
-      const csv: Array<{ base: string; price: string }> = parseCSVToJson(data)
+      const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
+      const { data: csvData } = await files.getFile(csvUrl)
+      const csv: Array<{ base: string; price: string }> = parseCSVToJson(
+        csvData
+      )
+
+      // cambiar el nombre de csvFile_old para probar qué pasa si no existe aún el archivo viejo
+      const lastCsvUrl = await vbase.getJSON<string>(
+        'tintometricData',
+        'csvFile_old'
+      )
+
+      const { data: lastCsvData } = await files.getFile(lastCsvUrl)
+      const lastCsv: Array<{ base: string; price: string }> = parseCSVToJson(
+        lastCsvData
+      )
 
       console.log('csv---', csv)
+      console.log('lastCsv---', lastCsv)
 
-      // save CSV in vbase
+      const validate = validateNewPrices(lastCsv, csv)
 
-      csv.forEach(async (element: { base: string; price: string }) => {
-        try {
-          const aux = await vbase.saveJSON(
-            'tintometricData',
-            element.base,
-            element.price
-          )
+      if (validate.length > 0) {
+        return JSON.stringify({
+          errorValidatePrice: validate,
+          skusNotFound: [],
+          skusBadStructure: [],
+          baseNotFound: [],
+        })
+      }
 
-          console.log('aux----', aux)
-        } catch (err) {
-          console.log(err)
-        }
-      })
+      console.log('no llego aca')
 
-      const jsonFileContent = await files.getFile(jsonUrl)
       const jsonProducts = jsonFileContent.data?.products
       const priceType = oldPrices ? 'oldPrices' : 'newPrices'
       const skusNotFound: number[] = []
@@ -79,13 +94,13 @@ export const mutations = {
         if (!skuId) {
           skusNotFound.push(item.skuId)
         } else if (item.composition) {
-          const base = 0
+          let base = 0
 
-          /*           const baseJson: any = Object.entries(
+          const baseJson: any = Object.entries(
             item.composition[priceType]
-          ).find((arrayOfItem: any) => arrayOfItem[0].includes('base')) */
+          ).find((arrayOfItem: any) => arrayOfItem[0].includes('base'))
 
-          /* const basePrice =
+          const basePrice =
             baseJson && csv.find((csvItem: any) => csvItem.base === baseJson[0])
 
           if (!basePrice) {
@@ -95,10 +110,10 @@ export const mutations = {
           } else if (!baseJson) {
             skusBadStructure.push(item.skuId)
           } else {
-            base = baseJson[1] * basePrice.price
-          } */
+            base = baseJson[1] * Number(basePrice.price)
+          }
 
-          const price =
+          let price =
             tinter1 * item?.composition?.[priceType]?.tinter1 +
             tinter2 * item?.composition?.[priceType]?.tinter2 +
             tinter3 * item?.composition?.[priceType]?.tinter3 +
@@ -111,6 +126,11 @@ export const mutations = {
             tinter10 * item?.composition?.[priceType]?.tinter10 +
             tinter11 * item?.composition?.[priceType]?.tinter11 +
             base
+
+          if (!oldPrices)
+            price +=
+              tinter12 * item?.composition?.[priceType]?.tinter12 +
+              tinter13 * item?.composition?.[priceType]?.tinter13
 
           if (Number.isNaN(price)) {
             skusBadStructure.push(item.skuId)
@@ -128,6 +148,7 @@ export const mutations = {
         skusNotFound,
         skusBadStructure,
         baseNotFound,
+        errorValidatePrice: [],
       })
     } catch (err) {
       return err

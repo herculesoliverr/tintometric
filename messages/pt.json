@@ -3,7 +3,6 @@
   "admin/admin.app.tintometric.title": "Tintometric",
   "admin/admin.app.tintometric.update_skus_prices": "Atualizar preços de Skus",
   "admin/admin.app.tintometric.update_succes": "Preços skus atualizados corretamente",
-  "admin/admin.app.tintometric.oldPrices": "LOC",
   "admin/admin.app.tintometric.oldPrices-subtitle": "Toma los precios marcados como 'oldPrices' en el json.",
   "admin/admin.app.tintometric.minText": "O preço mínimo é: ",
   "admin/admin.app.tintometric.update_success": "Preços de Skus atualizados com sucesso",
@@ -12,6 +11,7 @@
   "admin/admin.app.tintometric.skusBadStructure": "Verifique a estrutura json no seguinte skus: ",
   "admin/admin.app.tintometric.description": "Adicione os preços das bases e das tintas para atualizar os preços do skus en masse. Os skus afetados serão aqueles no json abaixo.",
   "admin/admin.app.tintometric.uploadJson": "Composição de Cores",
+  "admin/admin.app.tintometric.oldPrices": "LOC preços",
   "admin/admin.app.tintometric.uploadJson.subtitle": "Insira arquivo JSON",
   "admin/admin.app.tintometric.uploadCSV": "Insira Bases",
   "admin/admin.app.tintometric.uploadCSV.subtitle": "Faça upload de um arquivo csv ou xls",
@@ -20,5 +20,6 @@
   "admin/admin.app.tintometric.downloadTemplate": "Baixar modelo",
   "admin/admin.app.tintometric.removeFile": "Remover",
   "admin/admin.app.tintometric.generic.error": "Ocorreu um erro. Por favor, tente novamente",
-  "store/search.placeholder": "Procurar..."
+  "store/search.placeholder": "Procurar...",
+  "admin/admin.app.tintometric.errorValidatePrice": "Verifique o csv, o preço das seguintes bases diminuiu 10%: "
 }

@@ -49,6 +49,14 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   const [saveData] = useMutation(saveDataGQL)
   const intl = useIntl()
 
+  const [state, setState] = useState<State>({
+    error: null,
+    isLoading: false,
+    fileName: intl.formatMessage(messages.fileEmpty),
+    fileUrl: '',
+    pathFile: '',
+  })
+
   const fileNameQuery = useQuery(getDataGQL, {
     variables: { key: `${query}Name` },
   })
@@ -75,14 +83,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     },
   ] = useMutation(DeleteFileQuery)
 
-  const [state, setState] = useState<State>({
-    error: null,
-    isLoading: false,
-    fileName: intl.formatMessage(messages.fileEmpty),
-    fileUrl: '',
-    pathFile: '',
-  })
-
   useEffect(() => {
     fileNameQuery.data &&
       setState(prevState => ({
@@ -101,6 +101,17 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileNameQuery, fileUrlQuery])
+
+  const saveOldFile = async () => {
+    console.log('antes saveOldFile')
+    await saveData({
+      variables: {
+        key: `${query}File_old`,
+        value: state.fileUrl,
+      },
+    })
+  }
+
   useEffect(() => {
     if (loadingUploadFile) {
       setState(prevState => ({ ...prevState, isLoading: true }))
@@ -119,11 +130,14 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       setState(prevState => ({
         ...prevState,
         isLoading: false,
-        // fileName: dataUploadFile.uploadFile.fileUrl,
         pathFile: dataUploadFile.uploadFile.fileUrl.split('/')[
           dataUploadFile.uploadFile.fileUrl.split('/').length - 1
         ],
       }))
+      // before saving csvFile save csvFileOld
+      saveOldFile()
+      console.log('después saveOldFile')
+
       saveData({
         variables: {
           key: `${query}File`,

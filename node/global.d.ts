@@ -25,4 +25,9 @@ declare global {
     skuId: number
     composition: any
   }
+
+  interface CsvItem {
+    base: string,
+    price: string
+  }
 }

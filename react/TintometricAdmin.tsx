@@ -8,7 +8,6 @@ import {
   PageBlock,
   Spinner,
   Alert,
-  // Checkbox,
   Toggle,
   PageHeader,
 } from 'vtex.styleguide'
@@ -32,61 +31,136 @@ const TintometricAdmin: FC = () => {
     skusNotFound: '',
     skusBadStructure: '',
     baseNotFound: '',
+    errorValidatePrice: '',
   })
 
   const [updateSkusPrices] = useMutation(updateSkusPricesGQL)
   const [saveData] = useMutation(saveDataGQL)
   const intl = useIntl()
 
-  /*   const base1Query = useQuery(getDataGQL, { variables: { key: 'base1' } })
-  const base2Query = useQuery(getDataGQL, { variables: { key: 'base2' } })
-  const base3Query = useQuery(getDataGQL, { variables: { key: 'base3' } })
-  const base4Query = useQuery(getDataGQL, { variables: { key: 'base4' } })
-  const base5Query = useQuery(getDataGQL, { variables: { key: 'base5' } }) */
-
-  const tinter1Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC1' },
+  // ACOTONE
+  const acotoneTinter1Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter1' },
   })
 
-  const tinter2Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC2' },
+  const acotoneTinter2Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter2' },
   })
 
-  const tinter3Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC3' },
+  const acotoneTinter3Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter3' },
   })
 
-  const tinter4Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC4' },
+  const acotoneTinter4Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter4' },
   })
 
-  const tinter5Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC5' },
+  const acotoneTinter5Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter5' },
   })
 
-  const tinter6Query = useQuery(getDataGQL, {
-    variables: { key: 'tintertinterLOC6' },
+  const acotoneTinter6Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter6' },
   })
 
-  const tinter7Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC7' },
+  const acotoneTinter7Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter7' },
   })
 
-  const tinter8Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC8' },
+  const acotoneTinter8Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter8' },
   })
 
-  const tinter9Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC9' },
+  const acotoneTinter9Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter9' },
   })
 
-  const tinter10Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC10' },
+  const acotoneTinter10Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter10' },
   })
 
-  const tinter11Query = useQuery(getDataGQL, {
-    variables: { key: 'tinterLOC11' },
+  const acotoneTinter11Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter11' },
   })
+
+  const acotoneTinter12Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter12' },
+  })
+
+  const acotoneTinter13Query = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinter13' },
+  })
+
+  const acotoneTinter1 = useInput(acotoneTinter1Query?.data?.getData)
+  const acotoneTinter2 = useInput(acotoneTinter2Query?.data?.getData)
+  const acotoneTinter3 = useInput(acotoneTinter3Query?.data?.getData)
+  const acotoneTinter4 = useInput(acotoneTinter4Query?.data?.getData)
+  const acotoneTinter5 = useInput(acotoneTinter5Query?.data?.getData)
+  const acotoneTinter6 = useInput(acotoneTinter6Query?.data?.getData)
+  const acotoneTinter7 = useInput(acotoneTinter7Query?.data?.getData)
+  const acotoneTinter8 = useInput(acotoneTinter8Query?.data?.getData)
+  const acotoneTinter9 = useInput(acotoneTinter9Query?.data?.getData)
+  const acotoneTinter10 = useInput(acotoneTinter10Query?.data?.getData)
+  const acotoneTinter11 = useInput(acotoneTinter11Query?.data?.getData)
+  const acotoneTinter12 = useInput(acotoneTinter12Query?.data?.getData)
+  const acotoneTinter13 = useInput(acotoneTinter13Query?.data?.getData)
+
+  // LOC
+  const locTinter1Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter1' },
+  })
+
+  const locTinter2Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter2' },
+  })
+
+  const locTinter3Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter3' },
+  })
+
+  const locTinter4Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter4' },
+  })
+
+  const locTinter5Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter5' },
+  })
+
+  const locTinter6Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter6' },
+  })
+
+  const locTinter7Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter7' },
+  })
+
+  const locTinter8Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter8' },
+  })
+
+  const locTinter9Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter9' },
+  })
+
+  const locTinter10Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter10' },
+  })
+
+  const locTinter11Query = useQuery(getDataGQL, {
+    variables: { key: 'locTinter11' },
+  })
+
+  const locTinter1 = useInput(locTinter1Query?.data?.getData)
+  const locTinter2 = useInput(locTinter2Query?.data?.getData)
+  const locTinter3 = useInput(locTinter3Query?.data?.getData)
+  const locTinter4 = useInput(locTinter4Query?.data?.getData)
+  const locTinter5 = useInput(locTinter5Query?.data?.getData)
+  const locTinter6 = useInput(locTinter6Query?.data?.getData)
+  const locTinter7 = useInput(locTinter7Query?.data?.getData)
+  const locTinter8 = useInput(locTinter8Query?.data?.getData)
+  const locTinter9 = useInput(locTinter9Query?.data?.getData)
+  const locTinter10 = useInput(locTinter10Query?.data?.getData)
+  const locTinter11 = useInput(locTinter11Query?.data?.getData)
 
   const mintinter1 = useQuery(getDataGQL, { variables: { key: 'mintinter1' } })
   const mintinter2 = useQuery(getDataGQL, { variables: { key: 'mintinter2' } })
@@ -106,30 +180,103 @@ const TintometricAdmin: FC = () => {
   })
 
   // TINTERS LABELS
-  const { data: tinterLabel1 } = useQuery(getDataGQL, {
-    variables: { key: 'tinterLabel1' },
+  const { data: acotoneTinterLabel1 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel1' },
   })
 
-  console.log('tinterLabel1', tinterLabel1)
+  const { data: acotoneTinterLabel2 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel2' },
+  })
 
-  const tinter1 = useInput(tinter1Query.data?.getData)
-  const tinter2 = useInput(tinter2Query.data?.getData)
-  const tinter3 = useInput(tinter3Query.data?.getData)
-  const tinter4 = useInput(tinter4Query.data?.getData)
-  const tinter5 = useInput(tinter5Query.data?.getData)
-  const tinter6 = useInput(tinter6Query.data?.getData)
-  const tinter7 = useInput(tinter7Query.data?.getData)
-  const tinter8 = useInput(tinter8Query.data?.getData)
-  const tinter9 = useInput(tinter9Query.data?.getData)
-  const tinter10 = useInput(tinter10Query.data?.getData)
-  const tinter11 = useInput(tinter11Query.data?.getData)
+  const { data: acotoneTinterLabel3 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel3' },
+  })
+
+  const { data: acotoneTinterLabel4 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel4' },
+  })
+
+  const { data: acotoneTinterLabel5 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel5' },
+  })
+
+  const { data: acotoneTinterLabel6 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel6' },
+  })
+
+  const { data: acotoneTinterLabel7 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel7' },
+  })
+
+  const { data: acotoneTinterLabel8 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel8' },
+  })
+
+  const { data: acotoneTinterLabel9 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel9' },
+  })
+
+  const { data: acotoneTinterLabel10 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel10' },
+  })
+
+  const { data: acotoneTinterLabel11 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel11' },
+  })
+
+  const { data: acotoneTinterLabel12 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel12' },
+  })
+
+  const { data: acotoneTinterLabel13 } = useQuery(getDataGQL, {
+    variables: { key: 'acotoneTinterLabel13' },
+  })
+
+  const { data: locTinterLabel1 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel1' },
+  })
+
+  const { data: locTinterLabel2 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel2' },
+  })
+
+  const { data: locTinterLabel3 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel3' },
+  })
+
+  const { data: locTinterLabel4 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel4' },
+  })
+
+  const { data: locTinterLabel5 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel5' },
+  })
+
+  const { data: locTinterLabel6 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel6' },
+  })
+
+  const { data: locTinterLabel7 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel7' },
+  })
+
+  const { data: locTinterLabel8 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel8' },
+  })
+
+  const { data: locTinterLabel9 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel9' },
+  })
+
+  const { data: locTinterLabel10 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel10' },
+  })
+
+  const { data: locTinterLabel11 } = useQuery(getDataGQL, {
+    variables: { key: 'locTinterLabel11' },
+  })
 
   const minResponses = {
-    /*   base1: minbase1.data?.getData || 1,
-    base2: minbase2.data?.getData || 1,
-    base3: minbase3.data?.getData || 1,
-    base4: minbase4.data?.getData || 1,
-    base5: minbase5.data?.getData || 1, */
     tinter1: mintinter1.data?.getData || 1,
     tinter2: mintinter2.data?.getData || 1,
     tinter3: mintinter3.data?.getData || 1,
@@ -144,42 +291,67 @@ const TintometricAdmin: FC = () => {
   }
 
   const compositionValues = {
-    /* base1: base1.value,
-    base2: base2.value,
-    base3: base3.value,
-    base4: base4.value,
-    base5: base5.value, */
-    tinter1: tinter1.value,
-    tinter2: tinter2.value,
-    tinter3: tinter3.value,
-    tinter4: tinter4.value,
-    tinter5: tinter5.value,
-    tinter6: tinter6.value,
-    tinter7: tinter7.value,
-    tinter8: tinter8.value,
-    tinter9: tinter9.value,
-    tinter10: tinter10.value,
-    tinter11: tinter11.value,
+    acotoneTinter1: acotoneTinter1.value,
+    acotoneTinter2: acotoneTinter2.value,
+    acotoneTinter3: acotoneTinter3.value,
+    acotoneTinter4: acotoneTinter4.value,
+    acotoneTinter5: acotoneTinter5.value,
+    acotoneTinter6: acotoneTinter6.value,
+    acotoneTinter7: acotoneTinter7.value,
+    acotoneTinter8: acotoneTinter8.value,
+    acotoneTinter9: acotoneTinter9.value,
+    acotoneTinter10: acotoneTinter10.value,
+    acotoneTinter11: acotoneTinter11.value,
+    acotoneTinter12: acotoneTinter12.value,
+    acotoneTinter13: acotoneTinter13.value,
+    locTinter1: locTinter1.value,
+    locTinter2: locTinter2.value,
+    locTinter3: locTinter3.value,
+    locTinter4: locTinter4.value,
+    locTinter5: locTinter5.value,
+    locTinter6: locTinter6.value,
+    locTinter7: locTinter7.value,
+    locTinter8: locTinter8.value,
+    locTinter9: locTinter9.value,
+    locTinter10: locTinter10.value,
+    locTinter11: locTinter11.value,
   }
 
   const formValidation = () => {
-    if (
-      /*       Number(compositionValues.base1) >= minResponses.base1 &&
-      Number(compositionValues.base2) >= minResponses.base2 &&
-      Number(compositionValues.base3) >= minResponses.base3 &&
-      Number(compositionValues.base4) >= minResponses.base4 &&
-      Number(compositionValues.base5) >= minResponses.base5 && */
-      Number(compositionValues.tinter1) >= minResponses.tinter1 &&
-      Number(compositionValues.tinter2) >= minResponses.tinter2 &&
-      Number(compositionValues.tinter3) >= minResponses.tinter3 &&
-      Number(compositionValues.tinter4) >= minResponses.tinter4 &&
-      Number(compositionValues.tinter5) >= minResponses.tinter5 &&
-      Number(compositionValues.tinter6) >= minResponses.tinter6 &&
-      Number(compositionValues.tinter7) >= minResponses.tinter7 &&
-      Number(compositionValues.tinter8) >= minResponses.tinter8 &&
-      Number(compositionValues.tinter9) >= minResponses.tinter9 &&
-      Number(compositionValues.tinter10) >= minResponses.tinter10 &&
-      Number(compositionValues.tinter11) >= minResponses.tinter11 &&
+    if (!oldPrices) {
+      if (
+        Number(compositionValues.acotoneTinter1) &&
+        Number(compositionValues.acotoneTinter2) &&
+        Number(compositionValues.acotoneTinter3) &&
+        Number(compositionValues.acotoneTinter4) &&
+        Number(compositionValues.acotoneTinter5) &&
+        Number(compositionValues.acotoneTinter6) &&
+        Number(compositionValues.acotoneTinter7) &&
+        Number(compositionValues.acotoneTinter8) &&
+        Number(compositionValues.acotoneTinter9) &&
+        Number(compositionValues.acotoneTinter10) &&
+        Number(compositionValues.acotoneTinter11) &&
+        Number(compositionValues.acotoneTinter12) &&
+        Number(compositionValues.acotoneTinter13) &&
+        jsonFile &&
+        csvFile
+      ) {
+        setFormValidated(true)
+      } else {
+        setFormValidated(false)
+      }
+    } else if (
+      Number(compositionValues.locTinter1) &&
+      Number(compositionValues.locTinter2) &&
+      Number(compositionValues.locTinter3) &&
+      Number(compositionValues.locTinter4) &&
+      Number(compositionValues.locTinter5) &&
+      Number(compositionValues.locTinter6) &&
+      Number(compositionValues.locTinter7) &&
+      Number(compositionValues.locTinter8) &&
+      Number(compositionValues.locTinter9) &&
+      Number(compositionValues.locTinter10) &&
+      Number(compositionValues.locTinter11) &&
       jsonFile &&
       csvFile
     ) {
@@ -201,10 +373,11 @@ const TintometricAdmin: FC = () => {
       skusNotFound: '',
       skusBadStructure: '',
       baseNotFound: '',
+      errorValidatePrice: '',
     })
   }, [jsonFile])
 
-  if (tinter11Query.loading || tinter11Query.loading) {
+  if (acotoneTinter1Query.loading || acotoneTinter13Query.loading) {
     return (
       <div className="flex items-center justify-center mv8">
         <Spinner />
@@ -220,39 +393,79 @@ const TintometricAdmin: FC = () => {
       skusNotFound: '',
       skusBadStructure: '',
       baseNotFound: '',
+      errorValidatePrice: '',
     })
+
     await Object.entries(compositionValues).forEach(([key, val]: any) =>
       saveData({ variables: { key, value: val.toString() } })
     )
-
     updateSkusPrices({
       variables: {
-        tinter1: parseFloat(compositionValues.tinter1),
-        tinter2: parseFloat(compositionValues.tinter2),
-        tinter3: parseFloat(compositionValues.tinter3),
-        tinter4: parseFloat(compositionValues.tinter4),
-        tinter5: parseFloat(compositionValues.tinter5),
-        tinter6: parseFloat(compositionValues.tinter6),
-        tinter7: parseFloat(compositionValues.tinter7),
-        tinter8: parseFloat(compositionValues.tinter8),
-        tinter9: parseFloat(compositionValues.tinter9),
-        tinter10: parseFloat(compositionValues.tinter10),
-        tinter11: parseFloat(compositionValues.tinter11),
+        tinter1: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter1)
+          : parseFloat(compositionValues.locTinter1),
+        tinter2: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter2)
+          : parseFloat(compositionValues.locTinter2),
+        tinter3: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter3)
+          : parseFloat(compositionValues.locTinter3),
+        tinter4: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter4)
+          : parseFloat(compositionValues.locTinter4),
+        tinter5: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter5)
+          : parseFloat(compositionValues.locTinter5),
+        tinter6: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter6)
+          : parseFloat(compositionValues.locTinter6),
+        tinter7: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter7)
+          : parseFloat(compositionValues.locTinter7),
+        tinter8: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter8)
+          : parseFloat(compositionValues.locTinter8),
+        tinter9: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter9)
+          : parseFloat(compositionValues.locTinter9),
+        tinter10: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter10)
+          : parseFloat(compositionValues.locTinter10),
+        tinter11: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter11)
+          : parseFloat(compositionValues.locTinter11),
+        tinter12: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter12)
+          : 0,
+        tinter13: !oldPrices
+          ? parseFloat(compositionValues.acotoneTinter13)
+          : 0,
         oldPrices,
       },
     }).then(({ data }) => {
       const res = JSON.parse(data.updateSkusPrices)
 
-      const { skusNotFound, skusBadStructure, baseNotFound } = res
+      const {
+        skusNotFound,
+        skusBadStructure,
+        baseNotFound,
+        errorValidatePrice,
+      } = res
 
       setIsLoading(false)
-      if (skusNotFound.length > 0) {
+      if (
+        skusNotFound.length ||
+        skusBadStructure.length ||
+        baseNotFound.length ||
+        errorValidatePrice.length
+      ) {
         setState({
           success: false,
           error: true,
           skusNotFound: `${skusNotFound}`,
           skusBadStructure: `${skusBadStructure}`,
           baseNotFound: `${baseNotFound}`,
+          errorValidatePrice: `${errorValidatePrice || ''}`,
         })
       } else {
         setState(prevState => ({ ...prevState, success: true }))
@@ -296,7 +509,15 @@ const TintometricAdmin: FC = () => {
               />
             </div>
           )}
-
+          {state.error && state.errorValidatePrice?.length > 0 && (
+            <div className="mt5">
+              <ErrorAlert
+                message={`${intl.formatMessage({
+                  id: 'admin/admin.app.tintometric.errorValidatePrice',
+                })} ${state.errorValidatePrice}`}
+              />
+            </div>
+          )}
           {state.error && state.skusBadStructure?.length > 0 && (
             <div className="mt5">
               <ErrorAlert
@@ -343,8 +564,8 @@ const TintometricAdmin: FC = () => {
             <Toggle
               checked={oldPrices}
               label={intl.formatMessage({
-                defaultMessage: 'Old Prices',
-                id: 'admin/admin.app.tintometric.>',
+                defaultMessage: 'LOC Prices',
+                id: 'admin/admin.app.tintometric.oldPrices',
               })}
               name="default-checkbox-group"
               onChange={() => setOldPrices(!oldPrices)}
@@ -359,431 +580,556 @@ const TintometricAdmin: FC = () => {
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label={tinterLabel1 ? tinterLabel1.getData : 'Tinter 1'}
+                    label={
+                      acotoneTinterLabel1
+                        ? acotoneTinterLabel1?.getData
+                        : 'Tinter 1'
+                    }
                     name="tinter1"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter1 ||
-                      (compositionValues.tinter1 < minResponses.tinter1 &&
+                      !compositionValues.acotoneTinter1 ||
+                      (compositionValues.acotoneTinter1 <
+                        minResponses.tinter1 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter1}`)
                     }
-                    {...tinter1}
+                    {...acotoneTinter1}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 2"
+                    label={
+                      acotoneTinterLabel2
+                        ? acotoneTinterLabel2?.getData
+                        : 'Tinter 2'
+                    }
                     name="tinter2"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter2 ||
-                      (compositionValues.tinter2 < minResponses.tinter2 &&
+                      !compositionValues.acotoneTinter2 ||
+                      (compositionValues.acotoneTinter2 <
+                        minResponses.tinter2 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter2}`)
                     }
-                    {...tinter2}
+                    {...acotoneTinter2}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 3"
+                    label={
+                      acotoneTinterLabel3
+                        ? acotoneTinterLabel3?.getData
+                        : 'Tinter 3'
+                    }
                     name="tinter3"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter3 ||
-                      (compositionValues.tinter3 < minResponses.tinter3 &&
+                      !compositionValues.acotoneTinter3 ||
+                      (compositionValues.acotoneTinter3 <
+                        minResponses.tinter3 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter3}`)
                     }
-                    {...tinter3}
+                    {...acotoneTinter3}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 4"
+                    label={
+                      acotoneTinterLabel4
+                        ? acotoneTinterLabel4?.getData
+                        : 'Tinter 4'
+                    }
                     name="tinter4"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter4 ||
-                      (compositionValues.tinter4 < minResponses.tinter4 &&
+                      !compositionValues.acotoneTinter4 ||
+                      (compositionValues.acotoneTinter4 <
+                        minResponses.tinter4 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter4}`)
                     }
-                    {...tinter4}
+                    {...acotoneTinter4}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 5"
+                    label={
+                      acotoneTinterLabel5
+                        ? acotoneTinterLabel5?.getData
+                        : 'Tinter 5'
+                    }
                     name="tinter5"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter5 ||
-                      (compositionValues.tinter5 < minResponses.tinter5 &&
+                      !compositionValues.acotoneTinter5 ||
+                      (compositionValues.acotoneTinter5 <
+                        minResponses.tinter5 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter5}`)
                     }
-                    {...tinter5}
+                    {...acotoneTinter5}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 6"
+                    label={
+                      acotoneTinterLabel6
+                        ? acotoneTinterLabel6?.getData
+                        : 'Tinter 6'
+                    }
                     name="tinter6"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter6 ||
-                      (compositionValues.tinter6 < minResponses.tinter6 &&
+                      !compositionValues.acotoneTinter6 ||
+                      (compositionValues.acotoneTinter6 <
+                        minResponses.tinter6 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter6}`)
                     }
-                    {...tinter6}
+                    {...acotoneTinter6}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 7"
+                    label={
+                      acotoneTinterLabel7
+                        ? acotoneTinterLabel7?.getData
+                        : 'Tinter 7'
+                    }
                     name="tinter7"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter7 ||
-                      (compositionValues.tinter7 < minResponses.tinter7 &&
+                      !compositionValues.acotoneTinter7 ||
+                      (compositionValues.acotoneTinter7 <
+                        minResponses.tinter7 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter7}`)
                     }
-                    {...tinter7}
+                    {...acotoneTinter7}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 8"
+                    label={
+                      acotoneTinterLabel8
+                        ? acotoneTinterLabel8?.getData
+                        : 'Tinter 8'
+                    }
                     name="tinter8"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter8 ||
-                      (compositionValues.tinter8 < minResponses.tinter8 &&
+                      !compositionValues.acotoneTinter8 ||
+                      (compositionValues.acotoneTinter8 <
+                        minResponses.tinter8 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter8}`)
                     }
-                    {...tinter8}
+                    {...acotoneTinter8}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 9"
+                    label={
+                      acotoneTinterLabel9
+                        ? acotoneTinterLabel9?.getData
+                        : 'Tinter 9'
+                    }
                     name="tinter9"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter9 ||
-                      (compositionValues.tinter9 < minResponses.tinter9 &&
+                      !compositionValues.acotoneTinter9 ||
+                      (compositionValues.acotoneTinter9 <
+                        minResponses.tinter9 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter9}`)
                     }
-                    {...tinter9}
+                    {...acotoneTinter9}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 10"
+                    label={
+                      acotoneTinterLabel10
+                        ? acotoneTinterLabel10?.getData
+                        : 'Tinter 10'
+                    }
                     name="tinter10"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter10 ||
-                      (compositionValues.tinter10 < minResponses.tinter10 &&
+                      !compositionValues.acotoneTinter10 ||
+                      (compositionValues.acotoneTinter10 <
+                        minResponses.tinter10 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter10}`)
                     }
-                    {...tinter10}
+                    {...acotoneTinter10}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 11"
+                    label={
+                      acotoneTinterLabel11
+                        ? acotoneTinterLabel11?.getData
+                        : 'Tinter 11'
+                    }
                     name="tinter11"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter11 ||
-                      (compositionValues.tinter11 < minResponses.tinter11 &&
+                      !compositionValues.acotoneTinter11 ||
+                      (compositionValues.acotoneTinter11 <
+                        minResponses.tinter11 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter11}`)
                     }
-                    {...tinter11}
+                    {...acotoneTinter11}
                   />
                 </span>
-                <span className="w-50" />
-              </div>
-            </>
-          ) : (
-            // NEW MACHINE
-            <>
-              <div className="flex mv5 db">
-                <span className="w-50 mr6">
+                <span className="w-50">
                   <InputCurrency
-                    label={tinterLabel1 ? tinterLabel1.getData : 'Tinter 12'}
+                    label={
+                      acotoneTinterLabel12
+                        ? acotoneTinterLabel12?.getData
+                        : 'Tinter 12'
+                    }
                     name="tinter12"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter1 ||
-                      (compositionValues.tinter1 < minResponses.tinter1 &&
+                      !compositionValues.acotoneTinter12 ||
+                      (compositionValues.acotoneTinter12 <
+                        minResponses.tinter11 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter11}`)
+                    }
+                    {...acotoneTinter12}
+                  />
+                </span>
+              </div>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label={
+                      acotoneTinterLabel13
+                        ? acotoneTinterLabel13?.getData
+                        : 'Tinter 13'
+                    }
+                    name="tinter13"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.acotoneTinter13 ||
+                      (compositionValues.acotoneTinter13 <
+                        minResponses.tinter11 &&
+                        `${intl.formatMessage({
+                          id: 'admin/admin.app.tintometric.minText',
+                        })} ${minResponses.tinter11}`)
+                    }
+                    {...acotoneTinter13}
+                  />
+                </span>
+                <span className="w-50" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex mv5 db">
+                <span className="w-50 mr6">
+                  <InputCurrency
+                    label={
+                      locTinterLabel1 ? locTinterLabel1?.getData : 'Tinter 1'
+                    }
+                    name="tinter1"
+                    size="large"
+                    placeholder="Type a monetary value"
+                    locale="en-US"
+                    currencyCode="USD"
+                    errorMessage={
+                      !compositionValues.locTinter1 ||
+                      (compositionValues.locTinter1 < minResponses.tinter1 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter1}`)
                     }
-                    {...tinter1}
+                    {...locTinter1}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 2"
+                    label={
+                      locTinterLabel2 ? locTinterLabel2?.getData : 'Tinter 2'
+                    }
                     name="tinter2"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter2 ||
-                      (compositionValues.tinter2 < minResponses.tinter2 &&
+                      !compositionValues.locTinter2 ||
+                      (compositionValues.locTinter2 < minResponses.tinter2 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter2}`)
                     }
-                    {...tinter2}
+                    {...locTinter2}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 3"
+                    label={
+                      locTinterLabel3 ? locTinterLabel3?.getData : 'Tinter 3'
+                    }
                     name="tinter3"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter3 ||
-                      (compositionValues.tinter3 < minResponses.tinter3 &&
+                      !compositionValues.locTinter3 ||
+                      (compositionValues.locTinter3 < minResponses.tinter3 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter3}`)
                     }
-                    {...tinter3}
+                    {...locTinter3}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 4"
+                    label={
+                      locTinterLabel4 ? locTinterLabel4?.getData : 'Tinter 4'
+                    }
                     name="tinter4"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter4 ||
-                      (compositionValues.tinter4 < minResponses.tinter4 &&
+                      !compositionValues.locTinter4 ||
+                      (compositionValues.locTinter4 < minResponses.tinter4 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter4}`)
                     }
-                    {...tinter4}
+                    {...locTinter4}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 5"
+                    label={
+                      locTinterLabel5 ? locTinterLabel5?.getData : 'Tinter 5'
+                    }
                     name="tinter5"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter5 ||
-                      (compositionValues.tinter5 < minResponses.tinter5 &&
+                      !compositionValues.locTinter5 ||
+                      (compositionValues.locTinter5 < minResponses.tinter5 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter5}`)
                     }
-                    {...tinter5}
+                    {...locTinter5}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 6"
+                    label={
+                      locTinterLabel6 ? locTinterLabel6?.getData : 'Tinter 6'
+                    }
                     name="tinter6"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter6 ||
-                      (compositionValues.tinter6 < minResponses.tinter6 &&
+                      !compositionValues.locTinter6 ||
+                      (compositionValues.locTinter6 < minResponses.tinter6 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter6}`)
                     }
-                    {...tinter6}
+                    {...locTinter6}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 7"
+                    label={
+                      locTinterLabel7 ? locTinterLabel7?.getData : 'Tinter 7'
+                    }
                     name="tinter7"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter7 ||
-                      (compositionValues.tinter7 < minResponses.tinter7 &&
+                      !compositionValues.locTinter7 ||
+                      (compositionValues.locTinter7 < minResponses.tinter7 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter7}`)
                     }
-                    {...tinter7}
+                    {...locTinter7}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 8"
+                    label={
+                      locTinterLabel8 ? locTinterLabel8?.getData : 'Tinter 8'
+                    }
                     name="tinter8"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter8 ||
-                      (compositionValues.tinter8 < minResponses.tinter8 &&
+                      !compositionValues.locTinter8 ||
+                      (compositionValues.locTinter8 < minResponses.tinter8 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter8}`)
                     }
-                    {...tinter8}
+                    {...locTinter8}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 9"
+                    label={
+                      locTinterLabel9 ? locTinterLabel9?.getData : 'Tinter 9'
+                    }
                     name="tinter9"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter9 ||
-                      (compositionValues.tinter9 < minResponses.tinter9 &&
+                      !compositionValues.locTinter9 ||
+                      (compositionValues.locTinter9 < minResponses.tinter9 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter9}`)
                     }
-                    {...tinter9}
+                    {...locTinter9}
                   />
                 </span>
                 <span className="w-50">
                   <InputCurrency
-                    label="Tinter 10"
+                    label={
+                      locTinterLabel10 ? locTinterLabel10?.getData : 'Tinter 10'
+                    }
                     name="tinter10"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter10 ||
-                      (compositionValues.tinter10 < minResponses.tinter10 &&
+                      !compositionValues.locTinter10 ||
+                      (compositionValues.locTinter10 < minResponses.tinter10 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter10}`)
                     }
-                    {...tinter10}
+                    {...locTinter10}
                   />
                 </span>
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
                   <InputCurrency
-                    label="Tinter 11"
+                    label={
+                      locTinterLabel11 ? locTinterLabel11?.getData : 'Tinter 11'
+                    }
                     name="tinter11"
                     size="large"
                     placeholder="Type a monetary value"
                     locale="en-US"
                     currencyCode="USD"
                     errorMessage={
-                      !compositionValues.tinter11 ||
-                      (compositionValues.tinter11 < minResponses.tinter11 &&
+                      !compositionValues.locTinter11 ||
+                      (compositionValues.locTinter11 < minResponses.tinter11 &&
                         `${intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
                         })} ${minResponses.tinter11}`)
                     }
-                    {...tinter11}
+                    {...locTinter11}
                   />
                 </span>
                 <span className="w-50" />
               </div>
             </>
           )}
+
           <span className="mr4 mb8 db">
             <Button
               variation="primary"
