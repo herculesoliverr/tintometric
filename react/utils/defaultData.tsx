@@ -1,4 +1,4 @@
-export const defaultData = {
+export const defaultJSON = {
   families: [
     {
       id: 1,
@@ -123,12 +123,12 @@ export const defaultData = {
       ],
       skuId: 9,
       composition: {
-        newPrices: {
-          base1: 1,
-          tinter1: 1,
-          tinter2: 1,
-          tinter3: 1,
-          tinter4: 1,
+        acotone: {
+          base_p_albacryl_900: 1,
+          tinter1: 8.5383375,
+          tinter2: 3.770175,
+          tinter3: 77.67669375,
+          tinter4: 0,
           tinter5: 0,
           tinter6: 0,
           tinter7: 0,
@@ -136,13 +136,15 @@ export const defaultData = {
           tinter9: 0,
           tinter10: 0,
           tinter11: 0,
+          tinter12: 0,
+          tinter13: 0,
         },
-        oldPrices: {
-          base1: 1,
-          tinter1: 2,
-          tinter2: 2,
-          tinter3: 2,
-          tinter4: 2,
+        loc: {
+          base_p_albacryl_900: 1,
+          tinter1: 1,
+          tinter2: 0,
+          tinter3: 0,
+          tinter4: 0,
           tinter5: 0,
           tinter6: 0,
           tinter7: 0,
@@ -185,12 +187,12 @@ export const defaultData = {
       ],
       skuId: 45580,
       composition: {
-        newPrices: {
-          base1: 2,
-          tinter1: 2,
-          tinter2: 2,
-          tinter3: 2,
-          tinter4: 2,
+        acotone: {
+          base_p_albacryl_900: 1,
+          tinter1: 8.5383375,
+          tinter2: 3.770175,
+          tinter3: 77.67669375,
+          tinter4: 0,
           tinter5: 0,
           tinter6: 0,
           tinter7: 0,
@@ -198,13 +200,15 @@ export const defaultData = {
           tinter9: 0,
           tinter10: 0,
           tinter11: 0,
+          tinter12: 0,
+          tinter13: 0,
         },
-        oldPrices: {
-          base1: 1,
-          tinter1: 2,
-          tinter2: 2,
-          tinter3: 2,
-          tinter4: 2,
+        loc: {
+          base_p_albacryl_900: 1,
+          tinter1: 1,
+          tinter2: 0,
+          tinter3: 0,
+          tinter4: 0,
           tinter5: 0,
           tinter6: 0,
           tinter7: 0,
@@ -227,3 +231,10 @@ export const defaultData = {
     },
   ],
 }
+
+export const defaultCSV = [
+  ['base', 'price'],
+  ['base_p_albacryl_900', '100.25'],
+  ['base_f_albacryl_900', '0.20'],
+  ['base_t_albacryl_900', '100'],
+]

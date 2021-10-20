@@ -11,6 +11,7 @@ import {
   Toggle,
   PageHeader,
 } from 'vtex.styleguide'
+// import { CurrentSellerContext } from 'vtex.seller-selector'
 
 import updateSkusPricesGQL from './graphql/updateSkusPrices.gql'
 import getDataGQL from './graphql/getData.gql'
@@ -18,6 +19,7 @@ import saveDataGQL from './graphql/saveData.gql'
 import useInput from './hooks/useInput'
 import UploadFile from './components/UploadFile/UploadFile'
 import ErrorAlert from './components/UploadFile/ErrorAlert'
+import { getPercentage } from './utils/getPercentage'
 
 const TintometricAdmin: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -162,23 +164,6 @@ const TintometricAdmin: FC = () => {
   const locTinter10 = useInput(locTinter10Query?.data?.getData)
   const locTinter11 = useInput(locTinter11Query?.data?.getData)
 
-  const mintinter1 = useQuery(getDataGQL, { variables: { key: 'mintinter1' } })
-  const mintinter2 = useQuery(getDataGQL, { variables: { key: 'mintinter2' } })
-  const mintinter3 = useQuery(getDataGQL, { variables: { key: 'mintinter3' } })
-  const mintinter4 = useQuery(getDataGQL, { variables: { key: 'mintinter4' } })
-  const mintinter5 = useQuery(getDataGQL, { variables: { key: 'mintinter5' } })
-  const mintinter6 = useQuery(getDataGQL, { variables: { key: 'mintinter6' } })
-  const mintinter7 = useQuery(getDataGQL, { variables: { key: 'mintinter7' } })
-  const mintinter8 = useQuery(getDataGQL, { variables: { key: 'mintinter8' } })
-  const mintinter9 = useQuery(getDataGQL, { variables: { key: 'mintinter9' } })
-  const mintinter10 = useQuery(getDataGQL, {
-    variables: { key: 'mintinter10' },
-  })
-
-  const mintinter11 = useQuery(getDataGQL, {
-    variables: { key: 'mintinter11' },
-  })
-
   // TINTERS LABELS
   const { data: acotoneTinterLabel1 } = useQuery(getDataGQL, {
     variables: { key: 'acotoneTinterLabel1' },
@@ -275,20 +260,6 @@ const TintometricAdmin: FC = () => {
   const { data: locTinterLabel11 } = useQuery(getDataGQL, {
     variables: { key: 'locTinterLabel11' },
   })
-
-  const minResponses = {
-    tinter1: mintinter1.data?.getData || 1,
-    tinter2: mintinter2.data?.getData || 1,
-    tinter3: mintinter3.data?.getData || 1,
-    tinter4: mintinter4.data?.getData || 1,
-    tinter5: mintinter5.data?.getData || 1,
-    tinter6: mintinter6.data?.getData || 1,
-    tinter7: mintinter7.data?.getData || 1,
-    tinter8: mintinter8.data?.getData || 1,
-    tinter9: mintinter9.data?.getData || 1,
-    tinter10: mintinter10.data?.getData || 1,
-    tinter11: mintinter11.data?.getData || 1,
-  }
 
   const compositionValues = {
     acotoneTinter1: acotoneTinter1.value,
@@ -579,6 +550,11 @@ const TintometricAdmin: FC = () => {
             <>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel1 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 1
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel1
@@ -592,16 +568,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter1 ||
-                      (compositionValues.acotoneTinter1 <
-                        minResponses.tinter1 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter1Query?.data?.getData,
+                        acotoneTinter1.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter1}`)
+                        }))
                     }
                     {...acotoneTinter1}
                   />
                 </span>
                 <span className="w-50">
+                  {acotoneTinterLabel2 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 2
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel2
@@ -615,11 +598,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter2 ||
-                      (compositionValues.acotoneTinter2 <
-                        minResponses.tinter2 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter2Query?.data?.getData,
+                        acotoneTinter2.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter2}`)
+                        }))
                     }
                     {...acotoneTinter2}
                   />
@@ -627,6 +612,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel3 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 3
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel3
@@ -640,16 +630,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter3 ||
-                      (compositionValues.acotoneTinter3 <
-                        minResponses.tinter3 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter3Query?.data?.getData,
+                        acotoneTinter3.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter3}`)
+                        }))
                     }
                     {...acotoneTinter3}
                   />
                 </span>
                 <span className="w-50">
+                  {acotoneTinterLabel4 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 4
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel4
@@ -663,11 +660,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter4 ||
-                      (compositionValues.acotoneTinter4 <
-                        minResponses.tinter4 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter4Query?.data?.getData,
+                        acotoneTinter4.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter4}`)
+                        }))
                     }
                     {...acotoneTinter4}
                   />
@@ -675,6 +674,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel5 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 5
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel5
@@ -688,16 +692,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter5 ||
-                      (compositionValues.acotoneTinter5 <
-                        minResponses.tinter5 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter5Query?.data?.getData,
+                        acotoneTinter5.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter5}`)
+                        }))
                     }
                     {...acotoneTinter5}
                   />
                 </span>
                 <span className="w-50">
+                  {acotoneTinterLabel6 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 6
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel6
@@ -711,11 +722,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter6 ||
-                      (compositionValues.acotoneTinter6 <
-                        minResponses.tinter6 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter6Query?.data?.getData,
+                        acotoneTinter6.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter6}`)
+                        }))
                     }
                     {...acotoneTinter6}
                   />
@@ -723,6 +736,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel7 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 7
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel7
@@ -736,16 +754,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter7 ||
-                      (compositionValues.acotoneTinter7 <
-                        minResponses.tinter7 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter7Query?.data?.getData,
+                        acotoneTinter7.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter7}`)
+                        }))
                     }
                     {...acotoneTinter7}
                   />
                 </span>
                 <span className="w-50">
+                  {acotoneTinterLabel8 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 8
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel8
@@ -759,11 +784,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter8 ||
-                      (compositionValues.acotoneTinter8 <
-                        minResponses.tinter8 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter8Query?.data?.getData,
+                        acotoneTinter8.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter8}`)
+                        }))
                     }
                     {...acotoneTinter8}
                   />
@@ -771,6 +798,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel9 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 9
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel9
@@ -784,16 +816,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter9 ||
-                      (compositionValues.acotoneTinter9 <
-                        minResponses.tinter9 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter9Query?.data?.getData,
+                        acotoneTinter9.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter9}`)
+                        }))
                     }
                     {...acotoneTinter9}
                   />
                 </span>
                 <span className="w-50">
+                  {acotoneTinterLabel10 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 10
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel10
@@ -807,11 +846,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter10 ||
-                      (compositionValues.acotoneTinter10 <
-                        minResponses.tinter10 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter10Query?.data?.getData,
+                        acotoneTinter10.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter10}`)
+                        }))
                     }
                     {...acotoneTinter10}
                   />
@@ -819,6 +860,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel11 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 11
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel11
@@ -832,16 +878,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter11 ||
-                      (compositionValues.acotoneTinter11 <
-                        minResponses.tinter11 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter11Query?.data?.getData,
+                        acotoneTinter11.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter11}`)
+                        }))
                     }
                     {...acotoneTinter11}
                   />
                 </span>
                 <span className="w-50">
+                  {acotoneTinterLabel12 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 12
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel12
@@ -855,11 +908,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter12 ||
-                      (compositionValues.acotoneTinter12 <
-                        minResponses.tinter11 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter12Query?.data?.getData,
+                        acotoneTinter12.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter11}`)
+                        }))
                     }
                     {...acotoneTinter12}
                   />
@@ -867,6 +922,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {acotoneTinterLabel13 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 13
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       acotoneTinterLabel13
@@ -880,11 +940,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.acotoneTinter13 ||
-                      (compositionValues.acotoneTinter13 <
-                        minResponses.tinter11 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        acotoneTinter13Query?.data?.getData,
+                        acotoneTinter13.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter11}`)
+                        }))
                     }
                     {...acotoneTinter13}
                   />
@@ -896,6 +958,11 @@ const TintometricAdmin: FC = () => {
             <>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {locTinterLabel1 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 1
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel1 ? locTinterLabel1?.getData : 'Tinter 1'
@@ -907,15 +974,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter1 ||
-                      (compositionValues.locTinter1 < minResponses.tinter1 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter1Query?.data?.getData,
+                        locTinter1.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter1}`)
+                        }))
                     }
                     {...locTinter1}
                   />
                 </span>
                 <span className="w-50">
+                  {locTinterLabel2 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 2
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel2 ? locTinterLabel2?.getData : 'Tinter 2'
@@ -927,10 +1002,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter2 ||
-                      (compositionValues.locTinter2 < minResponses.tinter2 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter2Query?.data?.getData,
+                        locTinter2.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter2}`)
+                        }))
                     }
                     {...locTinter2}
                   />
@@ -938,6 +1016,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {locTinterLabel3 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 3
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel3 ? locTinterLabel3?.getData : 'Tinter 3'
@@ -949,15 +1032,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter3 ||
-                      (compositionValues.locTinter3 < minResponses.tinter3 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter3Query?.data?.getData,
+                        locTinter3.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter3}`)
+                        }))
                     }
                     {...locTinter3}
                   />
                 </span>
                 <span className="w-50">
+                  {locTinterLabel4 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 4
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel4 ? locTinterLabel4?.getData : 'Tinter 4'
@@ -969,10 +1060,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter4 ||
-                      (compositionValues.locTinter4 < minResponses.tinter4 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter4Query?.data?.getData,
+                        locTinter4.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter4}`)
+                        }))
                     }
                     {...locTinter4}
                   />
@@ -980,6 +1074,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {locTinterLabel5 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 5
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel5 ? locTinterLabel5?.getData : 'Tinter 5'
@@ -991,15 +1090,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter5 ||
-                      (compositionValues.locTinter5 < minResponses.tinter5 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter5Query?.data?.getData,
+                        locTinter5.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter5}`)
+                        }))
                     }
                     {...locTinter5}
                   />
                 </span>
                 <span className="w-50">
+                  {locTinterLabel6 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 6
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel6 ? locTinterLabel6?.getData : 'Tinter 6'
@@ -1011,10 +1118,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter6 ||
-                      (compositionValues.locTinter6 < minResponses.tinter6 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter6Query?.data?.getData,
+                        locTinter6.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter6}`)
+                        }))
                     }
                     {...locTinter6}
                   />
@@ -1022,6 +1132,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {locTinterLabel7 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 7
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel7 ? locTinterLabel7?.getData : 'Tinter 7'
@@ -1033,15 +1148,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter7 ||
-                      (compositionValues.locTinter7 < minResponses.tinter7 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter7Query?.data?.getData,
+                        locTinter7.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter7}`)
+                        }))
                     }
                     {...locTinter7}
                   />
                 </span>
                 <span className="w-50">
+                  {locTinterLabel8 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 8
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel8 ? locTinterLabel8?.getData : 'Tinter 8'
@@ -1053,10 +1176,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter8 ||
-                      (compositionValues.locTinter8 < minResponses.tinter8 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter8Query?.data?.getData,
+                        locTinter8.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter8}`)
+                        }))
                     }
                     {...locTinter8}
                   />
@@ -1064,6 +1190,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {locTinterLabel9 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 9
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel9 ? locTinterLabel9?.getData : 'Tinter 9'
@@ -1075,15 +1206,23 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter9 ||
-                      (compositionValues.locTinter9 < minResponses.tinter9 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter9Query?.data?.getData,
+                        locTinter9.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter9}`)
+                        }))
                     }
                     {...locTinter9}
                   />
                 </span>
                 <span className="w-50">
+                  {locTinterLabel10 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 10
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel10 ? locTinterLabel10?.getData : 'Tinter 10'
@@ -1095,10 +1234,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter10 ||
-                      (compositionValues.locTinter10 < minResponses.tinter10 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter10Query?.data?.getData,
+                        locTinter10.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter10}`)
+                        }))
                     }
                     {...locTinter10}
                   />
@@ -1106,6 +1248,11 @@ const TintometricAdmin: FC = () => {
               </div>
               <div className="flex mv5 db">
                 <span className="w-50 mr6">
+                  {locTinterLabel11 && (
+                    <div className="mv2 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                      Tinter 11
+                    </div>
+                  )}
                   <InputCurrency
                     label={
                       locTinterLabel11 ? locTinterLabel11?.getData : 'Tinter 11'
@@ -1117,10 +1264,13 @@ const TintometricAdmin: FC = () => {
                     currencyCode="USD"
                     errorMessage={
                       !compositionValues.locTinter11 ||
-                      (compositionValues.locTinter11 < minResponses.tinter11 &&
-                        `${intl.formatMessage({
+                      (getPercentage(
+                        locTinter11Query?.data?.getData,
+                        locTinter11.value
+                      ) &&
+                        intl.formatMessage({
                           id: 'admin/admin.app.tintometric.minText',
-                        })} ${minResponses.tinter11}`)
+                        }))
                     }
                     {...locTinter11}
                   />

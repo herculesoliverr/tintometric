@@ -5,6 +5,7 @@ import { useMutation, useQuery } from 'react-apollo'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import Dropzone from 'react-dropzone'
 import { Spinner, Button } from 'vtex.styleguide'
+import { CSVLink } from 'react-csv'
 
 import UploadFileQuery from '../../graphql/uploadFile.gql'
 import DeleteFileQuery from '../../graphql/deleteFile.gql'
@@ -12,7 +13,7 @@ import ErrorAlert from './ErrorAlert'
 import EmptyState from './EmptyState'
 import saveDataGQL from '../../graphql/saveData.gql'
 import getDataGQL from '../../graphql/getData.gql'
-import { defaultData } from '../../utils/defaultData'
+import { defaultJSON, defaultCSV } from '../../utils/defaultData'
 import { downloadFile } from '../../utils/downloadFile'
 
 interface State {
@@ -24,10 +25,6 @@ interface State {
 }
 
 const messages = defineMessages({
-  fileEmpty: {
-    defaultMessage: 'Add a file',
-    id: 'admin/admin.app.tintometric.uploadJson',
-  },
   fileSizeError: {
     defaultMessage:
       'File exceeds the size limit of 4MB. Please choose a smaller one.',
@@ -52,7 +49,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   const [state, setState] = useState<State>({
     error: null,
     isLoading: false,
-    fileName: intl.formatMessage(messages.fileEmpty),
+    fileName: '',
     fileUrl: '',
     pathFile: '',
   })
@@ -103,7 +100,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   }, [fileNameQuery, fileUrlQuery])
 
   const saveOldFile = async () => {
-    console.log('antes saveOldFile')
     await saveData({
       variables: {
         key: `${query}File_old`,
@@ -136,7 +132,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       }))
       // before saving csvFile save csvFileOld
       saveOldFile()
-      console.log('después saveOldFile')
 
       saveData({
         variables: {
@@ -160,7 +155,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       setState(prevState => ({
         ...prevState,
         isLoading: false,
-        fileName: intl.formatMessage(messages.fileEmpty),
+        fileName: '',
         pathFile: '',
       }))
       action(false)
@@ -230,14 +225,22 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
             <FormattedMessage id="admin/admin.app.tintometric.removeFile" />
           </Button>
         )}
-        <Button
-          variation="tertiary"
-          onClick={() =>
-            downloadFile(templateFile, JSON.stringify(defaultData))
-          }
-        >
-          <FormattedMessage id="admin/admin.app.tintometric.downloadTemplate" />
-        </Button>
+        {query === 'json' ? (
+          <Button
+            variation="tertiary"
+            onClick={() =>
+              downloadFile(templateFile, JSON.stringify(defaultJSON))
+            }
+          >
+            <FormattedMessage id="admin/admin.app.tintometric.downloadTemplate" />
+          </Button>
+        ) : (
+          <Button variation="tertiary">
+            <CSVLink filename="bases" data={defaultCSV}>
+              <FormattedMessage id="admin/admin.app.tintometric.downloadTemplate" />
+            </CSVLink>
+          </Button>
+        )}
       </span>
 
       {state.error && <ErrorAlert message={state.error} />}

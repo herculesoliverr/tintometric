@@ -58,29 +58,32 @@ export const mutations = {
         'csvFile_old'
       )
 
-      const { data: lastCsvData } = await files.getFile(lastCsvUrl)
-      const lastCsv: Array<{ base: string; price: string }> = parseCSVToJson(
-        lastCsvData
-      )
+      if (lastCsvUrl) {
+        const { data: lastCsvData } = await files.getFile(lastCsvUrl)
 
-      console.log('csv---', csv)
-      console.log('lastCsv---', lastCsv)
+        const lastCsv: Array<{ base: string; price: string }> = parseCSVToJson(
+          lastCsvData
+        )
 
-      const validate = validateNewPrices(lastCsv, csv)
+        console.log('csv---', csv)
+        console.log('lastCsv---', lastCsv)
 
-      if (validate.length > 0) {
-        return JSON.stringify({
-          errorValidatePrice: validate,
-          skusNotFound: [],
-          skusBadStructure: [],
-          baseNotFound: [],
-        })
+        const validate = validateNewPrices(lastCsv, csv)
+
+        if (validate.length > 0) {
+          return JSON.stringify({
+            errorValidatePrice: validate,
+            skusNotFound: [],
+            skusBadStructure: [],
+            baseNotFound: [],
+          })
+        }
       }
 
       console.log('no llego aca')
 
       const jsonProducts = jsonFileContent.data?.products
-      const priceType = oldPrices ? 'oldPrices' : 'newPrices'
+      const priceType = oldPrices ? 'loc' : 'acotone'
       const skusNotFound: number[] = []
       const skusBadStructure: number[] = []
       const baseNotFound: number[] = []
@@ -113,6 +116,19 @@ export const mutations = {
             base = baseJson[1] * Number(basePrice.price)
           }
 
+          console.log(`${tinter1} (tinter1) * ${item?.composition?.[priceType]?.tinter1} (item?.composition?.[priceType]?.tinter1) +
+            ${tinter2} (tinter2) * ${item?.composition?.[priceType]?.tinter2} (item?.composition?.[priceType]?.tinter2) +
+            ${tinter3} (tinter3) * ${item?.composition?.[priceType]?.tinter3} (item?.composition?.[priceType]?.tinter3) +
+            ${tinter4} (tinter4) * ${item?.composition?.[priceType]?.tinter4} (item?.composition?.[priceType]?.tinter4) + ${base} (base)`)
+
+          console.log(
+            'finalPrice',
+            tinter1 * item?.composition?.[priceType]?.tinter1 +
+            tinter2 * item?.composition?.[priceType]?.tinter2 +
+            tinter3 * item?.composition?.[priceType]?.tinter3 +
+            tinter4 * item?.composition?.[priceType]?.tinter4 +
+            base
+          )
           let price =
             tinter1 * item?.composition?.[priceType]?.tinter1 +
             tinter2 * item?.composition?.[priceType]?.tinter2 +

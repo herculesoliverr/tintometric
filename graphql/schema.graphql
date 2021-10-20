@@ -1,7 +1,7 @@
 type Query {
     "Get data from VBase"
     getData(key: String!): String
-    @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    # @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
 }
 
 type Mutation {
