@@ -55,9 +55,7 @@ You are now able to use the Tintometric block:
 | `buttonList`      | `string`       | List button label used in the modal         |  `Name`       |
 | `colorDetailTitle`      | `string`       | Color Detail Title        |      `Selected Colour:`   |
 | `confirmButton`      | `string`       | Confirm button label used in the modal         |    `Confirm`     |
-
-
-This props can be modified in the site editor
+_This props can be modified in the site editor_
 
 
 3. Access your VTEX account's admin.

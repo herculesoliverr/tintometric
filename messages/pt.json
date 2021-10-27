@@ -13,7 +13,7 @@
   "admin/admin.app.tintometric.uploadJson": "Composição de Cores",
   "admin/admin.app.tintometric.oldPrices": "LOC preços",
   "admin/admin.app.tintometric.uploadJson.subtitle": "Insira arquivo JSON",
-  "admin/admin.app.tintometric.uploadCSV": "Insira Bases",
+  "admin/admin.app.tintometric.uploadCSV": "Preço das bases",
   "admin/admin.app.tintometric.uploadCSV.subtitle": "Faça upload de um arquivo csv",
   "admin/editor.tintometric.title": "Tintometric",
   "admin/editor.tintometric.description": "Tintometric component",
@@ -21,5 +21,6 @@
   "admin/admin.app.tintometric.removeFile": "Remover",
   "admin/admin.app.tintometric.generic.error": "Ocorreu um erro. Por favor, tente novamente",
   "store/search.placeholder": "Procurar...",
-  "admin/admin.app.tintometric.errorValidatePrice": "Verifique o csv, o preço das seguintes bases diminuiu 10%:   "
+  "admin/admin.app.tintometric.errorValidatePrice": "Verifique o csv, o preço das seguintes bases diminuiu 10%:   ",
+  "admin/admin.app.tintometric.noMasterSeller": "Não há mestre de vendedor configurado."
 }

@@ -12,7 +12,7 @@
   "admin/admin.app.tintometric.baseNotFound": "The following bases were not found in the csv: ",
   "admin/admin.app.tintometric.uploadJson": "Color Composition",
   "admin/admin.app.tintometric.uploadJson.subtitle": "Upload a JSON file",
-  "admin/admin.app.tintometric.uploadCSV": "Upload Bases",
+  "admin/admin.app.tintometric.uploadCSV": "Price of the Bases",
   "admin/admin.app.tintometric.uploadCSV.subtitle": "Upload a csv file",
   "admin/editor.tintometric.title": "Tintometric",
   "admin/editor.tintometric.description": "Tintometric component",
@@ -20,5 +20,6 @@
   "admin/admin.app.tintometric.removeFile": "Remove",
   "admin/admin.app.tintometric.generic.error": "An error occurred, please try again",
   "store/search.placeholder": "Search...",
-  "admin/admin.app.tintometric.errorValidatePrice": "Verify the csv, the price of the following bases dropped by 10% or more:  "
+  "admin/admin.app.tintometric.errorValidatePrice": "Verify the csv, the price of the following bases dropped by 10% or more:  ",
+  "admin/admin.app.tintometric.noMasterSeller": "There's no seller master configured."
 }

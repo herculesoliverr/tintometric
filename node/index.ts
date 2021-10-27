@@ -1,6 +1,7 @@
-import { ClientsConfig, RecorderState, Service } from '@vtex/api'
+import { ClientsConfig, RecorderState, Service, method } from '@vtex/api'
 
 import { Clients } from './clients'
+import { getCompositions } from './middleware/composition'
 import { resolvers } from './resolvers'
 
 const TIMEOUT_MS = 600000
@@ -30,4 +31,9 @@ declare global {
 export default new Service<Clients, State, Context>({
   clients,
   graphql: { resolvers },
+  routes: {
+    composition: method({
+      GET: [getCompositions],
+    }),
+  },
 })

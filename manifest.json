@@ -22,8 +22,10 @@
     "vtex.slider-layout": "0.x",
     "vtex.file-manager": "0.x",
     "vtex.file-manager-graphql": "0.x",
+    "vtex.sellers-graphql": "7.x",
     "vtex.catalog-graphql": "1.x",
-    "vtex.native-types": "0.x"
+    "vtex.native-types": "0.x",
+    "vtex.seller-selector": "0.x"
   },
   "billingOptions": {
     "support": {
@@ -78,5 +80,16 @@
       "name": "vtex.catalog-graphql:resolve-graphql"
     }
   ],
+  "settingsSchema": {
+    "title": "Tintometric",
+    "type": "object",
+    "properties": {
+      "sellerMasterId": {
+        "title": "Master account id",
+        "type": "string",
+        "description": "Enter the master account id"
+      }
+    }
+  },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

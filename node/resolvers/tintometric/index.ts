@@ -1,8 +1,4 @@
-// import { base64ToCSV, csvJSON } from '../../utils'
-
 import { parseCSVToJson, validateNewPrices } from '../../utils'
-
-export const queries = {}
 
 export const mutations = {
   updateSkusPrices: async (
@@ -22,6 +18,7 @@ export const mutations = {
       tinter12,
       tinter13,
       oldPrices,
+      masterSeller,
     }: {
       tinter1: number
       tinter2: number
@@ -37,14 +34,22 @@ export const mutations = {
       tinter12: number
       tinter13: number
       oldPrices: boolean
+      masterSeller: string
     },
-    { clients: { pricing, catalog, vbase, files } }: Context
+    { clients: { pricing, catalog, vbase, files, compositions } }: Context
   ): Promise<string> => {
     const products: any = await catalog.getProducts()
 
     try {
-      const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
-      const jsonFileContent = await files.getFile(jsonUrl)
+      const { data: jsonUrl } = await compositions.getCompositionsFile(
+        masterSeller
+      )
+
+      console.log('jsonURL---', jsonUrl)
+      // const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
+      const jsonFileContent = await files.getFile(jsonUrl, masterSeller)
+
+      console.log('jsonFileContent---', jsonFileContent)
 
       const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
       const { data: csvData } = await files.getFile(csvUrl)
@@ -52,7 +57,6 @@ export const mutations = {
         csvData
       )
 
-      // cambiar el nombre de csvFile_old para probar qué pasa si no existe aún el archivo viejo
       const lastCsvUrl = await vbase.getJSON<string>(
         'tintometricData',
         'csvFile_old'
@@ -65,9 +69,6 @@ export const mutations = {
           lastCsvData
         )
 
-        console.log('csv---', csv)
-        console.log('lastCsv---', lastCsv)
-
         const validate = validateNewPrices(lastCsv, csv)
 
         if (validate.length > 0) {
@@ -79,8 +80,6 @@ export const mutations = {
           })
         }
       }
-
-      console.log('no llego aca')
 
       const jsonProducts = jsonFileContent.data?.products
       const priceType = oldPrices ? 'loc' : 'acotone'
@@ -116,19 +115,6 @@ export const mutations = {
             base = baseJson[1] * Number(basePrice.price)
           }
 
-          console.log(`${tinter1} (tinter1) * ${item?.composition?.[priceType]?.tinter1} (item?.composition?.[priceType]?.tinter1) +
-            ${tinter2} (tinter2) * ${item?.composition?.[priceType]?.tinter2} (item?.composition?.[priceType]?.tinter2) +
-            ${tinter3} (tinter3) * ${item?.composition?.[priceType]?.tinter3} (item?.composition?.[priceType]?.tinter3) +
-            ${tinter4} (tinter4) * ${item?.composition?.[priceType]?.tinter4} (item?.composition?.[priceType]?.tinter4) + ${base} (base)`)
-
-          console.log(
-            'finalPrice',
-            tinter1 * item?.composition?.[priceType]?.tinter1 +
-            tinter2 * item?.composition?.[priceType]?.tinter2 +
-            tinter3 * item?.composition?.[priceType]?.tinter3 +
-            tinter4 * item?.composition?.[priceType]?.tinter4 +
-            base
-          )
           let price =
             tinter1 * item?.composition?.[priceType]?.tinter1 +
             tinter2 * item?.composition?.[priceType]?.tinter2 +
@@ -167,7 +153,21 @@ export const mutations = {
         errorValidatePrice: [],
       })
     } catch (err) {
-      return err
+      const msg = (err as Error).response.data.message
+
+      return JSON.stringify({
+        message: msg,
+        status: 404,
+      })
+    }
+
+    interface Error {
+      response: {
+        message: string
+        data: {
+          message: string
+        }
+      }
     }
   },
 }

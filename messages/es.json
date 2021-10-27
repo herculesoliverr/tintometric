@@ -5,7 +5,7 @@
   "admin/admin.app.tintometric.update_success": "Precios de skus actualizados correctamente",
   "admin/admin.app.tintometric.uploadJson": "Composición de colores",
   "admin/admin.app.tintometric.uploadJson.subtitle": "Subir un archivo JSON",
-  "admin/admin.app.tintometric.uploadCSV": "Bases",
+  "admin/admin.app.tintometric.uploadCSV": "Precio de las bases",
   "admin/admin.app.tintometric.uploadCSV.subtitle": "Subir un archivo csv",
   "admin/admin.app.tintometric.minText": "Verificá el precio, no debería bajar más del 10%",
   "admin/admin.app.tintometric.skusNotFound": "No se encontraron los siguientes skus: ",
@@ -20,5 +20,6 @@
   "admin/admin.app.tintometric.removeFile": "Eliminar",
   "admin/admin.app.tintometric.generic.error": "Ocurrió un error, inténtalo nuevamente.",
   "store/search.placeholder": "Buscar...",
-  "admin/admin.app.tintometric.errorValidatePrice": "Verifique los precios del csv, el precio de las siguientes bases bajaron un 10% o más:   "
+  "admin/admin.app.tintometric.errorValidatePrice": "Verifique los precios del csv, el precio de las siguientes bases bajaron un 10% o más:   ",
+  "admin/admin.app.tintometric.noMasterSeller": "No hay ningún seller master configurado."
 }

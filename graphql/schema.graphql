@@ -1,12 +1,17 @@
 type Query {
     "Get data from VBase"
-    getData(key: String!): String
-    # @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    getData(key: String!): String @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    getConfig: GetConfigResponse @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    getCompositionFile: String
+}
+
+type GetConfigResponse {
+  sellerMasterId: String
 }
 
 type Mutation {
     "Change price of list of sku ids"
-    updateSkusPrices(tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, tinter12: Float!, tinter13: Float!, oldPrices: Boolean): String
+    updateSkusPrices(tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, tinter12: Float!, tinter13: Float!, oldPrices: Boolean, masterSeller: String): String
 
     "Upload file"
     uploadFile(file: Upload!) : String

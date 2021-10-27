@@ -13,6 +13,10 @@
     "tintometric_price_update": {
       "path": "/v1/tintometric_price_update",
       "public": true
+    },
+    "composition": {
+      "path": "/v1/compositionFile",
+      "public": true
     }
   }
 }

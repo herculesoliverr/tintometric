@@ -91,4 +91,9 @@ declare global {
   export interface ContextChildren {
     children: ReactNode
   }
+
+  interface Seller {
+    account: string
+    id: string
+  }
 }

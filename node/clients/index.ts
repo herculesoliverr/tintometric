@@ -3,6 +3,7 @@ import { IOClients } from '@vtex/api'
 import Pricing from './pricing'
 import Catalog from './catalog'
 import Files from './files'
+import Compositions from './compositions'
 
 export class Clients extends IOClients {
   public get pricing() {
@@ -15,5 +16,9 @@ export class Clients extends IOClients {
 
   public get files() {
     return this.getOrSet('files', Files)
+  }
+
+  public get compositions() {
+    return this.getOrSet('compositions', Compositions)
   }
 }
