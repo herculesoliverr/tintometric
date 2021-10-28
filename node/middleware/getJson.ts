@@ -1,4 +1,4 @@
-export async function getCompositions(ctx: Context, next: () => Promise<any>) {
+export async function getJson(ctx: Context, next: () => Promise<any>) {
   const {
     clients: { vbase },
   } = ctx

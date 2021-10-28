@@ -1,0 +1,3 @@
+query getCompositionFile($masterSeller: String!){
+    getCompositionFile(masterSeller: $masterSeller)
+}

@@ -7,7 +7,7 @@ import {
 } from '@vtex/api'
 
 import { Clients } from './clients'
-import { getCompositions } from './middleware/composition'
+import { getJson } from './middleware/getJson'
 import { resolvers } from './resolvers'
 
 const TIMEOUT_MS = 600000
@@ -44,7 +44,7 @@ export default new Service<Clients, State, Context>({
   graphql: { resolvers },
   routes: {
     composition: method({
-      GET: [getCompositions],
+      GET: [getJson],
     }),
   },
 })

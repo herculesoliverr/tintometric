@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-apollo'
+import { useQuery, useLazyQuery } from 'react-apollo'
 import { useCssHandles } from 'vtex.css-handles'
 import { Modal, InputSearch, IconCaretDown } from 'vtex.styleguide'
 import { useIntl } from 'react-intl'
@@ -9,7 +9,8 @@ import ColorList from '../ColorList/ColorList'
 import ColorDetail from '../ColorDetail/ColorDetail'
 import './styles.css'
 import { useTintometricContext } from '../../context'
-import getDataGQL from '../../graphql/getData.gql'
+import getCompositionFileGQL from '../../graphql/getCompositionFile.gql'
+import getConfig from '../../graphql/getConfig.gql'
 
 const CSS_HANDLES = [
   'container',
@@ -36,7 +37,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [showSearch, setShowSearch] = useState(false)
   const [searchVal, setSearchVal] = useState('')
-  const jsonFileQuery = useQuery(getDataGQL, { variables: { key: 'jsonFile' } })
+
   const intl = useIntl()
 
   const {
@@ -52,11 +53,26 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   } = useTintometricContext()
 
   const handles = useCssHandles(CSS_HANDLES)
+  const [getJsonFileQuery, { data: jsonFileData }] = useLazyQuery(
+    getCompositionFileGQL
+  )
+
+  const { data: dataConfig } = useQuery(getConfig)
 
   useEffect(() => {
-    jsonFileQuery.data?.getData && getData(jsonFileQuery.data?.getData)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jsonFileQuery])
+    if (dataConfig?.getConfig?.sellerMasterId) {
+      getJsonFileQuery({
+        variables: {
+          masterSeller: dataConfig.getConfig?.sellerMasterId.toLowerCase(),
+        },
+      })
+    }
+  }, [dataConfig])
+
+  useEffect(() => {
+    jsonFileData && getData(jsonFileData?.getCompositionFile)
+  }, [jsonFileData, dataConfig])
+
   useEffect(() => {
     activeFamily &&
       setFilteredProducts(

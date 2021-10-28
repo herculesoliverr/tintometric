@@ -7,7 +7,7 @@ export default class Compositions extends ExternalClient {
     })
   }
 
-  public async getCompositionsFile(masterSeller: string) {
+  public async getCompositionsFromMaster(masterSeller: string) {
     try {
       const res = await this.http.getRaw(
         `http://${masterSeller}.myvtex.com/v1/compositionFile`

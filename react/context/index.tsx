@@ -84,7 +84,7 @@ export function TintometricProvider({ children }: ContextChildren) {
     const res = await fetch(`${fileUrl}`)
     const response = await res.json()
 
-    // console.log('response---', response)
+    console.log('response---', response)
     setData(response)
     setProducts(response.products)
   }

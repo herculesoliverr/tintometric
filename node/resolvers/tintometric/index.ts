@@ -41,7 +41,7 @@ export const mutations = {
     const products: any = await catalog.getProducts()
 
     try {
-      const { data: jsonUrl } = await compositions.getCompositionsFile(
+      const { data: jsonUrl } = await compositions.getCompositionsFromMaster(
         masterSeller
       )
 
