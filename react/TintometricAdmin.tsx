@@ -583,18 +583,25 @@ const TintometricAdmin: FC = () => {
                       action={setCsvFile}
                     />
                   </div>
-                  <span className="mv5 db">
-                    <Toggle
-                      checked={oldPrices}
-                      label={intl.formatMessage({
-                        defaultMessage: 'LOC Prices',
-                        id: 'admin/admin.app.tintometric.oldPrices',
-                      })}
-                      name="default-checkbox-group"
-                      onChange={() => setOldPrices(!oldPrices)}
-                      size="large"
-                    />
-                    <div className="mv4 pa3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                  <span className="mv2 db">
+                    <div className="flex items-center">
+                      <div className="mr5">
+                        <FormattedMessage id="admin/admin.app.tintometric.newPricesLabel" />
+                      </div>
+                      <Toggle
+                        checked={oldPrices}
+                        name="default-checkbox-group"
+                        onChange={() => setOldPrices(!oldPrices)}
+                        size="large"
+                      />
+                      <div className="ml5">
+                        <FormattedMessage id="admin/admin.app.tintometric.oldPrices" />
+                        <span className="mv4 pa3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
+                          Language of Colour
+                        </span>
+                      </div>
+                    </div>
+                    <div className="mb4 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
                       <FormattedMessage id="admin/admin.app.tintometric.oldPrices-subtitle" />
                     </div>
                   </span>

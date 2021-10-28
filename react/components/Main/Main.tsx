@@ -80,6 +80,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     )
   }
 
+  // console.log('activeFamily---', activeFamily)
+
   return (
     <>
       {activeFamily && (

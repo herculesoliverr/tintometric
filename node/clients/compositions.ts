@@ -15,8 +15,6 @@ export default class Compositions extends ExternalClient {
 
       return res
     } catch (err) {
-      console.log('error---', err)
-
       return err
     }
   }

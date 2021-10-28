@@ -28,6 +28,7 @@ export function TintometricProvider({ children }: ContextChildren) {
         ''
       )
 
+    // console.log('activeProductType---', activeProductType)
     activeProduct &&
       setActiveProductType(
         data?.productType.find(type => type.slug === actualSlugType)
@@ -36,13 +37,22 @@ export function TintometricProvider({ children }: ContextChildren) {
   }, [activeProduct])
 
   useEffect(() => {
+    // console.log('families--', families)
     families.length && setActiveFamily(families[0])
   }, [families])
 
   useEffect(() => {
-    const filteredFamilies = data?.families.filter(family =>
-      family.products?.find(item => item === activeProductType?.id)
-    )
+    // console.log('families', families)
+    // console.log('activeProductType', activeProductType)
+    const filteredFamilies = data?.families.filter(family => {
+      // console.log('family----', family)
+
+      return family.products?.find(item => {
+        // console.log('item----', item)
+
+        return item === activeProductType?.id
+      })
+    })
 
     filteredFamilies && setFamilies(filteredFamilies)
   }, [data, activeProductType])
@@ -74,6 +84,7 @@ export function TintometricProvider({ children }: ContextChildren) {
     const res = await fetch(`${fileUrl}`)
     const response = await res.json()
 
+    // console.log('response---', response)
     setData(response)
     setProducts(response.products)
   }

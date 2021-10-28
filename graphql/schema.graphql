@@ -1,6 +1,6 @@
 type Query {
     "Get data from VBase"
-    getData(key: String!): String @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
+    getData(key: String!): String
     getConfig: GetConfigResponse @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
     getCompositionFile: String
 }

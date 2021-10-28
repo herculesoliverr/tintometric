@@ -1,11 +1,19 @@
-import { ClientsConfig, RecorderState, Service, method } from '@vtex/api'
+import {
+  ClientsConfig,
+  RecorderState,
+  Service,
+  method,
+  LRUCache,
+} from '@vtex/api'
 
 import { Clients } from './clients'
 import { getCompositions } from './middleware/composition'
 import { resolvers } from './resolvers'
 
 const TIMEOUT_MS = 600000
+const memoryCache = new LRUCache<string, any>({ max: 5000 })
 
+metrics.trackCache('status', memoryCache)
 const clients: ClientsConfig<Clients> = {
   implementation: Clients,
   options: {
@@ -18,6 +26,9 @@ const clients: ClientsConfig<Clients> = {
     default: {
       retries: 2,
       timeout: TIMEOUT_MS,
+    },
+    status: {
+      memoryCache,
     },
   },
 }

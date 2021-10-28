@@ -45,11 +45,7 @@ export const mutations = {
         masterSeller
       )
 
-      console.log('jsonURL---', jsonUrl)
-      // const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
       const jsonFileContent = await files.getFile(jsonUrl, masterSeller)
-
-      console.log('jsonFileContent---', jsonFileContent)
 
       const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
       const { data: csvData } = await files.getFile(csvUrl)
