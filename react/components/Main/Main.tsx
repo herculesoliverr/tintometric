@@ -49,7 +49,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     activeProduct,
     selectedColor,
     setActiveFamily,
-    activeProductType,
+    // activeProductType,
   } = useTintometricContext()
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -72,20 +72,21 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   useEffect(() => {
     jsonFileData && getData(jsonFileData?.getCompositionFile)
   }, [jsonFileData, dataConfig])
-
-  console.log('jsonFileData---', jsonFileData)
-
+  console.log('jsonFileData', jsonFileData)
   useEffect(() => {
     activeFamily &&
       setFilteredProducts(
         products.filter(
           product =>
-            product.family === activeFamily?.id &&
-            product.products?.find(item => item === activeProductType?.id)
+            product.family ===
+            activeFamily?.id /* &&
+            product.products?.find(item => item === activeProductType?.id) */
         )
       )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFamily])
+
+  console.log('filteredProducts', filteredProducts)
 
   function handleSearch(search: string) {
     setSearchVal(search)

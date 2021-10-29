@@ -2,8 +2,8 @@ export const defaultJSON = {
   families: [
     {
       id: 1,
-      name: 'Tons Suaves',
-      color: '#E8DDCB',
+      name: 'Vermelhos e Rosas',
+      color: '#ED1C24',
       products: [1],
     },
   ],
@@ -12,7 +12,7 @@ export const defaultJSON = {
       code: 'R560',
       name: 'Rosa Vibrante',
       slug: 'rosa-vibrante',
-      family: 7,
+      family: 1,
       R: 162,
       G: 33,
       B: 95,
