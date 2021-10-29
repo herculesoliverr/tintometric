@@ -21,7 +21,6 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
   return (
     <div className={handles['familyPicker-container']}>
       <SliderLayout
-        infinite
         itemsPerPage={{
           desktop: 7,
           phone: 4,
@@ -39,11 +38,10 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
               tabIndex={family.id}
               key={family.id}
               onClick={() => action(family)}
-              className={`${handles['familyPicker-item']} ${
-                family.id === activeId
+              className={`${handles['familyPicker-item']} ${family.id === activeId
                   ? handles['familyPicker-item--isActive']
                   : ''
-              }`}
+                }`}
             >
               <span
                 className={handles['familyPicker-span']}

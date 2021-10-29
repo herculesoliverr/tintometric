@@ -73,6 +73,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     jsonFileData && getData(jsonFileData?.getCompositionFile)
   }, [jsonFileData, dataConfig])
 
+  console.log('jsonFileData---', jsonFileData)
+
   useEffect(() => {
     activeFamily &&
       setFilteredProducts(
