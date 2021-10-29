@@ -513,7 +513,7 @@ const TintometricAdmin: FC = () => {
                   </Alert>
                 </div>
               )}
-              {state.error && state.generalError.length && (
+              {state.error && state.generalError.length > 0 && (
                 <div className="mt5">
                   <ErrorAlert message={state.generalError} />
                 </div>

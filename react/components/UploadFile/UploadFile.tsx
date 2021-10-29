@@ -135,7 +135,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       }))
       // before saving csvFile save csvFileOld
       saveOldFile()
-
       saveData({
         variables: {
           key: `${query}File`,
@@ -153,7 +152,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       setState(prevState => ({ ...prevState, isLoading: true }))
     if (dataDeleteFile) {
       saveData({ variables: { key: `${query}File`, value: '' } })
-      // saveData({ variables: { key: 'jsonPath', value: '' } })
       saveData({ variables: { key: `${query}Name`, value: '' } })
       setState(prevState => ({
         ...prevState,

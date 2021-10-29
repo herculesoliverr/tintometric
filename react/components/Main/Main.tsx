@@ -72,7 +72,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   useEffect(() => {
     jsonFileData && getData(jsonFileData?.getCompositionFile)
   }, [jsonFileData, dataConfig])
-  console.log('jsonFileData', jsonFileData)
   useEffect(() => {
     activeFamily &&
       setFilteredProducts(
@@ -85,8 +84,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
       )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFamily])
-
-  console.log('filteredProducts', filteredProducts)
 
   function handleSearch(search: string) {
     setSearchVal(search)
