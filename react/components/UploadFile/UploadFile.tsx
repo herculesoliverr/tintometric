@@ -4,7 +4,7 @@ import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { useMutation, useQuery } from 'react-apollo'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import Dropzone from 'react-dropzone'
-import { Spinner, Button } from 'vtex.styleguide'
+import { Spinner, Button, Alert } from 'vtex.styleguide'
 import { CSVLink } from 'react-csv'
 
 import UploadFileQuery from '../../graphql/uploadFile.gql'
@@ -22,6 +22,7 @@ interface State {
   fileName: string
   fileUrl: string | undefined
   pathFile: string
+  success: boolean
 }
 
 const messages = defineMessages({
@@ -52,6 +53,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     fileName: '',
     fileUrl: '',
     pathFile: '',
+    success: false,
   })
 
   const fileNameQuery = useQuery(getDataGQL, {
@@ -129,6 +131,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
         pathFile: dataUploadFile.uploadFile.fileUrl.split('/')[
           dataUploadFile.uploadFile.fileUrl.split('/').length - 1
         ],
+        success: true,
       }))
       // before saving csvFile save csvFileOld
       saveOldFile()
@@ -194,6 +197,18 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
 
   return (
     <>
+      {state.success && (
+        <div className="mv5">
+          <Alert
+            onClose={() =>
+              setState(prevState => ({ ...prevState, success: false }))
+            }
+            type="success"
+          >
+            <FormattedMessage id="admin/admin.app.tintometric.fileUploaded_success" />
+          </Alert>
+        </div>
+      )}
       <Dropzone
         onDrop={acceptedFiles => handleDropFile(acceptedFiles)}
         accept={query === 'json' ? 'application/json' : '.csv'}

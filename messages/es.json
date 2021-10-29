@@ -14,6 +14,7 @@
   "admin/admin.app.tintometric.description": "Agregar los precios de las bases y los tinters para actualizar los precios de skus masivamente. Los skus afectados serán los que estén en el json debajo.",
   "admin/admin.app.tintometric.oldPrices": "LOC",
   "admin/admin.app.tintometric.newPricesLabel": "Acotone",
+  "admin/admin.app.tintometric.fileUploaded_success": "Se cargó el archivo correctamente",
   "admin/admin.app.tintometric.oldPrices-subtitle": "Si está activo toma los precios marcados como 'loc' en el json.",
   "admin/editor.tintometric.title": "Tintometric",
   "admin/editor.tintometric.description": "Tintometric component",

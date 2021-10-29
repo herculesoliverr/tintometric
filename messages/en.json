@@ -7,6 +7,7 @@
   "admin/admin.app.tintometric.oldPrices": "Prices",
   "admin/admin.app.tintometric.newPricesLabel": "Acotone",
   "admin/admin.app.tintometric.oldPrices-subtitle": "If active, takes the prices marked as LOC in the json",
+  "admin/admin.app.tintometric.fileUploaded_success": "File uploaded successfully",
   "admin/admin.app.tintometric.minText": "Verify this price, it shouldn't drop more than 10%",
   "admin/admin.app.tintometric.skusNotFound": "The following skus were not found: ",
   "admin/admin.app.tintometric.skusBadStructure": "Check the json structure in the following skus: ",

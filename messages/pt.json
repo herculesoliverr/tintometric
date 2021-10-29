@@ -13,6 +13,7 @@
   "admin/admin.app.tintometric.uploadJson": "Composição de Cores",
   "admin/admin.app.tintometric.oldPrices": "LOC",
   "admin/admin.app.tintometric.newPricesLabel": "Acotone",
+  "admin/admin.app.tintometric.fileUploaded_success": "O arquivo foi enviado com sucesso",
   "admin/admin.app.tintometric.uploadJson.subtitle": "Insira arquivo JSON",
   "admin/admin.app.tintometric.uploadCSV": "Preço das bases",
   "admin/admin.app.tintometric.uploadCSV.subtitle": "Faça upload de um arquivo csv",

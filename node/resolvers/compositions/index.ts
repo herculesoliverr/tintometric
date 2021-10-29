@@ -4,7 +4,6 @@ export const queries = {
     { masterSeller }: { masterSeller: string },
     ctx: Context
   ): Promise<any> => {
-    console.log('masterSeller', masterSeller)
     const { data } = await ctx.clients.compositions.getCompositionsFromMaster(
       masterSeller
     )
