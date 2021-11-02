@@ -1,0 +1,3 @@
+query getFile($key: String!){
+    getFile (key: $key) @context(provider: "vtexarg.tintometric")
+}

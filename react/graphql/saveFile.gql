@@ -1,0 +1,3 @@
+mutation saveFile($file: Upload!, $key: String) {
+  saveFile(file: $file, key: $key)
+}
