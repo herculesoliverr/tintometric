@@ -36,11 +36,23 @@ export function TintometricProvider({ children }: ContextChildren) {
   }, [activeProduct])
 
   useEffect(() => {
-    families.length && setActiveFamily(families[0])
-  }, [families])
+    console.log('ActiveProd', activeProduct)
+    // sets the activeFamily to the current family active
+    activeProduct &&
+      setActiveFamily(
+        families.find(family => family.id === activeProduct.family)
+      )
+    // families.length && setActiveFamily(families[0])
+  }, [families, activeProduct])
+  data && console.log('activeFamily', activeFamily)
+
+  useEffect(() => {
+    data && setProducts(data?.products)
+  }, [data])
 
   useEffect(() => {
     // shows only the families that have the actual productType (taken from the url, example: tinta-alba-familia-protegida-acetinado)
+    console.log('data?.families', typeof data)
     const filteredFamilies = data?.families.filter(family =>
       family.products?.find(item => item === activeProductType?.id)
     )
@@ -71,18 +83,10 @@ export function TintometricProvider({ children }: ContextChildren) {
     return initialSlug?.toLocaleLowerCase()
   }
 
-  async function getData(fileUrl: string) {
-    const res = await fetch(`${fileUrl}`)
-    const response = await res.json()
-
-    setData(response)
-    setProducts(response.products)
-  }
-
   return (
     <TintometricContext.Provider
       value={{
-        getData,
+        setData,
         families,
         setActiveFamily,
         activeFamily,
