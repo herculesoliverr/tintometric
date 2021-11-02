@@ -51,10 +51,10 @@ export const mutations = {
       const csvData = parseBuffer(csvFile)
       const csv = parseCSVToJson(csvData)
 
-      const oldCsvData = await vbase.getJSON<string>(
-        'tintometricData',
-        'csv_old'
-      )
+      // TODO: ver por qué cuando no hay un csv_old cargado rompe y corta la ejecucion
+      console.log('llego aca')
+
+      const oldCsvData = await vbase.getJSON<string>('tintometric', 'csv_old')
 
       if (oldCsvData) {
         const oldCsv = parseCSVToJson(oldCsvData)
@@ -70,6 +70,8 @@ export const mutations = {
           })
         }
       }
+
+      console.log('no llego aca')
 
       const jsonProducts = jsonFileContent?.products
       const priceType = oldPrices ? 'loc' : 'acotone'
@@ -105,6 +107,7 @@ export const mutations = {
             base = baseJson[1] * Number(basePrice.price)
           }
 
+          console.log('base-----', base)
           let price =
             tinter1 * item?.composition?.[priceType]?.tinter1 +
             tinter2 * item?.composition?.[priceType]?.tinter2 +

@@ -9,7 +9,7 @@ export const queries = {
     ctx: Context
   ): Promise<any> => {
     const aux = await ctx.clients.vbase.getJSON<{ key: string }>(
-      'tintometricData',
+      'tintometric',
       key
     )
 
@@ -23,8 +23,6 @@ export const queries = {
     const { data: vbFile } = await ctx.clients.vbase.getFile('tintometric', key)
 
     const parsedFile = parseBuffer(vbFile)
-
-    console.log('response', parsedFile)
 
     return parsedFile
   },
@@ -42,7 +40,7 @@ export const mutations = {
     },
     ctx: Context
   ): Promise<void> => {
-    await ctx.clients.vbase.saveJSON('tintometricData', key, value)
+    await ctx.clients.vbase.saveJSON('tintometric', key, value)
   },
 
   saveFile: async (
@@ -54,19 +52,23 @@ export const mutations = {
       const file2 = await file
       const stream = file2.createReadStream(file2)
 
-      const res = await ctx.clients.vbase.saveFile('tintometric', key, stream)
-
-      console.log('res', res)
-
-      // const response = { ...res[0], ...file2 }
-
-      // console.log('res saveFile', response)
+      await ctx.clients.vbase.saveFile('tintometric', key, stream)
 
       return file2.filename
     } catch (e) {
-      console.log('Error trying to save order to VB =>', e.response)
-
       return e
     }
+  },
+
+  deleteFile: async (
+    _: unknown,
+    { key }: { key: string },
+    ctx: Context
+  ): Promise<any> => {
+    const aux = await ctx.clients.vbase.deleteFile('tintometric', key)
+
+    console.log('aux', aux)
+
+    return aux
   },
 }

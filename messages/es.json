@@ -19,7 +19,6 @@
   "admin/editor.tintometric.title": "Tintometric",
   "admin/editor.tintometric.description": "Tintometric component",
   "admin/admin.app.tintometric.downloadTemplate": "Descargar template",
-  "admin/admin.app.tintometric.removeFile": "Eliminar",
   "admin/admin.app.tintometric.generic.error": "Ocurrió un error, inténtalo nuevamente.",
   "store/search.placeholder": "Buscar...",
   "admin/admin.app.tintometric.errorValidatePrice": "Verifique los precios del csv, el precio de las siguientes bases bajaron un 10% o más:   ",

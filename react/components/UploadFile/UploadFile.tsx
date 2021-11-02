@@ -7,9 +7,7 @@ import Dropzone from 'react-dropzone'
 import { Spinner, Button, Alert } from 'vtex.styleguide'
 import { CSVLink } from 'react-csv'
 
-// import UploadFileQuery from '../../graphql/uploadFile.gql'
 import saveFileMutation from '../../graphql/saveFile.gql'
-import DeleteFileQuery from '../../graphql/deleteFile.gql'
 import ErrorAlert from './ErrorAlert'
 import EmptyState from './EmptyState'
 import saveDataGQL from '../../graphql/saveData.gql'
@@ -22,7 +20,6 @@ interface State {
   error: string | null
   isLoading: boolean
   fileName: string
-  fileUrl: string | undefined
   pathFile: string
   success: boolean
   oldFile: string
@@ -54,7 +51,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     error: null,
     isLoading: false,
     fileName: '',
-    fileUrl: '',
     pathFile: '',
     success: false,
     oldFile: '',
@@ -68,10 +64,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     variables: { key: `csv` },
   })
 
-  const fileUrlQuery = useQuery(getDataGQL, {
-    variables: { key: `${query}File` },
-  })
-
   const [
     uploadFile,
     {
@@ -81,19 +73,8 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     },
   ] = useMutation(saveFileMutation)
 
-  const [
-    deleteFile,
-    {
-      loading: loadingDeleteFile,
-      error: errorDeleteFile,
-      data: dataDeleteFile,
-    },
-  ] = useMutation(DeleteFileQuery)
-
   useEffect(() => {
     if (oldCSVFile.data) {
-      console.log('entro aca 1')
-      console.log('oldCSVFile.data', oldCSVFile.data)
       setState(prevState => ({ ...prevState, oldFile: oldCSVFile.data }))
     }
 
@@ -101,23 +82,15 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   }, [oldCSVFile])
 
   useEffect(() => {
-    fileNameQuery.data &&
+    if (fileNameQuery.data) {
       setState(prevState => ({
         ...prevState,
         fileName: fileNameQuery.data?.getData,
       }))
-    if (fileUrlQuery.data?.getData) {
       action(true)
-      setState(prevState => ({
-        ...prevState,
-        fileUrl: fileUrlQuery.data?.getData,
-        pathFile: fileUrlQuery.data?.getData.split('/')[
-          fileUrlQuery.data?.getData.split('/').length - 1
-        ],
-      }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fileNameQuery, fileUrlQuery])
+  }, [fileNameQuery])
 
   const saveOldFile = async () => {
     const res = await oldCSVFile.refetch()
@@ -152,43 +125,19 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
         pathFile: dataUploadFile.saveFile,
         success: true,
       }))
-      saveData({ variables: { key: `${query}Name`, value: state.fileName } })
+      saveData({
+        variables: { key: `${query}Name`, value: dataUploadFile.saveFile },
+      })
       action(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingUploadFile, errorUploadFile, dataUploadFile])
-
-  useEffect(() => {
-    if (loadingDeleteFile)
-      setState(prevState => ({ ...prevState, isLoading: true }))
-    if (dataDeleteFile) {
-      saveData({ variables: { key: `${query}File`, value: '' } })
-      saveData({ variables: { key: `${query}Name`, value: '' } })
-      setState(prevState => ({
-        ...prevState,
-        isLoading: false,
-        fileName: '',
-        pathFile: '',
-      }))
-      action(false)
-    }
-
-    if (errorDeleteFile) {
-      setState(prevState => ({
-        ...prevState,
-        isLoading: false,
-        error: intl.formatMessage(messages.genericError),
-      }))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataDeleteFile, errorDeleteFile, loadingDeleteFile])
 
   const handleDropFile = async (acceptedFiles: File[]) => {
     console.log('acceptedFiles', acceptedFiles)
     if (acceptedFiles && acceptedFiles[0]) {
       setState(prevState => ({ ...prevState, isLoading: true }))
 
-      // TODO:  ANTES TRAERME EL FILE ACTUAL CON GETFILE
       await saveOldFile()
       console.log('llego acá después')
 
@@ -204,13 +153,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
         error: intl.formatMessage(messages.fileSizeError),
       }))
     }
-  }
-
-  const removeFile = async () => {
-    setState(prevState => ({ ...prevState, isLoading: true }))
-    deleteFile({
-      variables: { path: state.pathFile },
-    })
   }
 
   return (
@@ -253,11 +195,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
         )}
       </Dropzone>
       <span className="mv7 db flex">
-        {state.pathFile && (
-          <Button variation="primary" onClick={() => removeFile()}>
-            <FormattedMessage id="admin/admin.app.tintometric.removeFile" />
-          </Button>
-        )}
         {query === 'json' ? (
           <Button
             variation="tertiary"

@@ -1,3 +1,0 @@
-mutation deleteFile($path: String!) {
-  deleteFile(path: $path) @context(provider: "vtex.file-manager-graphql")
-}
