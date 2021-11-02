@@ -63,3 +63,5 @@ export const validateNewPrices = (oldCSV: CsvItem[], newCSV: CsvItem[]) => {
 
   return errors
 }
+
+export const parseBuffer = (buffer: Buffer) => buffer.toString()

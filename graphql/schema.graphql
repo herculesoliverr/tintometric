@@ -1,24 +1,18 @@
 type Query {
-    "Get data from VBase"
     getData(key: String!): String
+    getFile(key: String!): String
     getConfig: GetConfigResponse @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
     getCompositionFile(masterSeller: String!): String
 }
 
-type GetConfigResponse {
-  sellerMasterId: String
+type Mutation {
+    updateSkusPrices(tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, tinter12: Float!, tinter13: Float!, oldPrices: Boolean, masterSeller: String): String
+    uploadFile(file: Upload!) : String
+    deleteFile(path: String!) : Boolean
+    saveData(key: String!, value: String!): String
+    saveFile(file: Upload!, key: String): String
 }
 
-type Mutation {
-    "Change price of list of sku ids"
-    updateSkusPrices(tinter1: Float!, tinter2: Float!, tinter3: Float!, tinter4: Float!, tinter5: Float!, tinter6: Float!, tinter7: Float!, tinter8: Float!, tinter9: Float!, tinter10: Float!, tinter11: Float!, tinter12: Float!, tinter13: Float!, oldPrices: Boolean, masterSeller: String): String
-
-    "Upload file"
-    uploadFile(file: Upload!) : String
-
-    "Delete file"
-    deleteFile(path: String!) : Boolean
-
-    "Save data to VBase"
-    saveData(key: String!, value: String!): String
+type GetConfigResponse {
+  sellerMasterId: String
 }

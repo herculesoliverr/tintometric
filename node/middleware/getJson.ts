@@ -1,11 +1,14 @@
+import { parseBuffer } from '../utils'
+
 export async function getJson(ctx: Context, next: () => Promise<any>) {
   const {
     clients: { vbase },
   } = ctx
 
-  const jsonUrl = await vbase.getJSON<string>('tintometricData', 'jsonFile')
+  const { data: vbFile } = await vbase.getFile('tintometric', 'json')
+  const parsedFile = parseBuffer(vbFile)
 
-  ctx.body = jsonUrl
+  ctx.body = JSON.stringify(parsedFile)
 
   await next()
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { useQuery, useLazyQuery } from 'react-apollo'
 import { useCssHandles } from 'vtex.css-handles'
@@ -41,7 +42,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   const intl = useIntl()
 
   const {
-    getData,
+    setData,
     products,
     modalOpen,
     handleModalClick,
@@ -70,8 +71,9 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   }, [dataConfig])
 
   useEffect(() => {
-    jsonFileData && getData(jsonFileData?.getCompositionFile)
+    jsonFileData && setData(JSON.parse(jsonFileData?.getCompositionFile))
   }, [jsonFileData, dataConfig])
+
   useEffect(() => {
     activeFamily &&
       setFilteredProducts(

@@ -75,7 +75,7 @@ declare global {
   }
 
   interface TintometricContextInterface {
-    getData: (fileUrl: string) => void
+    setData: (file: any) => void
     families: Family[]
     activeFamily: Family | undefined
     setActiveFamily: (Family) => void

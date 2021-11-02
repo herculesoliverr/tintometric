@@ -9,8 +9,9 @@ export default class Compositions extends ExternalClient {
 
   public async getCompositionsFromMaster(masterSeller: string) {
     try {
+      // TODO: SACAR WORKSPACE HARDCODEADO
       const res = await this.http.getRaw(
-        `http://${masterSeller}.myvtex.com/v1/compositionFile`
+        `http://tintometrico--${masterSeller}.myvtex.com/v1/compositionFile`
       )
 
       return res

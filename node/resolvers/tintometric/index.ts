@@ -1,4 +1,4 @@
-import { parseCSVToJson, validateNewPrices } from '../../utils'
+import { parseCSVToJson, validateNewPrices, parseBuffer } from '../../utils'
 
 export const mutations = {
   updateSkusPrices: async (
@@ -36,36 +36,30 @@ export const mutations = {
       oldPrices: boolean
       masterSeller: string
     },
-    { clients: { pricing, catalog, vbase, files, compositions } }: Context
+    { clients: { pricing, catalog, vbase, compositions } }: Context
   ): Promise<string> => {
     const products: any = await catalog.getProducts()
 
     try {
-      const { data: jsonUrl } = await compositions.getCompositionsFromMaster(
+      const { data: jsonFile } = await compositions.getCompositionsFromMaster(
         masterSeller
       )
 
-      const jsonFileContent = await files.getFile(jsonUrl, masterSeller)
+      const jsonFileContent = JSON.parse(jsonFile)
 
-      const csvUrl = await vbase.getJSON<string>('tintometricData', 'csvFile')
-      const { data: csvData } = await files.getFile(csvUrl)
-      const csv: Array<{ base: string; price: string }> = parseCSVToJson(
-        csvData
-      )
+      const { data: csvFile } = await vbase.getFile('tintometric', 'csv')
+      const csvData = parseBuffer(csvFile)
+      const csv = parseCSVToJson(csvData)
 
-      const lastCsvUrl = await vbase.getJSON<string>(
+      const oldCsvData = await vbase.getJSON<string>(
         'tintometricData',
-        'csvFile_old'
+        'csv_old'
       )
 
-      if (lastCsvUrl) {
-        const { data: lastCsvData } = await files.getFile(lastCsvUrl)
+      if (oldCsvData) {
+        const oldCsv = parseCSVToJson(oldCsvData)
 
-        const lastCsv: Array<{ base: string; price: string }> = parseCSVToJson(
-          lastCsvData
-        )
-
-        const validate = validateNewPrices(lastCsv, csv)
+        const validate = validateNewPrices(oldCsv, csv)
 
         if (validate.length > 0) {
           return JSON.stringify({
@@ -77,7 +71,7 @@ export const mutations = {
         }
       }
 
-      const jsonProducts = jsonFileContent.data?.products
+      const jsonProducts = jsonFileContent?.products
       const priceType = oldPrices ? 'loc' : 'acotone'
       const skusNotFound: number[] = []
       const skusBadStructure: number[] = []
@@ -149,12 +143,16 @@ export const mutations = {
         errorValidatePrice: [],
       })
     } catch (err) {
-      const msg = (err as Error).response.data.message
+      if (err.response) {
+        const msg = (err as Error).response.data.message
 
-      return JSON.stringify({
-        message: msg,
-        status: 404,
-      })
+        return JSON.stringify({
+          message: msg,
+          status: 404,
+        })
+      }
+
+      return err
     }
 
     interface Error {

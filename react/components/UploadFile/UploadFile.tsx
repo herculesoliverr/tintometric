@@ -7,12 +7,14 @@ import Dropzone from 'react-dropzone'
 import { Spinner, Button, Alert } from 'vtex.styleguide'
 import { CSVLink } from 'react-csv'
 
-import UploadFileQuery from '../../graphql/uploadFile.gql'
+// import UploadFileQuery from '../../graphql/uploadFile.gql'
+import saveFileMutation from '../../graphql/saveFile.gql'
 import DeleteFileQuery from '../../graphql/deleteFile.gql'
 import ErrorAlert from './ErrorAlert'
 import EmptyState from './EmptyState'
 import saveDataGQL from '../../graphql/saveData.gql'
 import getDataGQL from '../../graphql/getData.gql'
+import getFileGQL from '../../graphql/getFile.gql'
 import { defaultJSON, defaultCSV } from '../../utils/defaultData'
 import { downloadFile } from '../../utils/downloadFile'
 
@@ -23,6 +25,7 @@ interface State {
   fileUrl: string | undefined
   pathFile: string
   success: boolean
+  oldFile: string
 }
 
 const messages = defineMessages({
@@ -54,10 +57,15 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     fileUrl: '',
     pathFile: '',
     success: false,
+    oldFile: '',
   })
 
   const fileNameQuery = useQuery(getDataGQL, {
     variables: { key: `${query}Name` },
+  })
+
+  const oldCSVFile = useQuery(getFileGQL, {
+    variables: { key: `csv` },
   })
 
   const fileUrlQuery = useQuery(getDataGQL, {
@@ -71,7 +79,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       error: errorUploadFile,
       data: dataUploadFile,
     },
-  ] = useMutation(UploadFileQuery)
+  ] = useMutation(saveFileMutation)
 
   const [
     deleteFile,
@@ -81,6 +89,16 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       data: dataDeleteFile,
     },
   ] = useMutation(DeleteFileQuery)
+
+  useEffect(() => {
+    if (oldCSVFile.data) {
+      console.log('entro aca 1')
+      console.log('oldCSVFile.data', oldCSVFile.data)
+      setState(prevState => ({ ...prevState, oldFile: oldCSVFile.data }))
+    }
+
+    oldCSVFile.error && console.log('oldCSVFile.error', oldCSVFile.error)
+  }, [oldCSVFile])
 
   useEffect(() => {
     fileNameQuery.data &&
@@ -102,10 +120,12 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   }, [fileNameQuery, fileUrlQuery])
 
   const saveOldFile = async () => {
+    const res = await oldCSVFile.refetch()
+
     await saveData({
       variables: {
-        key: `${query}File_old`,
-        value: state.fileUrl,
+        key: `${query}_old`,
+        value: res.data?.getFile,
       },
     })
   }
@@ -128,19 +148,10 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
       setState(prevState => ({
         ...prevState,
         isLoading: false,
-        pathFile: dataUploadFile.uploadFile.fileUrl.split('/')[
-          dataUploadFile.uploadFile.fileUrl.split('/').length - 1
-        ],
+        fileName: dataUploadFile.saveFile,
+        pathFile: dataUploadFile.saveFile,
         success: true,
       }))
-      // before saving csvFile save csvFileOld
-      saveOldFile()
-      saveData({
-        variables: {
-          key: `${query}File`,
-          value: dataUploadFile.uploadFile.fileUrl,
-        },
-      })
       saveData({ variables: { key: `${query}Name`, value: state.fileName } })
       action(true)
     }
@@ -173,10 +184,19 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   }, [dataDeleteFile, errorDeleteFile, loadingDeleteFile])
 
   const handleDropFile = async (acceptedFiles: File[]) => {
+    console.log('acceptedFiles', acceptedFiles)
     if (acceptedFiles && acceptedFiles[0]) {
-      setState(prevState => ({ ...prevState, fileName: acceptedFiles[0].name }))
+      setState(prevState => ({ ...prevState, isLoading: true }))
+
+      // TODO:  ANTES TRAERME EL FILE ACTUAL CON GETFILE
+      await saveOldFile()
+      console.log('llego acá después')
+
       uploadFile({
-        variables: { file: acceptedFiles[0] },
+        variables: {
+          file: acceptedFiles[0],
+          key: query,
+        },
       })
     } else {
       setState(prevState => ({
