@@ -4,7 +4,7 @@ export const defaultJSON = {
       id: 1,
       name: 'Vermelhos e Rosas',
       color: '#ED1C24',
-      products: [1],
+      productType: [1],
     },
   ],
   products: [

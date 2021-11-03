@@ -50,7 +50,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     activeProduct,
     selectedColor,
     setActiveFamily,
-    // activeProductType,
   } = useTintometricContext()
 
   const handles = useCssHandles(CSS_HANDLES)

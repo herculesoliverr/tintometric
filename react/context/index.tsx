@@ -50,7 +50,7 @@ export function TintometricProvider({ children }: ContextChildren) {
   useEffect(() => {
     // shows only the families that have the actual productType (taken from the url, example: tinta-alba-familia-protegida-acetinado)
     const filteredFamilies = data?.families.filter(family =>
-      family.products?.find(item => item === activeProductType?.id)
+      family.productType?.find(item => item === activeProductType?.id)
     )
 
     filteredFamilies && setFamilies(filteredFamilies)

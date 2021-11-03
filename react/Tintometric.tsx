@@ -11,8 +11,6 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   colorDetailTitle = 'Selected colour:',
   confirmButton = 'Confirm',
 }) => {
-  console.log('entro aca')
-
   return (
     <TintometricProvider>
       <Main

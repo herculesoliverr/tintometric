@@ -70,7 +70,7 @@ declare global {
     color: string
     id: number
     name: string
-    products: number[]
+    productType: number[]
     slug: string
   }
 
