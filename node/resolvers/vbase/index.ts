@@ -20,12 +20,36 @@ export const queries = {
     { key }: { key: string },
     ctx: Context
   ): Promise<any> => {
-    const { data: vbFile } = await ctx.clients.vbase.getFile('tintometric', key)
+    try {
+      const { data: vbFile } = await ctx.clients.vbase.getFile(
+        'tintometric',
+        key
+      )
 
-    const parsedFile = parseBuffer(vbFile)
+      const parsedFile = parseBuffer(vbFile)
 
-    return parsedFile
+      return parsedFile
+    } catch (err) {
+      if (err.response) {
+        const msg = (err as Error).response.data.message
+
+        return JSON.stringify({
+          message: msg,
+          status: 404,
+        })
+      }
+
+      return err
+    }
   },
+}
+interface Error {
+  response: {
+    message: string
+    data: {
+      message: string
+    }
+  }
 }
 
 export const mutations = {

@@ -395,6 +395,7 @@ const TintometricAdmin: FC = () => {
     await Object.entries(compositionValues).forEach(([key, val]: any) =>
       saveData({ variables: { key, value: val.toString() } })
     )
+    console.log('llego acaaa')
     updateSkusPrices({
       variables: {
         tinter1: !oldPrices
@@ -441,6 +442,8 @@ const TintometricAdmin: FC = () => {
       },
     }).then(({ data }) => {
       const res = JSON.parse(data.updateSkusPrices)
+
+      console.log('llego acaaa2')
 
       if (res.status === 404) {
         setState(prevState => ({

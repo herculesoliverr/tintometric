@@ -77,8 +77,6 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
     if (oldCSVFile.data) {
       setState(prevState => ({ ...prevState, oldFile: oldCSVFile.data }))
     }
-
-    oldCSVFile.error && console.log('oldCSVFile.error', oldCSVFile.error)
   }, [oldCSVFile])
 
   useEffect(() => {
@@ -134,12 +132,10 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   }, [loadingUploadFile, errorUploadFile, dataUploadFile])
 
   const handleDropFile = async (acceptedFiles: File[]) => {
-    console.log('acceptedFiles', acceptedFiles)
     if (acceptedFiles && acceptedFiles[0]) {
       setState(prevState => ({ ...prevState, isLoading: true }))
 
       await saveOldFile()
-      console.log('llego acá después')
 
       uploadFile({
         variables: {
