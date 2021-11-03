@@ -128,7 +128,7 @@ export const mutations = {
             skusBadStructure.push(item.skuId)
           } else {
             try {
-              pricing.updateSkuPrice(item.skuId, price, price, price * 1.3)
+              pricing.updateSkuPrice(item.skuId, price, [], null)
             } catch (err) {
               return err
             }
