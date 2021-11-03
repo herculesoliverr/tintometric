@@ -82,7 +82,7 @@ The structure in the JSON file has 3 important keys:
 | `id`   | number   | Family color id (used to filter the products to show)
 | `name`  | string     | Family color name  
 | `color`    | string  | Family Hexadecimal color
-| `products`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
+| `productTypes`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
 
 ### PRODUCTS
 | Label    | type       | Description                                                                                                                            |
@@ -94,7 +94,6 @@ The structure in the JSON file has 3 important keys:
 | `R`      | number | value of the RGB color (used to change the image background)
 | `G`      | number | value of the RGB color (used to change the image background)
 | `B`      | number | value of the RGB color (used to change the image background)
-| `products`      | Array of numbers | Array of productTypes id's (used to filter only the products that match the productTypes)
 | `skuId`  | number | skuId of the product (used to update the price)
 | `composition`  | object | color composition used to estimate the sku price.
 

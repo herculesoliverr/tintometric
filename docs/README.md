@@ -17,8 +17,6 @@ It can be used in architecture master + white labels.
 ---- 
 ## Configuration 
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
-
 1. Using your terminal and the [VTEX IO Toolbelt](https://vtex.io/docs/recipes/development/vtex-io-cli-installment-and-command-reference), log into the desired VTEX account.
 2. Run `vtex install vtexarg.tintometric` on the account you're working on.
 
@@ -57,9 +55,7 @@ You are now able to use the Tintometric block:
 | `buttonList`      | `string`       | List button label used in the modal         |  `Name`       |
 | `colorDetailTitle`      | `string`       | Color Detail Title        |      `Selected Colour:`   |
 | `confirmButton`      | `string`       | Confirm button label used in the modal         |    `Confirm`     |
-
-
-This props can be modified in the site editor
+_This props can be modified in the site editor_
 
 
 3. Access your VTEX account's admin.
@@ -86,7 +82,7 @@ The structure in the JSON file has 3 important keys:
 | `id`   | number   | Family color id (used to filter the products to show)
 | `name`  | string     | Family color name  
 | `color`    | string  | Family Hexadecimal color
-| `products`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
+| `productTypes`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
 
 ### PRODUCTS
 | Label    | type       | Description                                                                                                                            |
@@ -98,7 +94,6 @@ The structure in the JSON file has 3 important keys:
 | `R`      | number | value of the RGB color (used to change the image background)
 | `G`      | number | value of the RGB color (used to change the image background)
 | `B`      | number | value of the RGB color (used to change the image background)
-| `products`      | Array of numbers | Array of productTypes id's (used to filter only the products that match the productTypes)
 | `skuId`  | number | skuId of the product (used to update the price)
 | `composition`  | object | color composition used to estimate the sku price.
 
