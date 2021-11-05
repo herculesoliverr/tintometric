@@ -59,17 +59,20 @@ _This props can be modified in the site editor_
 
 
 3. Access your VTEX account's admin.
-4. In the **Products** tab click on **Tintometric**.
+4. In Apps > My apps search for the Tintometric app and click on Settings
+<img width="915" alt="Captura de Pantalla 2021-11-05 a la(s) 13 36 19" src="https://user-images.githubusercontent.com/36748003/140546194-7019abbc-8d3e-4f4b-bcf7-37fa60a450d7.png">
 
-![Media Placeholder](https://user-images.githubusercontent.com/36748003/128002681-1a8e1813-0d12-404f-981c-deaf7a61bd7e.png)
+5. Enter the seller master account id. (this account will be responsible for uploading the json file with the composition)
+<img width="1424" alt="Captura de Pantalla 2021-11-05 a la(s) 13 38 49" src="https://user-images.githubusercontent.com/36748003/140546613-f76986e2-267f-4155-b6bc-f74068b16c55.png">
+>
 
-| Label    | Description                                                                                                                                 |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
-| `Checkbox Old Prices`      | If checked will take the prices that are marked as oldPrices in the json
-| `Bases`      | Price of the bases     
-| `Tinters`      | Price of the tinters
+----
+## Seller Master
+In the **Products** tab click on **Tintometric**.
 
----- 
+The seller master is responsable for uploading the json file with the color compositions.
+<img width="1432" alt="Captura de Pantalla 2021-11-05 a la(s) 13 53 42" src="https://user-images.githubusercontent.com/36748003/140548447-4717b243-db8d-434a-b211-85134c96c47d.png">
+
 ## JSON File Structure
 
 The structure in the JSON file has 3 important keys: 
@@ -100,8 +103,8 @@ The structure in the JSON file has 3 important keys:
 ### COMPOSITION
 ```
 "composition": {
-      "newPrices": {
-          "base1": 1,
+      "acotone": {
+          "base_p_albacryl_900": 1,
           "tinter1": 1,
           "tinter2": 1,
           "tinter3": 1,
@@ -112,10 +115,12 @@ The structure in the JSON file has 3 important keys:
           "tinter8": 0,
           "tinter9": 0,
           "tinter10": 0,
-          "tinter11": 0
+          "tinter11": ,
+          "tinter12": 0,
+          "tinter13": 0
       },
-      "oldPrices": {
-          "base1": 1,
+      "loc": {
+          "base_p_albacryl_900": 1,
           "tinter1": 2,
           "tinter2": 2,
           "tinter3": 2,
@@ -138,10 +143,19 @@ The structure in the JSON file has 3 important keys:
 ### PRODUCT TYPE
 | Label    | type       | Description                                                                                                                            |
 | ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
-| `id`   | number   | ProductType id (used to filter only the products that matchs with it)
+| `id`   | number   | ProductType id (used to filter only the products that matchs with this productType)
 | `slug`   | string   | ProductType slug (used to generate the url when "confirm" button is clicked)
 
 ---- 
+
+
+| Label    | Description                                                                                                                                 |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
+| `Checkbox Old Prices`      | If checked will take the prices that are marked as oldPrices in the json
+| `Bases`      | Price of the bases     
+| `Tinters`      | Price of the tinters
+
+
 ## Formula used to update the prices
 #### The formula takes 1 base (the one loaded in the json file).
 #### Then adds the amount of each tinter and multiplies by the price  

@@ -46,7 +46,7 @@ declare global {
     family: number
     name: string
     slug: string
-    products?: number[]
+    productType: number
     skuId?: number
     order?: number
     page?: number

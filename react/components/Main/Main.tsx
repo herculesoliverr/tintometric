@@ -48,6 +48,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
     handleModalClick,
     activeFamily,
     activeProduct,
+    activeProductType,
     selectedColor,
     setActiveFamily,
   } = useTintometricContext()
@@ -58,6 +59,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   )
 
   const { data: dataConfig } = useQuery(getConfig)
+
+  console.log('activeProductType', activeProductType)
 
   useEffect(() => {
     if (dataConfig?.getConfig?.sellerMasterId) {
@@ -74,16 +77,15 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   }, [jsonFileData, dataConfig])
 
   useEffect(() => {
+    // filter product by family selected and productType active (taken from the slug in the url)
     activeFamily &&
       setFilteredProducts(
         products.filter(
           product =>
-            product.family ===
-            activeFamily?.id /* &&
-            product.products?.find(item => item === activeProductType?.id) */
+            product.family === activeFamily?.id &&
+            product.productType === activeProductType?.id
         )
       )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFamily])
 
   function handleSearch(search: string) {

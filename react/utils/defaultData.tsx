@@ -4,7 +4,7 @@ export const defaultJSON = {
       id: 1,
       name: 'Vermelhos e Rosas',
       color: '#ED1C24',
-      productType: [1],
+      productType: [1, 2],
     },
   ],
   products: [
@@ -17,6 +17,50 @@ export const defaultJSON = {
       G: 33,
       B: 95,
       skuId: 9,
+      productType: 1,
+      composition: {
+        acotone: {
+          base_p_albacryl_900: 1,
+          tinter1: 8.5383375,
+          tinter2: 3.770175,
+          tinter3: 77.67669375,
+          tinter4: 0,
+          tinter5: 0,
+          tinter6: 0,
+          tinter7: 0,
+          tinter8: 0,
+          tinter9: 0,
+          tinter10: 0,
+          tinter11: 0,
+          tinter12: 0,
+          tinter13: 0,
+        },
+        loc: {
+          base_p_albacryl_900: 1,
+          tinter1: 1,
+          tinter2: 0,
+          tinter3: 0,
+          tinter4: 0,
+          tinter5: 0,
+          tinter6: 0,
+          tinter7: 0,
+          tinter8: 0,
+          tinter9: 0,
+          tinter10: 0,
+          tinter11: 0,
+        },
+      },
+    },
+    {
+      code: 'C074',
+      name: 'Verde Mate',
+      slug: 'verde-mate',
+      family: 1,
+      R: 162,
+      G: 33,
+      B: 95,
+      skuId: 3,
+      productType: 2,
       composition: {
         acotone: {
           base_p_albacryl_900: 1,
@@ -54,7 +98,11 @@ export const defaultJSON = {
   productType: [
     {
       id: 1,
-      slug: 'tinta-alba-familia-protegida-acetinado',
+      slug: 'tinta-familia-protegida-mate',
+    },
+    {
+      id: 2,
+      slug: 'tinta-familia-protegida-acetinado',
     },
   ],
 }
