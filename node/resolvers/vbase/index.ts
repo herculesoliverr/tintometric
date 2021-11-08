@@ -91,8 +91,6 @@ export const mutations = {
   ): Promise<any> => {
     const aux = await ctx.clients.vbase.deleteFile('tintometric', key)
 
-    console.log('aux', aux)
-
     return aux
   },
 }

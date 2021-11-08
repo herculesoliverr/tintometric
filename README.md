@@ -57,6 +57,7 @@ You are now able to use the Tintometric block:
 | `confirmButton`      | `string`       | Confirm button label used in the modal         |    `Confirm`     |
 _This props can be modified in the site editor_
 
+-----
 
 3. Access your VTEX account's admin.
 4. In Apps > My apps search for the Tintometric app and click on Settings
@@ -67,40 +68,59 @@ _This props can be modified in the site editor_
 >
 
 ----
-## Seller Master
+# Seller Master
 In the **Products** tab click on **Tintometric**.
 
 The seller master is responsable for uploading the json file with the color compositions.
 <img width="1432" alt="Captura de Pantalla 2021-11-05 a la(s) 13 53 42" src="https://user-images.githubusercontent.com/36748003/140548447-4717b243-db8d-434a-b211-85134c96c47d.png">
 
-## JSON File Structure
+## **IMPORTANT**
+* The composition file **must be uploaded to the master workspace** of the account. 
+
+
+
+* The product textLink (url) must be: `{{productType.slug}}-{{product.slug}}-{{product.code}}`
+
+  considering the json template (available to download in the admin app) the product page url of the product with skuId '9' would look like this:
+
+  `tinta-familia-protegida-mate-rosa-vibrante-R560`
+
+  product textLink configuration: 
+<img width="1269" alt="Captura de Pantalla 2021-11-08 a la(s) 18 24 37" src="https://user-images.githubusercontent.com/36748003/140820592-1789594d-8596-45cf-8756-5922c41253c0.png">
+  The Tintometric Modal will show only the products that match with the current active product type (in this example: `tinta-familia-protegida-mate`)
+----
+## **Composition File (JSON) Structure**
 
 The structure in the JSON file has 3 important keys: 
 
-"families", "products" and "productType".
+**"families"**, **"products"** and **"productType"**.
 
-### FAMILIES
+---- 
+### **FAMILIES**
 | Label    | type       | Description                                                                                                                            |
 | ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
 | `id`   | number   | Family color id (used to filter the products to show)
 | `name`  | string     | Family color name  
 | `color`    | string  | Family Hexadecimal color
-| `productTypes`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
+| `productType`  | Array of numbers    | Array of productTypes id's (used to filter only the products that match the productTypes)
 
-### PRODUCTS
+----
+
+### **PRODUCTS**
 | Label    | type       | Description                                                                                                                            |
 | ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
 | `code`   | string   | Product code
 | `name`   | string   | Product name
 | `slug`   | string   | Product slug (used to generate the url when "confirm" button is clicked)
 | `family` | number     | Family Id (used to filter the products to show)
+| `productType`      | number | productType id (used to filter only the products that match with the current productType id)
 | `R`      | number | value of the RGB color (used to change the image background)
 | `G`      | number | value of the RGB color (used to change the image background)
 | `B`      | number | value of the RGB color (used to change the image background)
 | `skuId`  | number | skuId of the product (used to update the price)
 | `composition`  | object | color composition used to estimate the sku price.
 
-### COMPOSITION
+### **COMPOSITION**
 ```
 "composition": {
       "acotone": {
@@ -136,11 +156,15 @@ The structure in the JSON file has 3 important keys:
 }
 ```
 
-#### The structure of the composition object must have only one base and all the 11 tinters.
+#### The structure of the composition object must have both acotone and loc composition. 
+
+#### **Acotone** must have **13 tinters and 1 base**.
+#### **Loc** must have **11 tinters and 1 base**.
+
 
 ----
 
-### PRODUCT TYPE
+### **PRODUCT TYPE**
 | Label    | type       | Description                                                                                                                            |
 | ------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
 | `id`   | number   | ProductType id (used to filter only the products that matchs with this productType)
@@ -176,7 +200,80 @@ quantity tinter 11 * tinter11
 ```
 
 ---- 
-## Customization
+
+# Seller Franchise
+In the **Products** tab click on **Tintometric**.
+
+The seller franchise is responsable for uploading a csv file with the price of all the bases and the price of the tinters.
+![tintometrico--tmehdifranchise2 myvtex com_admin_tintometric](https://user-images.githubusercontent.com/36748003/140815298-e3119dd7-8966-4b0a-ba5e-07773bf775d3.png)
+
+## **Bases Prices (CSV) Structure**
+
+
+| Label    |  Description                                                                                                                            |
+| ------------ |---------------------------------------------------------------------------------------------------------------------------------------------
+| `base`      | name of the base, should match the one especified in the composition file (JSON)
+| `price`      | Price of the base
+
+----
+
+
+
+## **Switcher ACOTONE/LOC**
+Define which json object to use when updating prices. 
+
+If LOC is selected it will take **loc** prices in the **composition object** from the JSON file.
+
+---- 
+
+## **Tinters prices**
+Enter the prices of the tinters in the inputs.
+
+
+----
+
+
+## **Customize tinters input labels**
+It is possible to customize the labels of the inputs
+
+<img width="1421" alt="Captura de Pantalla 2021-11-08 a la(s) 18 06 54" src="https://user-images.githubusercontent.com/36748003/140818155-7f887ce2-c330-4efd-9b87-73041492bc07.png">
+
+Install the admin-graphql-ide app (if it isn't already installed)
+
+`vtex install vtex.admin-graphql-ide`
+
+As soon as the app is installed the button **GraphQL IDE** will already appear in the section **"Store Setup"** of your admin menu (left side of your screen in the admin page).
+
+
+### **Example of the mutation that modifies the label of the input Acotone 1**
+
+```
+mutation {
+  saveData(key: "acotoneTinterLabel1", 
+    value: "Acotone Label Example")
+}
+
+```
+| LOC    | ACOTONE                                                                                                                       |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
+| acotoneTinterLabel1   | locTinterLabel1 
+| acotoneTinterLabel2   | locTinterLabel2 
+| acotoneTinterLabel3   | locTinterLabel3
+| acotoneTinterLabel3   | locTinterLabel3
+| acotoneTinterLabel4   | locTinterLabel4
+| acotoneTinterLabel5   | locTinterLabel5
+| acotoneTinterLabel6   | locTinterLabel6
+| acotoneTinterLabel7   | locTinterLabel7
+| acotoneTinterLabel8   | locTinterLabel8
+| acotoneTinterLabel9   | locTinterLabel9
+| acotoneTinterLabel10   | locTinterLabel10
+| acotoneTinterLabel11  | locTinterLabel11
+| acotoneTinterLabel12   | 
+| acotoneTinterLabel13   | 
+
+-----
+
+# Customization
 
 | CSS Handles |
 | ----------- | 

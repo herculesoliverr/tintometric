@@ -60,8 +60,6 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
 
   const { data: dataConfig } = useQuery(getConfig)
 
-  console.log('activeProductType', activeProductType)
-
   useEffect(() => {
     if (dataConfig?.getConfig?.sellerMasterId) {
       getJsonFileQuery({
