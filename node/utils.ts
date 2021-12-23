@@ -1,6 +1,5 @@
 import { AuthenticationError, ForbiddenError, UserInputError } from '@vtex/api'
 import { AxiosError } from 'axios'
-import Papa from 'papaparse'
 
 export const BUCKET_NAME = 'product-translation'
 export const ALL_TRANSLATIONS_FILES = 'all-translations'
@@ -35,9 +34,18 @@ export const statusToError = (e: AxiosError) => {
 export const MAX_PRODUCTS_PER_CATEGORY = 50
 
 export const parseCSVToJson = (data: any) => {
-  const { data: parsedData }: any = Papa.parse(data, {
-    header: true,
-  })
+  const parsedData = []
+  const lines = data
+    .replace(/\"/g, '')
+    .replace(/\'/g, '')
+    .split('\n')
+
+  for (let i = 1; i < lines.length; i++) {
+    parsedData.push({
+      base: lines[i].split(',')[0],
+      price: lines[i].split(',')[1],
+    })
+  }
 
   return parsedData
 }

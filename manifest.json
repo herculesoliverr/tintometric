@@ -1,7 +1,7 @@
 {
   "vendor": "vtexarg",
   "name": "tintometric",
-  "version": "6.0.1",
+  "version": "7.0.2",
   "title": "Tintometric",
   "description": "Tintometric component",
   "defaultLocale": "es-AR",
@@ -32,9 +32,7 @@
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "policies": [
     {
@@ -88,6 +86,16 @@
         "title": "Master account id",
         "type": "string",
         "description": "Enter the master account id"
+      },
+      "appKey": {
+        "title": "appKey",
+        "type": "string",
+        "description": "User ID"
+      },
+      "appToken": {
+        "title": "appToken",
+        "type": "string",
+        "description": "Password"
       }
     }
   },
