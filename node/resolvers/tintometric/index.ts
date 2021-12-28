@@ -36,13 +36,23 @@ export const mutations = {
       oldPrices: boolean
       masterSeller: string
     },
-    { clients: { pricing, catalog, vbase, compositions } }: Context
+    {
+      clients: { pricing, catalog, vbase, compositions, vtexID, apps },
+    }: Context
   ): Promise<string> => {
     const products: any = await catalog.getProducts()
 
     try {
+      const appId = process.env.VTEX_APP_ID
+      const { appKey, appToken } = await apps.getAppSettings(appId)
+
+      const responseToken: ResponseToken = await vtexID.login(appKey, appToken)
+
+      const { token } = responseToken
+
       const { data: jsonFile } = await compositions.getCompositionsFromMaster(
-        masterSeller
+        masterSeller,
+        token
       )
 
       const jsonFileContent = JSON.parse(jsonFile)

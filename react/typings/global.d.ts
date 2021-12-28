@@ -75,6 +75,7 @@ declare global {
   }
 
   interface TintometricContextInterface {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setData: (file: any) => void
     families: Family[]
     activeFamily: Family | undefined
@@ -84,6 +85,7 @@ declare global {
     modalOpen: boolean
     activeProduct: ProductProps | undefined
     activeProductType: ProductType | undefined
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedColor: any
     setSelectedColor: (product: ProductProps) => void
   }

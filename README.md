@@ -88,6 +88,7 @@ The seller master is responsable for uploading the json file with the color comp
   product textLink configuration: 
 <img width="1269" alt="Captura de Pantalla 2021-11-08 a la(s) 18 24 37" src="https://user-images.githubusercontent.com/36748003/140820592-1789594d-8596-45cf-8756-5922c41253c0.png">
   The Tintometric Modal will show only the products that match with the current active product type (in this example: `tinta-familia-protegida-mate`)
+
 ----
 ## **Composition File (JSON) Structure**
 
@@ -254,6 +255,8 @@ mutation {
 }
 
 ```
+#### **MUTATION KEYS**
+
 | LOC    | ACOTONE                                                                                                                       |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------
 | acotoneTinterLabel1   | locTinterLabel1 

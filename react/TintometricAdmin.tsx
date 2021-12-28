@@ -63,7 +63,7 @@ const TintometricAdmin: FC = () => {
 
       masterSeller && setIsFranchise(currentSeller.account !== masterSeller)
     }
-  }, [sellers, errorSellers, masterSeller])
+  }, [sellers, errorSellers, masterSeller, currentAccount])
 
   // ACOTONE
   const acotoneTinter1Query = useQuery(getDataGQL, {
@@ -392,6 +392,7 @@ const TintometricAdmin: FC = () => {
       errorValidatePrice: '',
     })
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await Object.entries(compositionValues).forEach(([key, val]: any) =>
       saveData({ variables: { key, value: val.toString() } })
     )

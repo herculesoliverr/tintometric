@@ -33,11 +33,12 @@ export const statusToError = (e: AxiosError) => {
 
 export const MAX_PRODUCTS_PER_CATEGORY = 50
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseCSVToJson = (data: any) => {
   const parsedData = []
   const lines = data
-    .replace(/\"/g, '')
-    .replace(/\'/g, '')
+    .replace(/"/g, '')
+    .replace(/'/g, '')
     .split('\n')
 
   for (let i = 1; i < lines.length; i++) {

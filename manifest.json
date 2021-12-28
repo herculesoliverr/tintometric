@@ -1,7 +1,7 @@
 {
   "vendor": "vtexarg",
   "name": "tintometric",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "title": "Tintometric",
   "description": "Tintometric component",
   "defaultLocale": "es-AR",
@@ -54,6 +54,20 @@
     {
       "name": "outbound-access",
       "attrs": {
+        "host": "app.io.vtex.com",
+        "path": "/vtexarg.tintometric/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "vtexid.vtexcommercestable.com.br",
+        "path": "/api/vtexid/apptoken/login"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
         "host": "*.vtexassets.com",
         "path": "/assets/vtex.file-manager-graphql/images/*"
       }
@@ -78,6 +92,9 @@
     },
     {
       "name": "vtex.catalog-graphql:resolve-graphql"
+    },
+    {
+      "name": "ProdutoForm.aspx"
     }
   ],
   "settingsSchema": {
@@ -88,6 +105,16 @@
         "title": "Master account id",
         "type": "string",
         "description": "Enter the master account id"
+      },
+      "appKey": {
+        "title": "appKey",
+        "type": "string",
+        "description": "User ID"
+      },
+      "appToken": {
+        "title": "appToken",
+        "type": "string",
+        "description": "Password"
       }
     }
   },

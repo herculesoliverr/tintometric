@@ -4,6 +4,7 @@ declare module 'vtex.render-runtime' {
 
   export interface NavigationOptions {
     page: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     params?: any
   }
 
@@ -15,6 +16,7 @@ declare module 'vtex.render-runtime' {
 
   interface ExtensionPointProps {
     id: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
   }
 

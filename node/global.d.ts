@@ -30,4 +30,11 @@ declare global {
     base: string,
     price: string
   }
+
+   interface ResponseToken {
+    authStatus: string
+    token:      string
+    expires:    number
+}
+
 }

@@ -1,21 +1,23 @@
-import { InstanceOptions, IOContext, ExternalClient } from '@vtex/api'
+import { InstanceOptions, IOContext, JanusClient } from '@vtex/api'
 
-export default class Compositions extends ExternalClient {
+export default class Compositions extends JanusClient {
   constructor(context: IOContext, options?: InstanceOptions) {
-    super(`http://${context.account}.myvtex.com`, context, {
+    super(context, {
       ...options,
     })
   }
 
-  public async getCompositionsFromMaster(masterSeller: string) {
-    try {
-      const res = await this.http.getRaw(
-        `http://${masterSeller}.myvtex.com/v1/compositionFile`
-      )
-
-      return res
-    } catch (err) {
-      return err
+  public async getCompositionsFromMaster(masterSeller: string, token: string) {
+    const headers = {
+      headers: {
+        VtexIdClientAutCookie: token,
+      },
     }
+
+    const url = `http://app.io.vtex.com/vtexarg.tintometric/v7/${masterSeller}/${this.context.workspace}/compositionFile`
+
+    const res = await this.http.getRaw(url, headers)
+
+    return res
   }
 }

@@ -15,6 +15,7 @@ export default class Pricing extends JanusClient {
     })
   }
 
+  // eslint-disable-next-line max-params
   public async updateSkuPrice(
     skuId: number,
     costPrice: number,
