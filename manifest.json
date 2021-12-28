@@ -1,7 +1,7 @@
 {
   "vendor": "vtexarg",
   "name": "tintometric",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "title": "Tintometric",
   "description": "Tintometric component",
   "defaultLocale": "es-AR",
@@ -32,7 +32,9 @@
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
@@ -47,6 +49,20 @@
       "attrs": {
         "host": "api.vtex.com",
         "path": "/{{account}}/pricing/prices/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "app.io.vtex.com",
+        "path": "/vtexarg.tintometric/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "vtexid.vtexcommercestable.com.br",
+        "path": "/api/vtexid/apptoken/login"
       }
     },
     {
@@ -76,6 +92,9 @@
     },
     {
       "name": "vtex.catalog-graphql:resolve-graphql"
+    },
+    {
+      "name": "ProdutoForm.aspx"
     }
   ],
   "settingsSchema": {

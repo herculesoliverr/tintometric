@@ -18,8 +18,8 @@ export default class Files extends ExternalClient {
 
     return this.http.getRaw(
       `http://${masterSeller ||
-      this.context
-        .account}.vtexassets.com/assets/vtex.file-manager-graphql/images/${fileName}`
+        this.context
+          .account}.vtexassets.com/assets/vtex.file-manager-graphql/images/${fileName}`
     )
     /* return this.http.getRaw(
       `/assets/vtex.file-manager-graphql/images/${fileName}`
