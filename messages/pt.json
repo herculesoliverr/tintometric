@@ -2,7 +2,6 @@
   "admin/admin.app.navigation.search.kws": "tintometric, tinto",
   "admin/admin.app.tintometric.title": "Tintometric",
   "admin/admin.app.tintometric.update_skus_prices": "Atualizar preços de Skus",
-  "admin/admin.app.tintometric.update_succes": "Preços skus atualizados corretamente",
   "admin/admin.app.tintometric.oldPrices-subtitle": "se estiver ativo leva os preços marcados como 'loc'.",
   "admin/admin.app.tintometric.minText": "Verifique o preço, não deve cair mais de 10%",
   "admin/admin.app.tintometric.update_success": "Preços de Skus atualizados com sucesso",
@@ -23,5 +22,6 @@
   "admin/admin.app.tintometric.generic.error": "Ocorreu um erro. Por favor, tente novamente",
   "store/search.placeholder": "Procurar...",
   "admin/admin.app.tintometric.errorValidatePrice": "Verifique o csv, o preço das seguintes bases diminuiu 10%:   ",
-  "admin/admin.app.tintometric.noMasterSeller": "Não há mestre de vendedor configurado."
+  "admin/admin.app.tintometric.noMasterSeller": "Não há mestre de vendedor configurado.",
+  "admin/admin.app.tintometric.ile": "Mexer"
 }

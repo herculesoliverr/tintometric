@@ -151,7 +151,6 @@ export const mutations = {
         errorValidatePrice: [],
       })
     } catch (err) {
-      console.info(' tinto error: ', err)
       if (err.response) {
         const msg = (err as Error).response.data.message
 
