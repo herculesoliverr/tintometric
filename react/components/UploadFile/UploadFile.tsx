@@ -132,7 +132,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
   }, [loadingUploadFile, errorUploadFile, dataUploadFile])
 
   const handleDropFile = async (acceptedFiles: File[]) => {
-    if (acceptedFiles && acceptedFiles[0]) {
+    if (acceptedFiles?.[0]) {
       setState(prevState => ({ ...prevState, isLoading: true }))
 
       await saveOldFile()
@@ -175,7 +175,7 @@ const UploadFile = ({ action, query, templateFile }: UploadFileProps) => {
               {...getRootProps()}
               className={`
                                 ${state.isLoading &&
-                'ba b--dashed bw1 b--light-gray bg-white b--solid'}
+                                  'ba b--dashed bw1 b--light-gray bg-white b--solid'}
                                 `}
             >
               <input {...getInputProps()} />
