@@ -124,19 +124,21 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
               className={`${handles['buttonGroup-container']} flex justify-between mt5 c-on-base`}
             >
               <button
-                className={`${handles.button} ${!showSearch
+                className={`${handles.button} ${
+                  !showSearch
                     ? `${handles['button--active']} c-action-primary`
                     : ''
-                  }`}
+                }`}
                 onClick={() => setShowSearch(false)}
               >
                 {buttonGrid}
               </button>
               <button
-                className={`${handles.button} ${showSearch
+                className={`${handles.button} ${
+                  showSearch
                     ? `${handles['button--active']} c-action-primary`
                     : ''
-                  }`}
+                }`}
                 onClick={() => setShowSearch(true)}
               >
                 {buttonList}
