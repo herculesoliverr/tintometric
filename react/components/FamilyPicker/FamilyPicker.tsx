@@ -38,10 +38,11 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
               tabIndex={family.id}
               key={family.id}
               onClick={() => action(family)}
-              className={`${handles['familyPicker-item']} ${family.id === activeId
+              className={`${handles['familyPicker-item']} ${
+                family.id === activeId
                   ? handles['familyPicker-item--isActive']
                   : ''
-                }`}
+              }`}
             >
               <span
                 className={handles['familyPicker-span']}
