@@ -14,7 +14,7 @@ export default class Compositions extends JanusClient {
       },
     }
 
-    const url = `http://app.io.vtex.com/vtexarg.tintometric/v8/${masterSeller}/${this.context.workspace}/compositionFile`
+    const url = `http://app.io.vtex.com/vtexarg.tintometric/v8/${masterSeller}/master/compositionFile`
 
     const res = await this.http.getRaw(url, headers)
 
