@@ -1,7 +1,7 @@
 {
   "vendor": "vtexarg",
   "name": "tintometric",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "title": "Tintometric",
   "description": "Tintometric component",
   "defaultLocale": "es-AR",
@@ -32,7 +32,9 @@
       "url": "https://support.vtex.com/hc/requests"
     },
     "type": "free",
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
@@ -116,6 +118,5 @@
       }
     }
   },
-
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
