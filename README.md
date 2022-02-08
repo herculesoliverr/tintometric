@@ -225,7 +225,7 @@ Thanks goes to these wonderful people:
 <table>
   <tr>
     <td align="center"><a href="https://github.com/arielabaruffaldi"><img src="https://avatars.githubusercontent.com/u/36748003?v=4" width="100px;" alt=""/><br /><sub><b>Ariela Baruffaldi</b></sub></a><br /><a href="https://github.com/vtex-apps/tintometric" title="Code">💻</a></td>
-        <td align="center"><a href="https://github.com/tomymehdi"><img src="https://avatars.githubusercontent.com/u/774112?v=4" width="100px;" alt=""/><br /><sub><b>Tomas Mehdi</b></sub></a><br /><a href="https://github.com/vtex-apps/tintometric" title="Code">💻</a></td>
+        <td align="center"><a href="https://github.com/tomymehdi"><img src="https://avatars.githubusercontent.com/u/774112?v=4" width="100px;" alt=""/><br /><sub><b>Tomás Alfredo Mehdi</b></sub></a><br /><a href="https://github.com/vtex-apps/tintometric/commits?author=tomymehdi" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/GuidoSdo"><img src="https://avatars.githubusercontent.com/u/33711188?v=4" width="100px;" alt=""/><br /><sub><b>Guido Salcedo</b></sub></a><br /><a href="https://github.com/vtex-apps/tintometric" title="Code">💻</a></td>
  
   </tr>
