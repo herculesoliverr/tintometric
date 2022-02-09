@@ -2,7 +2,7 @@ import { InstanceOptions, IOContext, ExternalClient } from '@vtex/api'
 
 export default class VtexID extends ExternalClient {
   constructor(context: IOContext, options?: InstanceOptions) {
-    const url = 'https://vtexid.vtexcommercestable.com.br'
+    const url = 'http://vtexid.vtexcommercestable.com.br'
 
     super(url, context, {
       ...options,
