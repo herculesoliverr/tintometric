@@ -52,7 +52,8 @@ export const mutations = {
 
       const { data: jsonFile } = await compositions.getCompositionsFromMaster(
         masterSeller,
-        token
+        token,
+        true
       )
 
       const jsonFileContent = JSON.parse(jsonFile)
