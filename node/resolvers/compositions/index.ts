@@ -1,7 +1,7 @@
 export const queries = {
   getCompositionFile: async (
     _: unknown,
-    { masterSeller }: { masterSeller: string },
+    { masterSeller, withFx }: { masterSeller: string, withFx: boolean },
     ctx: Context
   ): Promise<any> => {
     const {
@@ -17,10 +17,10 @@ export const queries = {
       const { token } = responseToken
       const { data } = await ctx.clients.compositions.getCompositionsFromMaster(
         masterSeller,
-        token
+        token,
+        withFx
       )
-
-      return data
+      return JSON.stringify(data)
     } catch (error) {
       return `${error}`
     }

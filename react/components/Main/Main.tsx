@@ -65,6 +65,7 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
       getJsonFileQuery({
         variables: {
           masterSeller: dataConfig.getConfig?.sellerMasterId.toLowerCase(),
+          withFx: false,
         },
       })
     }

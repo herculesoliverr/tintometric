@@ -7,17 +7,17 @@ export default class Compositions extends JanusClient {
     })
   }
 
-  public async getCompositionsFromMaster(masterSeller: string, token: string) {
+  public async getCompositionsFromMaster(masterSeller: string, token: string, withFx: boolean = true) {
     const headers = {
       headers: {
         VtexIdClientAutCookie: token,
       },
     }
 
-    const url = `http://app.io.vtex.com/vtexarg.tintometric/v8/${masterSeller}/master/compositionFile`
+    const workspace = this.context.account === masterSeller.toLowerCase() ? this.context.workspace : 'master'
+    const url = `http://app.io.vtex.com/vtexarg.tintometric/v8/${masterSeller}/${workspace}/compositionFile?withFx=${withFx}`
 
     const res = await this.http.getRaw(url, headers)
-
     return res
   }
 }

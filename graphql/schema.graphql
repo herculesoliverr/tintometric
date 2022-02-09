@@ -2,7 +2,7 @@ type Query {
     getData(key: String!): String
     getFile(key: String!): String
     getConfig: GetConfigResponse @cacheControl(scope: PUBLIC, maxAge: MEDIUM)
-    getCompositionFile(masterSeller: String!): String
+    getCompositionFile(masterSeller: String!, withFx: Boolean): String
 }
 
 type Mutation {
