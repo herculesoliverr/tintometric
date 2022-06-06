@@ -34,6 +34,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
   buttonList,
   colorDetailTitle,
   confirmButton,
+  itemsFamilyDesktop,
+  itemsFamilyMobile,
 }) => {
   const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>()
   const [showSearch, setShowSearch] = useState(false)
@@ -152,6 +154,8 @@ const Main: StorefrontFunctionComponent<TintometricProps> = ({
                     <FamilyPicker
                       action={setActiveFamily}
                       activeId={activeFamily.id}
+                      itemsFamilyDesktop={itemsFamilyDesktop}
+                      itemsFamilyMobile={itemsFamilyMobile}
                     />
                     <ColorList
                       items={filteredProducts}

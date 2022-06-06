@@ -63,6 +63,11 @@ You are now able to use the Tintometric block:
 | `buttonList`       | `string` | List button label used in the modal    | `Name`                   |
 | `colorDetailTitle` | `string` | Color Detail Title                     | `Selected Colour:`       |
 | `confirmButton`    | `string` | Confirm button label used in the modal | `Confirm`                |
+| `itemsFamilyDesktop`    | `number` | Define the quantity of items in the family desktop | `15`                |
+| `itemsFamilyMobile`    | `number` | Define the quantity of items in the family mobile | `5`                |
+
+itemsFamilyDesktop
+itemsFamilyMobile
 
 _This props can be modified in the site editor_
 

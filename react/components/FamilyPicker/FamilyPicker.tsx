@@ -14,7 +14,7 @@ const CSS_HANDLES = [
   'familyPicker-item--isActive',
 ]
 
-const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
+const FamilyPicker = ({ action, activeId, itemsFamilyDesktop, itemsFamilyMobile }: FamilyPickerProps) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { families } = useTintometricContext()
 
@@ -22,8 +22,8 @@ const FamilyPicker = ({ action, activeId }: FamilyPickerProps) => {
     <div className={handles['familyPicker-container']}>
       <SliderLayout
         itemsPerPage={{
-          desktop: 7,
-          phone: 4,
+          desktop: itemsFamilyDesktop,
+          phone: itemsFamilyMobile,
         }}
         fullWidth
         showPaginationDots="never"

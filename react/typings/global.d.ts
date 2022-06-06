@@ -8,11 +8,15 @@ declare global {
     buttonList: string
     colorDetailTitle: string
     confirmButton: string
+    itemsFamilyDesktop: number
+    itemsFamilyMobile: number
   }
 
   export interface FamilyPickerProps {
     action: (family) => void
     activeId: number
+    itemsFamilyDesktop: number
+    itemsFamilyMobile: number
   }
 
   export interface ProductType {

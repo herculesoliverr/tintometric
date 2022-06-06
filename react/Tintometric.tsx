@@ -10,6 +10,8 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
   buttonList = 'Name',
   colorDetailTitle = 'Selected colour:',
   confirmButton = 'Confirm',
+  itemsFamilyDesktop = 15,
+  itemsFamilyMobile = 5,
 }) => {
   return (
     <TintometricProvider>
@@ -20,6 +22,8 @@ const Tintometric: StorefrontFunctionComponent<TintometricProps> = ({
         buttonList={buttonList}
         colorDetailTitle={colorDetailTitle}
         confirmButton={confirmButton}
+        itemsFamilyDesktop={itemsFamilyDesktop}
+        itemsFamilyMobile={itemsFamilyMobile}
       />
     </TintometricProvider>
   )
@@ -68,5 +72,17 @@ Tintometric.schema = {
       type: 'string',
       default: 'Confirm',
     },
+    itemsFamilyDesktop:{
+      title: '# Items Family Destop',
+      description: 'Define the quantity of items in the family desktop',
+      type: 'number',
+      default: 15,
+    },
+    itemsFamilyMobile:{
+      title: '# Items Family Destop',
+      description: 'Define the quantity of items in the family mobile',
+      type: 'number',
+      default: 5,
+    }
   },
 }
