@@ -18,6 +18,17 @@ const CSS_HANDLES = [
 ]
 
 const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
+  const uniqueItems: typeof items = []
+  const uniqueSlugs: String[] = []
+
+  items?.forEach((item) => {
+    const slug = item.slug
+
+    if(!uniqueSlugs?.includes(slug)){
+      uniqueItems.push(item)
+      uniqueSlugs.push(slug)
+    }
+  })
   const handles = useCssHandles(CSS_HANDLES)
 
   const { setSelectedColor } = useTintometricContext()
@@ -40,8 +51,8 @@ const ColorList = ({ items, familyName, layout = 'grid' }: ColorListProps) => {
             : handles['colorList-list']
         }`}
       >
-        {items &&
-          items.map((item, index) => {
+        {uniqueItems &&
+          uniqueItems.map((item, index) => {
             return layout === 'grid' ? (
               <Tooltip
                 key={index}
