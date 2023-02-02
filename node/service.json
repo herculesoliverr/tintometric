@@ -13,6 +13,10 @@
     "composition": {
       "path": "/compositionFile",
       "public": false
+    },
+    "master-data": {
+      "path": "/v1/master-data",
+      "public": true
     }
   }
 }

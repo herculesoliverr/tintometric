@@ -68,6 +68,13 @@
     {
       "name": "outbound-access",
       "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
         "host": "*.vtexassets.com",
         "path": "/assets/vtex.file-manager-graphql/images/*"
       }

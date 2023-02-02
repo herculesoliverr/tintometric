@@ -5,6 +5,7 @@ import Catalog from './catalog'
 import Files from './files'
 import Compositions from './compositions'
 import VtexID from './vtexID'
+import MasterData from './masterdata'
 
 export class Clients extends IOClients {
   public get pricing() {
@@ -25,5 +26,9 @@ export class Clients extends IOClients {
 
   public get vtexID() {
     return this.getOrSet('vtexID', VtexID)
+  }
+
+  public get masterData() {
+    return this.getOrSet('masterData', MasterData)
   }
 }

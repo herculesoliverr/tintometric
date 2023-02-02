@@ -10,6 +10,7 @@ import {
   Alert,
   Toggle,
   PageHeader,
+  Input
 } from 'vtex.styleguide'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -26,7 +27,7 @@ import { getPercentage } from './utils/getPercentage'
 const TintometricAdmin: FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [oldPrices, setOldPrices] = useState(false)
-  const [jsonFile, setJsonFile] = useState(false)
+  const [jsonFile, ] = useState(false)
   const [csvFile, setCsvFile] = useState(false)
   const [masterSeller, setMasterSeller] = useState('')
   const [formValidated, setFormValidated] = useState(false)
@@ -49,6 +50,35 @@ const TintometricAdmin: FC = () => {
   const { account: currentAccount } = useRuntime()
   const { data: dataConfig } = useQuery(getConfig)
   const { data: sellers, error: errorSellers } = useQuery(getSellers)
+  const [formState, setFormState] = useState({
+    familyUrl: '',
+    productUrl: '',
+    productTypeUrl: ''
+  })
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(`${window.origin}/v1/master-data`);
+
+        if(response.status === 200) {
+          const body = await response.json();
+          if(body.message) {
+            alert(body.message)
+            return;
+          }
+
+          setFormState({
+            familyUrl: body.family_url,
+            productTypeUrl: body.products_type_url,
+            productUrl: body.products_url
+          })
+        }
+      } catch (error) {
+        alert("Não foi possivel listar as urls")
+      }
+     })()
+  }, [])
 
   useEffect(() => {
     if (dataConfig?.getConfig?.sellerMasterId)
@@ -380,6 +410,34 @@ const TintometricAdmin: FC = () => {
     )
   }
 
+  const handleChangeFormState = (event: {target: {name?: any; value?: any}}) => {
+    const value = event.target.value
+    const name = event.target.name
+    setFormState({
+      ...formState,
+      [name]: value,
+    })
+  }
+
+  const handleSubmitUrlApi = async (event: any) => {
+    event.preventDefault()
+
+    const urlData = {
+      "family_url": formState.familyUrl,
+      "products_type_url": formState.productTypeUrl,
+      "products_url": formState.productUrl
+    }
+
+    const response = await fetch(`${window.origin}/v1/master-data?${Date.now()}`, {
+      method: 'POST',
+      body: JSON.stringify(urlData),
+    });
+
+    if(response.status === 200) {
+      alert("Dados atualizados com sucesso!");
+    }
+  }
+
   const handleSubmit = async () => {
     setIsLoading(true)
     setState({
@@ -563,12 +621,54 @@ const TintometricAdmin: FC = () => {
                   <span className="mv2 mb5 pv3 br2 c-muted-3 hover-c-muted-3 active-c-muted-3 dib mr5 mv0 hover-b-muted-3 active-b-muted-3">
                     <FormattedMessage id="admin/admin.app.tintometric.uploadJson.subtitle" />
                   </span>
-                  <UploadFile
+                  {/* <UploadFile
                     templateFile="template_tintometric.json"
                     query="json"
                     action={setJsonFile}
-                  />
+                  /> */}
+                  <form onSubmit={(e) => handleSubmitUrlApi(e)}>
+                  <Input
+                            label={'Url API Family'}
+                            name="familyUrl"
+                            size="large"
+                            onChange={handleChangeFormState}
+                            value={formState.familyUrl}
+                            placeholder="Api Family"
+                            // defaultValue="http://localhost:3000/family"
+                          />
+                          <br />
+                                            <Input
+                            label={'Url API Products'}
+                            name="productUrl"
+                            size="large"
+                            onChange={handleChangeFormState}
+                            value={formState.productUrl}
+                            placeholder="Api Products"
+                            // defaultValue="http://localhost:3000/products"
+                          />
+                          <br />
+                          <Input
+                            label={'Url API ProductsType'}
+                            name="productTypeUrl"
+                            onChange={handleChangeFormState}
+                            value={formState.productTypeUrl}
+                            size="large"
+                            placeholder="Api ProductsType"
+                            // defaultValue="http://localhost:3000/productstypemkp"
+                          />
+                          <br />
+                                            <span className="mr4 mb8 db">
+                    <Button
+                      type="submit"
+                      variation="primary"
+                    >
+                      <FormattedMessage id="admin/admin.app.tintometric.update_url_api" />
+                    </Button>
+                    </span>
+                  </form>
+
                 </span>
+
               ) : (
                 <>
                   <div className="mb9">

@@ -7,6 +7,7 @@ import {
 } from '@vtex/api'
 
 import { Clients } from './clients'
+import MasterDataService from './handlers/MasterDataService'
 import { getJson } from './middleware/getJson'
 import { resolvers } from './resolvers'
 
@@ -45,6 +46,10 @@ export default new Service<Clients, State, Context>({
   routes: {
     composition: method({
       GET: [getJson],
+    }),
+    "master-data": method({
+      POST: [MasterDataService.createTintometricConfigInMasterData],
+      GET: [MasterDataService.getTintometricConfigFromMasterData],
     }),
   },
 })
